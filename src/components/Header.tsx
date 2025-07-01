@@ -1,5 +1,5 @@
 
-import { Search, Menu, Mic } from 'lucide-react';
+import { Search, Menu, Mic, Camera } from 'lucide-react';
 
 const Header = () => {
   return (
@@ -12,9 +12,11 @@ const Header = () => {
         
         {/* Logo */}
         <div className="flex items-center mr-3">
-          <div className="bg-white w-7 h-7 rounded flex items-center justify-center">
-            <span className="text-indiamart-teal font-bold text-sm">M</span>
-          </div>
+          <img 
+            src="/lovable-uploads/a1ef4a30-1ecb-43da-8b6d-5a568da3e769.png" 
+            alt="IndiaMART" 
+            className="w-7 h-7"
+          />
         </div>
         
         {/* Search bar */}
@@ -26,6 +28,9 @@ const Header = () => {
               placeholder="Search IndiaMART"
               className="flex-1 px-3 py-2 text-sm focus:outline-none rounded"
             />
+            <button className="p-2">
+              <Camera className="w-4 h-4 text-gray-400" />
+            </button>
             <button className="p-2 mr-1">
               <Mic className="w-4 h-4 text-gray-400" />
             </button>

@@ -25,8 +25,12 @@ const Categories = () => {
         {categories.map((category, index) => (
           <div key={index} className="flex-shrink-0 w-32">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
-              <div className="w-full h-16 bg-gray-100 rounded mb-2 flex items-center justify-center">
-                <div className="w-12 h-12 bg-gray-300 rounded"></div>
+              <div className="w-full h-16 bg-gray-100 rounded mb-2 flex items-center justify-center overflow-hidden">
+                <img 
+                  src={category.image} 
+                  alt={category.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-xs font-medium text-gray-800 mb-2 text-center">{category.title}</h3>
               <button className="w-full bg-indiamart-teal text-white text-xs py-1.5 rounded-md font-medium">

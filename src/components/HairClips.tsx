@@ -3,8 +3,12 @@ const HairClips = () => {
   return (
     <div className="px-4 py-4 bg-white">
       <div className="flex items-center space-x-4">
-        <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
-          <div className="w-8 h-8 bg-gray-400 rounded"></div>
+        <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center overflow-hidden">
+          <img 
+            src="/lovable-uploads/cb0af07e-c5b7-4086-b4ca-a1627c7fcf72.png" 
+            alt="Hair Clips"
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="flex-1">
           <h3 className="text-gray-800 font-medium mb-2">Looking for Hair Clips?</h3>
