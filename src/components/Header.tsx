@@ -6,16 +6,16 @@ const Header = () => {
     <header className="bg-indiamart-teal shadow-sm">
       <div className="flex items-center px-3 py-2">
         {/* Hamburger menu */}
-        <button className="p-2 mr-1">
+        <button className="p-2 mr-2">
           <Menu className="w-5 h-5 text-white" />
         </button>
         
         {/* Logo */}
         <div className="flex items-center mr-3">
           <img 
-            src="/lovable-uploads/a1ef4a30-1ecb-43da-8b6d-5a568da3e769.png" 
+            src="/lovable-uploads/c33c390e-0383-434f-8a2b-e231eb162a48.png" 
             alt="IndiaMART" 
-            className="w-7 h-7"
+            className="w-8 h-8"
           />
         </div>
         
