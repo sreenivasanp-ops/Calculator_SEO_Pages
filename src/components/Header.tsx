@@ -15,7 +15,7 @@ const Header = () => {
           <img 
             src="/lovable-uploads/c33c390e-0383-434f-8a2b-e231eb162a48.png" 
             alt="IndiaMART" 
-            className="w-8 h-8"
+            className="w-8 h-8 rounded-full"
           />
         </div>
         
