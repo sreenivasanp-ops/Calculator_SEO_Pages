@@ -1,34 +1,35 @@
 
-import { Search, Menu, User } from 'lucide-react';
+import { Search, Menu, Mic } from 'lucide-react';
 
 const Header = () => {
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
-      <div className="flex items-center px-4 py-3">
-        <div className="flex items-center">
-          <div className="bg-indiamart-teal w-8 h-8 rounded flex items-center justify-center mr-3">
-            <span className="text-white font-bold text-lg">M</span>
+    <header className="bg-indiamart-teal shadow-sm">
+      <div className="flex items-center px-3 py-2">
+        {/* Hamburger menu */}
+        <button className="p-2 mr-1">
+          <Menu className="w-5 h-5 text-white" />
+        </button>
+        
+        {/* Logo */}
+        <div className="flex items-center mr-3">
+          <div className="bg-white w-7 h-7 rounded flex items-center justify-center">
+            <span className="text-indiamart-teal font-bold text-sm">M</span>
           </div>
         </div>
         
-        <div className="flex-1 mx-3">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+        {/* Search bar */}
+        <div className="flex-1 relative">
+          <div className="bg-white rounded flex items-center">
+            <Search className="ml-3 text-gray-400 w-4 h-4" />
             <input
               type="text"
               placeholder="Search IndiaMART"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-indiamart-teal"
+              className="flex-1 px-3 py-2 text-sm focus:outline-none rounded"
             />
+            <button className="p-2 mr-1">
+              <Mic className="w-4 h-4 text-gray-400" />
+            </button>
           </div>
-        </div>
-        
-        <div className="flex items-center space-x-2">
-          <button className="p-2">
-            <User className="w-5 h-5 text-gray-600" />
-          </button>
-          <button className="p-2">
-            <Menu className="w-5 h-5 text-gray-600" />
-          </button>
         </div>
       </div>
     </header>
