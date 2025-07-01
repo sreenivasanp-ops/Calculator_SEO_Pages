@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				indiamart: {
+					teal: '#00a693',
+					'teal-dark': '#008a7b',
+					orange: '#ff6d00',
+					blue: '#4a5cb8',
+					'blue-dark': '#3a4a98',
+					gray: '#f8f9fa',
+					'gray-dark': '#6c757d'
 				}
 			},
 			borderRadius: {
