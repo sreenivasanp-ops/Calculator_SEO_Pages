@@ -2,12 +2,8 @@
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 
 const BuyerAssistant = () => {
-  const [isCalculated, setIsCalculated] = useState(false);
-  
   const tmtChartData = [
     { diameter: '8 mm', weightPerMeter: '0.395', weightPerFeet: '0.1204', weightPer12m: '4.74' },
     { diameter: '10 mm', weightPerMeter: '0.617', weightPerFeet: '0.1881', weightPer12m: '7.40' },
@@ -28,76 +24,26 @@ const BuyerAssistant = () => {
     { criteria: 'Testing Parameters', whatToLookFor: 'Ensure the bars are lab-tested for elongation, tensile strength' }
   ];
 
-  const handleCalculate = () => {
-    setIsCalculated(true);
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 overflow-hidden">
       <Header />
       
-      {/* TMT Bar Calculator and Total Summary Section with Green Border */}
-      <div className="border-4 border-green-500 mx-4 mt-4 rounded-lg bg-white">
-        {/* Main iframe content */}
-        <div className="h-[calc(100vh-60px)] overflow-hidden relative">
-          <div className="w-full h-full overflow-hidden relative">
-            <iframe
-              src="https://buyer-guide-rebuild.lovable.app/buyer-tools"
-              className="w-full h-full border-0"
-              title="Buyer Assistant Tools"
-              scrolling="no"
-              style={{
-                marginTop: '-80px',
-                height: 'calc(100% + 80px)',
-                transform: 'scale(0.75)',
-                transformOrigin: 'top left',
-                width: '133.33%'
-              }}
-            />
-          </div>
-        </div>
-        
-        {/* Total Summary Section */}
-        <div className="bg-gray-50 p-6 border-t border-gray-200">
-          <div className="max-w-md mx-auto">
-            <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Total Summary</h2>
-            
-            <div className="space-y-6">
-              <div className="text-center">
-                <p className="text-gray-600 text-lg mb-2">Total Rods</p>
-                <p className="text-3xl font-bold text-orange-500">
-                  {isCalculated ? '15' : '0'}
-                </p>
-              </div>
-              
-              <div className="text-center">
-                <p className="text-gray-600 text-lg mb-2">Est. Price</p>
-                <p className="text-3xl font-bold text-blue-600">
-                  ₹{isCalculated ? '12,500' : '0'}
-                </p>
-              </div>
-              
-              <div className="text-center">
-                <p className="text-gray-600 text-lg mb-2">Weight</p>
-                <p className="text-3xl font-bold text-green-500">
-                  {isCalculated ? '180.00' : '0.00'} Kg
-                </p>
-              </div>
-              
-              <div className="text-center">
-                <Button 
-                  onClick={handleCalculate}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2 rounded-lg text-lg font-medium"
-                >
-                  Calculate
-                </Button>
-              </div>
-            </div>
-            
-            <p className="text-center text-gray-500 text-sm mt-6">
-              * Prices may vary based on market conditions
-            </p>
-          </div>
+      {/* Main iframe content */}
+      <div className="h-[calc(100vh-60px)] overflow-hidden relative">
+        <div className="w-full h-full overflow-hidden relative">
+          <iframe
+            src="https://buyer-guide-rebuild.lovable.app/buyer-tools"
+            className="w-full h-full border-0"
+            title="Buyer Assistant Tools"
+            scrolling="no"
+            style={{
+              marginTop: '-80px',
+              height: 'calc(100% + 80px)',
+              transform: 'scale(0.75)',
+              transformOrigin: 'top left',
+              width: '133.33%'
+            }}
+          />
         </div>
       </div>
       
