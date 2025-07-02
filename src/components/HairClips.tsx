@@ -1,6 +1,13 @@
+
 const HairClips = () => {
   return (
-    <div className="px-4 py-4 bg-white">
+    <div className="px-4 py-4 bg-white relative">
+      {/* Top left triangle */}
+      <div className="absolute top-0 left-0 w-0 h-0 border-l-[20px] border-l-blue-600 border-b-[20px] border-b-transparent"></div>
+      
+      {/* Bottom right triangle */}
+      <div className="absolute bottom-0 right-0 w-0 h-0 border-r-[20px] border-r-blue-600 border-t-[20px] border-t-transparent"></div>
+      
       <div className="flex items-center space-x-4">
         <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center overflow-hidden flex-shrink-0">
           <img 
