@@ -1,4 +1,3 @@
-
 const SellersNearYou = () => {
   const sellers = [
     {
@@ -7,7 +6,7 @@ const SellersNearYou = () => {
       price: "₹ 1,000/Square Meter",
       rating: "★ Arealfirma",
       location: "9 Gujarat",
-      image: "/lovable-uploads/58f7d244-6de6-42f9-b1ee-c45193ebdc77.png"
+      image: "/lovable-uploads/90ddc7f3-f9ba-4779-bbd5-e8881b44588a.png"
     },
     {
       id: 2,
