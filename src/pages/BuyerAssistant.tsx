@@ -12,8 +12,7 @@ const BuyerAssistant = () => {
           title="Buyer Assistant Tools"
           style={{
             marginTop: '-80px',
-            height: 'calc(100% + 80px)',
-            maxWidth: '100vw'
+            height: 'calc(100% + 80px)'
           }}
         />
       </div>
@@ -21,9 +20,6 @@ const BuyerAssistant = () => {
         __html: `
           iframe {
             clip-path: inset(80px 0 0 0);
-          }
-          body {
-            overflow-x: hidden;
           }
         `
       }} />
