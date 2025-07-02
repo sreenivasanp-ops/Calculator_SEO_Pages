@@ -1,11 +1,11 @@
 
 import { Search, Menu, Mic, Camera } from 'lucide-react';
 import { useState } from 'react';
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import NavigationMenu from '@/components/NavigationMenu';
 
 const Header = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   return (
     <>
@@ -14,7 +14,7 @@ const Header = () => {
           {/* Hamburger menu */}
           <button 
             className="p-1.5 mr-2 flex-shrink-0"
-            onClick={() => setIsDrawerOpen(true)}
+            onClick={() => setIsSheetOpen(true)}
           >
             <Menu className="w-5 h-5 text-white" />
           </button>
@@ -48,14 +48,14 @@ const Header = () => {
         </div>
       </header>
 
-      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent className="h-full">
-          <DrawerHeader className="bg-indiamart-teal text-white">
-            <DrawerTitle className="text-left">Hi User</DrawerTitle>
-          </DrawerHeader>
+      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+        <SheetContent side="left" className="w-80 p-0">
+          <SheetHeader className="bg-indiamart-teal text-white p-4">
+            <SheetTitle className="text-left text-white">Hi User</SheetTitle>
+          </SheetHeader>
           <NavigationMenu />
-        </DrawerContent>
-      </Drawer>
+        </SheetContent>
+      </Sheet>
     </>
   );
 };
