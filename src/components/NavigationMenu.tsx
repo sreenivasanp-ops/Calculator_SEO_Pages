@@ -1,4 +1,3 @@
-
 import { Home, ShoppingBag, MessageSquare, Search, FileText, ShoppingCart, Info, Zap, HelpCircle, Grid3X3 } from 'lucide-react';
 
 const NavigationMenu = () => {
@@ -17,12 +16,12 @@ const NavigationMenu = () => {
       icon: () => (
         <img 
           src="/lovable-uploads/7d74040f-232b-44e9-882b-78aadc0c745f.png" 
-          alt="Buyer Assistant" 
-          className="w-5 h-5 filter grayscale brightness-0"
+          alt="AI Assistant" 
+          className="w-5 h-5 filter grayscale brightness-0 object-contain"
         />
       ), 
-      label: 'Buyer Assistant', 
-      href: '/buyer-assistant' 
+      label: 'AI Assistant', 
+      href: '/ai-assistant' 
     },
   ];
 
@@ -59,7 +58,9 @@ const NavigationMenu = () => {
             className="flex items-center justify-between py-3 text-gray-700 hover:bg-gray-50 rounded-lg px-2"
           >
             <div className="flex items-center">
-              <item.icon className="w-5 h-5 mr-3 text-gray-600" />
+              <div className="w-5 h-5 mr-3 flex items-center justify-center">
+                <item.icon className="w-5 h-5 text-gray-600" />
+              </div>
               <span className="text-sm">{item.label}</span>
             </div>
             {item.badge && (
