@@ -13,7 +13,7 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center mr-2 flex-shrink-0">
           <img 
-            src="/lovable-uploads/356f1c37-af1a-4965-a0f0-92829a4ab7e3.png" 
+            src="/lovable-uploads/a1ef4a30-1ecb-43da-8b6d-5a568da3e769.png" 
             alt="IndiaMART" 
             className="w-7 h-7 rounded-full object-cover"
           />
