@@ -1,3 +1,4 @@
+
 const Categories = () => {
   const categories = [
     {
@@ -12,7 +13,7 @@ const Categories = () => {
     },
     {
       title: "UPVC",
-      image: "/lovable-uploads/cb0af07e-c5b7-4086-b4ca-a1627c7fcf72.png",
+      image: "/lovable-uploads/c3d8aee2-aa64-4bbd-a706-21c2c8a4e3e7.png",
       buttonText: "Get Quotes"
     }
   ];
