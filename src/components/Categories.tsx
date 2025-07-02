@@ -3,12 +3,12 @@ const Categories = () => {
   const categories = [
     {
       title: "Cold Storage Ro...",
-      image: "/lovable-uploads/cb0af07e-c5b7-4086-b4ca-a1627c7fcf72.png",
+      image: "/lovable-uploads/9be93b55-0b05-4b91-9f05-2bf21be3b6fc.png",
       buttonText: "Get Quotes"
     },
     {
       title: "Puf Sheets",
-      image: "/lovable-uploads/cb0af07e-c5b7-4086-b4ca-a1627c7fcf72.png",
+      image: "/lovable-uploads/e093945f-2bc4-4cc2-8782-ebb8555d5a80.png",
       buttonText: "Get Quotes"
     },
     {
