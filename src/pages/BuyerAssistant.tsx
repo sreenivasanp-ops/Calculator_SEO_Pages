@@ -10,8 +10,19 @@ const BuyerAssistant = () => {
           src="https://buyer-guide-rebuild.lovable.app/buyer-tools"
           className="w-full h-full border-0"
           title="Buyer Assistant Tools"
+          style={{
+            marginTop: '-50px',
+            height: 'calc(100% + 50px)'
+          }}
         />
       </div>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          iframe {
+            clip-path: inset(50px 0 0 0);
+          }
+        `
+      }} />
     </div>
   );
 };
