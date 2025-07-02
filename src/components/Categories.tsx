@@ -3,7 +3,7 @@ const Categories = () => {
   const categories = [
     {
       title: "Cold Storage Ro...",
-      image: "/lovable-uploads/9be93b55-0b05-4b91-9f05-2bf21be3b6fc.png",
+      image: "/lovable-uploads/5fc31e69-174b-404c-951e-76a3ea5b2337.png",
       buttonText: "Get Quotes"
     },
     {
