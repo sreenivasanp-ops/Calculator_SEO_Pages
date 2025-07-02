@@ -1,5 +1,3 @@
-
-
 const SellersNearYou = () => {
   const sellers = [
     {
@@ -12,14 +10,6 @@ const SellersNearYou = () => {
     },
     {
       id: 2,
-      title: "920mm PIR Sandwich Roof Panel",
-      price: "₹ 1,850/Square Meter",
-      rating: "★ Mount Roofing And Structures...",
-      location: "Bengaluru",
-      image: "/lovable-uploads/58f7d244-6de6-42f9-b1ee-c45193ebdc77.png"
-    },
-    {
-      id: 3,
       title: "80mm PUF Insulated Roofing Panel",
       price: "₹ 1,750/Square Meter",
       rating: "★ Delta Infrastructures",
@@ -27,7 +17,7 @@ const SellersNearYou = () => {
       image: "/lovable-uploads/2e96daee-005c-473b-b2b3-9767f2b6ff2a.png"
     },
     {
-      id: 4,
+      id: 3,
       title: "PUF Insulated Roof Wall Panels",
       price: "₹ 92/sq ft",
       rating: "★ Roofing Goa Solution",
@@ -81,4 +71,3 @@ const SellersNearYou = () => {
 };
 
 export default SellersNearYou;
-
