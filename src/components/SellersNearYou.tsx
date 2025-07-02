@@ -1,3 +1,4 @@
+
 const SellersNearYou = () => {
   const sellers = [
     {
@@ -30,7 +31,7 @@ const SellersNearYou = () => {
       price: "₹ 92/sq ft",
       rating: "★ Roofing Goa Solution",
       location: "",
-      image: "/lovable-uploads/58f7d244-6de6-42f9-b1ee-c45193ebdc77.png"
+      image: "/lovable-uploads/26e9d351-3bbd-4cf2-b16e-7a56800cc5eb.png"
     }
   ];
 
