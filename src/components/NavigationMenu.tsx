@@ -1,4 +1,4 @@
-import { Home, ShoppingBag, MessageSquare, Search, FileText, ShoppingCart, Info, Zap, HelpCircle, Grid3X3 } from 'lucide-react';
+import { Home, ShoppingBag, MessageSquare, Search, FileText, ShoppingCart, Info, Zap, HelpCircle, Grid3X3, Bot } from 'lucide-react';
 
 const NavigationMenu = () => {
   const menuItems = [
@@ -12,17 +12,7 @@ const NavigationMenu = () => {
     { icon: FileText, label: 'Post Your Requirement', href: '/post-requirement' },
     { icon: ShoppingCart, label: 'My Orders', href: '/orders' },
     { icon: ShoppingBag, label: 'Shopping', href: '/shopping', badge: 'NEW' },
-    { 
-      icon: () => (
-        <img 
-          src="/lovable-uploads/7d74040f-232b-44e9-882b-78aadc0c745f.png" 
-          alt="AI Assistant" 
-          className="w-5 h-5 filter grayscale brightness-0 object-contain"
-        />
-      ), 
-      label: 'AI Assistant', 
-      href: '/ai-assistant' 
-    },
+    { icon: Bot, label: 'Buyer Assistant', href: '/buyer-assistant' },
   ];
 
   const moreItems = [
