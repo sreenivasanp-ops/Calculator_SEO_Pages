@@ -2,15 +2,84 @@
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Progress } from '@/components/ui/progress';
+import { useState } from 'react';
 
 const TMTBar = () => {
+  const [showResults, setShowResults] = useState(false);
+  const [tmtInputs, setTmtInputs] = useState({
+    '8mm': { rods: 0, bundles: 0 },
+    '10mm': { rods: 0, bundles: 0 },
+    '12mm': { rods: 0, bundles: 0 },
+    '16mm': { rods: 0, bundles: 0 },
+    '20mm': { rods: 0, bundles: 0 },
+    '25mm': { rods: 0, bundles: 0 },
+    '32mm': { rods: 0, bundles: 0 }
+  });
+
+  const handleCalculate = () => {
+    setShowResults(true);
+  };
+
+  const handleClearAll = () => {
+    setShowResults(false);
+    setTmtInputs({
+      '8mm': { rods: 0, bundles: 0 },
+      '10mm': { rods: 0, bundles: 0 },
+      '12mm': { rods: 0, bundles: 0 },
+      '16mm': { rods: 0, bundles: 0 },
+      '20mm': { rods: 0, bundles: 0 },
+      '25mm': { rods: 0, bundles: 0 },
+      '32mm': { rods: 0, bundles: 0 }
+    });
+  };
+
+  const handleInputChange = (diameter: string, field: 'rods' | 'bundles', value: number) => {
+    setTmtInputs(prev => ({
+      ...prev,
+      [diameter]: {
+        ...prev[diameter as keyof typeof prev],
+        [field]: value
+      }
+    }));
+  };
+
+  const calculateTotals = () => {
+    const weights = {
+      '8mm': 4.74,
+      '10mm': 7.40,
+      '12mm': 10.66,
+      '16mm': 18.96,
+      '20mm': 29.64,
+      '25mm': 46.20,
+      '32mm': 75.84
+    };
+
+    let totalRods = 0;
+    let totalWeight = 0;
+
+    Object.entries(tmtInputs).forEach(([diameter, values]) => {
+      totalRods += values.rods + (values.bundles * 10);
+      totalWeight += (values.rods + (values.bundles * 10)) * weights[diameter as keyof typeof weights];
+    });
+
+    const estimatedPrice = totalWeight * 60;
+
+    return { totalRods, totalWeight, estimatedPrice };
+  };
+
+  const totals = calculateTotals();
+
   const tmtChartData = [
     { diameter: '8 mm', weightPerMeter: '0.395', weightPerFeet: '0.1204', weightPer12m: '4.74' },
     { diameter: '10 mm', weightPerMeter: '0.617', weightPerFeet: '0.1881', weightPer12m: '7.40' },
     { diameter: '12 mm', weightPerMeter: '0.888', weightPerFeet: '0.2706', weightPer12m: '10.66' },
     { diameter: '16 mm', weightPerMeter: '1.580', weightPerFeet: '0.4814', weightPer12m: '18.96' },
     { diameter: '20 mm', weightPerMeter: '2.470', weightPerFeet: '0.7529', weightPer12m: '29.64' },
-    { diameter: '25 mm', weightPerMeter: '3.850', weightPerFeet: '1.1722', weightPer12m: '46.20' }
+    { diameter: '25 mm', weightPerMeter: '3.850', weightPerFeet: '1.1722', weightPer12m: '46.20' },
+    { diameter: '32 mm', weightPerMeter: '6.320', weightPerFeet: '1.9266', weightPer12m: '75.84' }
   ];
 
   const selectionCriteriaData = [
@@ -24,11 +93,135 @@ const TMTBar = () => {
     { criteria: 'Testing Parameters', whatToLookFor: 'Ensure the bars are lab-tested for elongation, tensile strength' }
   ];
 
+  const calculatorData = [
+    { diameter: '8 mm', key: '8mm' },
+    { diameter: '10 mm', key: '10mm' },
+    { diameter: '12 mm', key: '12mm' },
+    { diameter: '16 mm', key: '16mm' },
+    { diameter: '20 mm', key: '20mm' },
+    { diameter: '25 mm', key: '25mm' },
+    { diameter: '32 mm', key: '32mm' }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
       
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-8">
+        {/* Plan Your Construction Smarter Section */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            Plan Your Construction Smarter – Use Our TMT Bar Calculator & Tips
+          </h1>
+          <p className="text-gray-600">Calculate the exact quantity and cost of TMT bars for your construction project</p>
+        </div>
+
+        {/* TMT Bar Calculator */}
+        <Card className="border-4 border-teal-400">
+          <CardHeader>
+            <CardTitle className="text-2xl text-gray-800 text-center">TMT Bar Calculator</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto mb-6">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-gray-600 font-medium">Diameter</TableHead>
+                    <TableHead className="text-gray-600 font-medium">Rods</TableHead>
+                    <TableHead className="text-gray-600 font-medium">Bundles</TableHead>
+                    <TableHead className="text-gray-600 font-medium">Weight (kg)</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {calculatorData.map((row) => (
+                    <TableRow key={row.key}>
+                      <TableCell className="font-medium">{row.diameter}</TableCell>
+                      <TableCell>
+                        <Input
+                          type="number"
+                          min="0"
+                          value={tmtInputs[row.key as keyof typeof tmtInputs].rods}
+                          onChange={(e) => handleInputChange(row.key, 'rods', parseInt(e.target.value) || 0)}
+                          className="w-20"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Input
+                          type="number"
+                          min="0"
+                          value={tmtInputs[row.key as keyof typeof tmtInputs].bundles}
+                          onChange={(e) => handleInputChange(row.key, 'bundles', parseInt(e.target.value) || 0)}
+                          className="w-20"
+                        />
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {((tmtInputs[row.key as keyof typeof tmtInputs].rods + (tmtInputs[row.key as keyof typeof tmtInputs].bundles * 10)) * parseFloat(tmtChartData.find(item => item.diameter === row.diameter)?.weightPer12m || '0')).toFixed(2)}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            {/* Progress Bar */}
+            <div className="mb-6">
+              <Progress value={totals.totalRods > 0 ? Math.min((totals.totalRods / 100) * 100, 100) : 0} className="h-3" />
+            </div>
+
+            {/* Calculator Buttons */}
+            <div className="text-center mb-6">
+              <div className="flex justify-center gap-4 mb-4">
+                <Button 
+                  onClick={handleCalculate}
+                  className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-2"
+                >
+                  Calculate
+                </Button>
+                <Button 
+                  onClick={handleClearAll}
+                  variant="outline" 
+                  className="border-orange-400 text-orange-500 hover:bg-orange-50 px-8 py-2"
+                >
+                  Clear All
+                </Button>
+              </div>
+              <p className="text-gray-600 text-sm mb-4">Calculate Price and Number of TMT Bars</p>
+            </div>
+
+            {/* Total Summary Section */}
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-xl font-semibold text-gray-800 text-center mb-6">Total Summary</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div>
+                  <p className="text-gray-600 mb-2">Total Rods</p>
+                  <p className="text-2xl font-bold text-orange-500">
+                    {showResults ? totals.totalRods : '0'}
+                  </p>
+                </div>
+                
+                <div>
+                  <p className="text-gray-600 mb-2">Est. Price</p>
+                  <p className="text-2xl font-bold text-blue-500">
+                    ₹{showResults ? Math.round(totals.estimatedPrice).toLocaleString() : '0'}
+                  </p>
+                </div>
+                
+                <div>
+                  <p className="text-gray-600 mb-2">Weight</p>
+                  <p className="text-2xl font-bold text-green-500">
+                    {showResults ? totals.totalWeight.toFixed(2) : '0.00'} Kg
+                  </p>
+                </div>
+              </div>
+              
+              <p className="text-xs text-gray-500 text-center mt-4">
+                * Prices may vary based on market conditions
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* More Sellers Near You Section */}
         <Card>
           <CardHeader>
