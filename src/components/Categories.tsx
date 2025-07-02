@@ -1,4 +1,3 @@
-
 const Categories = () => {
   const categories = [
     {
@@ -8,7 +7,7 @@ const Categories = () => {
     },
     {
       title: "Puf Sheets",
-      image: "/lovable-uploads/e093945f-2bc4-4cc2-8782-ebb8555d5a80.png",
+      image: "/lovable-uploads/8d8f0ced-1c67-47f6-9114-a5b3b2801dc7.png",
       buttonText: "Get Quotes"
     },
     {
