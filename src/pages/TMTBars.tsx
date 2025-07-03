@@ -1,5 +1,5 @@
 import Header from '@/components/Header';
-import Categories from '@/components/Categories';
+import ExploreRelatedCategories from '@/components/ExploreRelatedCategories';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
@@ -277,8 +277,8 @@ const TMTBars = () => {
           </CardContent>
         </Card>
 
-        {/* Categories Section */}
-        <Categories />
+        {/* Explore Related Categories Section */}
+        <ExploreRelatedCategories />
 
         {/* TMT Bar Chart Section - Optimized */}
         <Card className="mb-6 sm:mb-8">
