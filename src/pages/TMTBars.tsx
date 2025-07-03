@@ -44,27 +44,26 @@ const TMTBars = () => {
       const newData = [...prev];
       newData[index] = { ...newData[index], [field]: numValue };
       
-      // Handle bi-directional bundle calculations
-      if (field === 'bundles') {
+      // Handle different input scenarios
+      if (field === 'rods') {
+        // When rods change, don't auto-update bundles - they are independent
+        const totalRods = numValue + newData[index].bundleRods;
+        newData[index].weight = totalRods * newData[index].weightPer12m;
+        newData[index].price = newData[index].weight * pricePerKg;
+      } else if (field === 'bundles') {
         // When bundles change, update bundleRods
         newData[index].bundleRods = numValue * 10;
-      } else if (field === 'bundleRods') {
-        // When bundleRods change, update bundles
-        newData[index].bundles = numValue > 0 ? numValue / 10 : 0;
-      }
-      
-      // Calculate total rods and update weight/price
-      if (field === 'rods' || field === 'bundles' || field === 'bundleRods') {
         const totalRods = newData[index].rods + newData[index].bundleRods;
         newData[index].weight = totalRods * newData[index].weightPer12m;
         newData[index].price = newData[index].weight * pricePerKg;
-        
-        // Update bundles when rods change
-        if (field === 'rods') {
-          const totalBundleRods = newData[index].bundleRods;
-          newData[index].bundles = totalBundleRods > 0 ? totalBundleRods / 10 : 0;
-        }
+      } else if (field === 'bundleRods') {
+        // When bundleRods change, update bundles
+        newData[index].bundles = numValue > 0 ? numValue / 10 : 0;
+        const totalRods = newData[index].rods + numValue;
+        newData[index].weight = totalRods * newData[index].weightPer12m;
+        newData[index].price = newData[index].weight * pricePerKg;
       } else if (field === 'weight') {
+        // When weight changes, update price but not rods
         newData[index].price = numValue * pricePerKg;
       }
       
@@ -153,7 +152,9 @@ const TMTBars = () => {
                           </div>
                         </TableHead>
                         <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Kg</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Price</TableHead>
+                        {hasInputs && (
+                          <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Price</TableHead>
+                        )}
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -166,7 +167,7 @@ const TMTBars = () => {
                               min="0"
                               value={row.rods || ''}
                               onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-13 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                              className="w-8 sm:w-10 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                               placeholder="0"
                             />
                           </TableCell>
@@ -178,7 +179,7 @@ const TMTBars = () => {
                                 step="0.1"
                                 value={row.bundles || ''}
                                 onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-10 sm:w-12 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                                className="w-12 sm:w-14 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                                 placeholder="0"
                               />
                               <Input
@@ -202,9 +203,11 @@ const TMTBars = () => {
                               placeholder="0.00"
                             />
                           </TableCell>
-                          <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
-                            ₹{row.price.toFixed(0)}
-                          </TableCell>
+                          {hasInputs && (
+                            <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
+                              ₹{row.price.toFixed(0)}
+                            </TableCell>
+                          )}
                         </TableRow>
                       ))}
                     </TableBody>
