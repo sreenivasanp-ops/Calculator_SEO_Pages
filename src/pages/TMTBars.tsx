@@ -96,67 +96,67 @@ const TMTBars = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
         {/* Main Title */}
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">
+        <h1 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 px-2">
           Plan Your Construction Smarter – Use Our TMT Bar Calculator & Tips
         </h1>
         
         {/* TMT Bar Calculator Section */}
-        <Card className="mb-8 border-2 border-teal-200">
-          <CardHeader className="bg-teal-50">
-            <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
+        <Card className="mb-6 sm:mb-8 border-2 border-teal-200">
+          <CardHeader className="bg-teal-50 p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800 flex flex-col sm:flex-row sm:items-center gap-2">
               🧮 TMT Bar Calculator
-              <span className="text-sm font-normal text-gray-600 ml-auto">
+              <span className="text-xs sm:text-sm font-normal text-gray-600">
                 Calculate Price and Number of TMT Bars
               </span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+          <CardContent className="p-2 sm:p-6">
+            <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 sm:gap-6">
               {/* Calculator Table */}
               <div className="xl:col-span-3">
-                <div className="overflow-hidden rounded-lg border border-gray-200">
-                  <Table className="w-full">
+                <div className="overflow-x-auto rounded-lg border border-gray-200">
+                  <Table className="w-full min-w-[320px]">
                     <TableHeader>
                       <TableRow className="bg-teal-500">
-                        <TableHead className="text-white font-semibold text-center w-16">Dia</TableHead>
-                        <TableHead className="text-white font-semibold text-center w-20">Rods</TableHead>
-                        <TableHead className="text-white font-semibold text-center w-28">
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[12%]">Dia</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[15%]">Rods</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[25%]">
                           <div className="flex flex-col">
                             <span>Bundles</span>
-                            <div className="flex justify-center gap-2 text-xs mt-1">
-                              <span className="w-12">B</span>
-                              <span className="w-8">R</span>
+                            <div className="flex justify-center gap-1 text-xs mt-1">
+                              <span className="w-8">B</span>
+                              <span className="w-6">R</span>
                             </div>
                           </div>
                         </TableHead>
-                        <TableHead className="text-white font-semibold text-center w-24">Weight (Kg)</TableHead>
-                        <TableHead className="text-white font-semibold text-center w-24">Price</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[25%]">Weight (Kg)</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[23%]">Price</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {calculatorData.map((row, index) => (
                         <TableRow key={row.diameter} className="hover:bg-gray-50">
-                          <TableCell className="font-medium text-center text-sm">{row.diameter}</TableCell>
-                          <TableCell className="text-center">
+                          <TableCell className="font-medium text-center text-xs sm:text-sm p-1 sm:p-2">{row.diameter}</TableCell>
+                          <TableCell className="text-center p-1 sm:p-2">
                             <Input
                               type="number"
                               min="0"
                               value={row.rods || ''}
                               onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-16 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                              className="w-10 sm:w-12 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                               placeholder="0"
                             />
                           </TableCell>
-                          <TableCell className="text-center">
+                          <TableCell className="text-center p-1 sm:p-2">
                             <div className="flex justify-center gap-1">
                               <Input
                                 type="number"
                                 min="0"
                                 value={row.bundles || ''}
                                 onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-12 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                                className="w-8 sm:w-10 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                                 placeholder="0"
                               />
                               <Input
@@ -164,22 +164,22 @@ const TMTBars = () => {
                                 min="0"
                                 value={row.rods + (row.bundles * 10) || ''}
                                 readOnly
-                                className="w-8 h-8 text-center text-sm bg-gray-100 border-gray-200 text-xs"
+                                className="w-6 sm:w-8 h-6 sm:h-8 text-center text-xs bg-gray-100 border-gray-200 p-1"
                               />
                             </div>
                           </TableCell>
-                          <TableCell className="text-center">
+                          <TableCell className="text-center p-1 sm:p-2">
                             <Input
                               type="number"
                               min="0"
                               step="0.01"
                               value={row.weight.toFixed(2) || ''}
                               onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
-                              className="w-20 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                              className="w-14 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                               placeholder="0.00"
                             />
                           </TableCell>
-                          <TableCell className="text-center font-medium text-green-600 text-sm">
+                          <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
                             ₹{row.price.toFixed(0)}
                           </TableCell>
                         </TableRow>
@@ -188,17 +188,17 @@ const TMTBars = () => {
                   </Table>
                 </div>
                 
-                <div className="flex justify-center gap-4 mt-6">
+                <div className="flex justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
                   <Button 
                     onClick={calculateTotals}
-                    className="bg-teal-500 hover:bg-teal-600 text-white px-6"
+                    className="bg-teal-500 hover:bg-teal-600 text-white px-4 sm:px-6 text-sm"
                   >
                     Calculate
                   </Button>
                   <Button 
                     onClick={clearAll}
                     variant="outline" 
-                    className="border-orange-500 text-orange-500 hover:bg-orange-50 px-6"
+                    className="border-orange-500 text-orange-500 hover:bg-orange-50 px-4 sm:px-6 text-sm"
                   >
                     Clear All
                   </Button>
@@ -208,23 +208,23 @@ const TMTBars = () => {
               {/* Summary Section */}
               <div className="xl:col-span-1">
                 <Card className="h-fit border-2 border-gray-200">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg text-center">Total Summary</CardTitle>
+                  <CardHeader className="pb-2 sm:pb-3 p-3 sm:p-6">
+                    <CardTitle className="text-base sm:text-lg text-center">Total Summary</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="text-center p-3 bg-orange-50 rounded-lg">
-                      <p className="text-sm text-gray-600 mb-1">Total Rods</p>
-                      <p className="text-3xl font-bold text-orange-500">{totalRods}</p>
+                  <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-6 pt-0">
+                    <div className="text-center p-2 sm:p-3 bg-orange-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Rods</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-orange-500">{totalRods}</p>
                     </div>
-                    <div className="text-center p-3 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-gray-600 mb-1">Est. Price</p>
-                      <p className="text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
+                    <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Est. Price</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
                     </div>
-                    <div className="text-center p-3 bg-green-50 rounded-lg">
-                      <p className="text-sm text-gray-600 mb-1">Weight</p>
-                      <p className="text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
+                    <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Weight</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
                     </div>
-                    <p className="text-xs text-gray-500 text-center mt-4">
+                    <p className="text-xs text-gray-500 text-center mt-3 sm:mt-4">
                       * Prices may vary based on market conditions
                     </p>
                   </CardContent>
@@ -235,35 +235,53 @@ const TMTBars = () => {
         </Card>
 
         {/* More Sellers Section */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">
+        <div className="mb-6 sm:mb-8 px-2">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-700 mb-4">
             More Sellers Near You For <span className="text-blue-600 underline">TMT Bars</span>
           </h2>
         </div>
 
         {/* TMT Bar Chart Section - Optimized */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-xl text-gray-800">TMT Bar Chart</CardTitle>
+        <Card className="mb-6 sm:mb-8">
+          <CardHeader className="p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800">TMT Bar Chart</CardTitle>
           </CardHeader>
-          <CardContent className="p-4">
-            <div className="overflow-hidden rounded-lg border border-gray-200">
-              <Table className="w-full">
+          <CardContent className="p-2 sm:p-4">
+            <div className="overflow-x-auto rounded-lg border border-gray-200">
+              <Table className="w-full min-w-[280px]">
                 <TableHeader>
                   <TableRow className="bg-gray-100">
-                    <TableHead className="font-semibold text-gray-700 text-center w-1/4">Diameter</TableHead>
-                    <TableHead className="font-semibold text-gray-700 text-center w-1/4">Weight/Meter (kg)</TableHead>
-                    <TableHead className="font-semibold text-gray-700 text-center w-1/4">Weight/Feet (kg)</TableHead>
-                    <TableHead className="font-semibold text-gray-700 text-center w-1/4">Weight/12m Bar (kg)</TableHead>
+                    <TableHead className="font-semibold text-gray-700 text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Dia</TableHead>
+                    <TableHead className="font-semibold text-gray-700 text-center text-xs sm:text-sm p-1 sm:p-2 w-[26%]">
+                      <div className="flex flex-col">
+                        <span className="hidden sm:inline">Weight/Meter</span>
+                        <span className="sm:hidden">Wt/M</span>
+                        <span className="text-xs">(kg)</span>
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-700 text-center text-xs sm:text-sm p-1 sm:p-2 w-[26%]">
+                      <div className="flex flex-col">
+                        <span className="hidden sm:inline">Weight/Feet</span>
+                        <span className="sm:hidden">Wt/Ft</span>
+                        <span className="text-xs">(kg)</span>
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-700 text-center text-xs sm:text-sm p-1 sm:p-2 w-[28%]">
+                      <div className="flex flex-col">
+                        <span className="hidden sm:inline">Weight/12m Bar</span>
+                        <span className="sm:hidden">Wt/12m</span>
+                        <span className="text-xs">(kg)</span>
+                      </div>
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {tmtData.map((row, index) => (
                     <TableRow key={row.diameter} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                      <TableCell className="font-medium text-center">{row.diameter.replace('mm', ' mm')}</TableCell>
-                      <TableCell className="text-center">{row.weightPerMeter}</TableCell>
-                      <TableCell className="text-center">{row.weightPerFeet}</TableCell>
-                      <TableCell className="text-center font-medium">{row.weightPer12m}</TableCell>
+                      <TableCell className="font-medium text-center text-xs sm:text-sm p-1 sm:p-2">{row.diameter.replace('mm', ' mm')}</TableCell>
+                      <TableCell className="text-center text-xs sm:text-sm p-1 sm:p-2">{row.weightPerMeter}</TableCell>
+                      <TableCell className="text-center text-xs sm:text-sm p-1 sm:p-2">{row.weightPerFeet}</TableCell>
+                      <TableCell className="text-center font-medium text-xs sm:text-sm p-1 sm:p-2">{row.weightPer12m}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -273,52 +291,52 @@ const TMTBars = () => {
         </Card>
 
         {/* TMT Buying Guide Section */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-xl text-gray-800">TMT Buying Guide</CardTitle>
+        <Card className="mb-6 sm:mb-8">
+          <CardHeader className="p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800">TMT Buying Guide</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-4 sm:space-y-6 p-3 sm:p-6 pt-0">
             <div>
-              <h3 className="text-lg font-semibold text-gray-700 mb-3">TMT grades and their suitability</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-3">TMT grades and their suitability</h3>
               
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <h4 className="font-semibold text-gray-700">Fe415:</h4>
-                  <p className="text-gray-600 text-sm">
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe415:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
                     This is one of the most commonly used TMT grades. The 'Fe' stands for iron, and '415' represents the minimum yield strength of the steel in megapascals (MPa), which is approximately 415 MPa. Fe415 TMT is suitable for a wide range of construction applications.
                   </p>
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold text-gray-700">Fe500:</h4>
-                  <p className="text-gray-600 text-sm">
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe500:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
                     Fe500 TMT has a minimum yield strength of around 500 MPa. It offers higher strength and is often used in structures where greater load-bearing capacity is required. This grade is suitable for multi storied buildings.
                   </p>
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold text-gray-700">Fe550:</h4>
-                  <p className="text-gray-600 text-sm">
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe550:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
                     Fe550 TMT has a minimum yield strength of approximately 550 MPa. It is used in applications that demand even higher strength and load-bearing capacity. This grade is suitable for high rise buildings, bridges, and industrial projects.
                   </p>
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold text-gray-700">Fe600:</h4>
-                  <p className="text-gray-600 text-sm">
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe600:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
                     Fe600 TMT has a minimum yield strength of around 600 MPa, making it one of the strongest TMT grades available. It is used in specialised and heavy-duty construction projects.
                   </p>
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold text-gray-700">Fe415D, Fe500D, Fe550D, and Fe600D:</h4>
-                  <p className="text-gray-600 text-sm">
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe415D, Fe500D, Fe550D, and Fe600D:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
                     The 'D' in these grades stands for 'ductile,' indicating that these TMT bars have enhanced ductility in addition to their specified yield strength. Ductile TMT bars are used in earthquake-prone regions to enhance the structural integrity of buildings during seismic events.
                   </p>
                 </div>
               </div>
               
-              <p className="text-gray-600 text-sm mt-4">
+              <p className="text-gray-600 text-xs sm:text-sm mt-3 sm:mt-4">
                 Selecting the right TMT for your construction project is a complex decision that requires careful consideration of multiple factors. From project requirements and TMT grades to corrosion resistance, strength, and sustainability, each element plays a crucial role in ensuring the success and longevity of your endeavour. Consult with experts, evaluate suppliers, and stay informed about emerging trends to make an informed decision that aligns with your project's goals and values.
               </p>
             </div>
@@ -327,23 +345,23 @@ const TMTBars = () => {
 
         {/* Selection Criteria Section */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-xl text-gray-800">Selection Criteria</CardTitle>
+          <CardHeader className="p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800">Selection Criteria</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="overflow-hidden rounded-lg border border-gray-200">
-              <Table className="w-full">
+          <CardContent className="p-2 sm:p-4">
+            <div className="overflow-x-auto rounded-lg border border-gray-200">
+              <Table className="w-full min-w-[280px]">
                 <TableHeader>
                   <TableRow className="bg-gray-100">
-                    <TableHead className="w-1/3 font-semibold text-gray-700">Criteria</TableHead>
-                    <TableHead className="font-semibold text-gray-700">What to Look For</TableHead>
+                    <TableHead className="font-semibold text-gray-700 text-xs sm:text-sm p-1 sm:p-2 w-[30%]">Criteria</TableHead>
+                    <TableHead className="font-semibold text-gray-700 text-xs sm:text-sm p-1 sm:p-2">What to Look For</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {selectionCriteria.map((item, index) => (
                     <TableRow key={index} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                      <TableCell className="font-medium">{item.criteria}</TableCell>
-                      <TableCell>{item.whatToLookFor}</TableCell>
+                      <TableCell className="font-medium text-xs sm:text-sm p-1 sm:p-2">{item.criteria}</TableCell>
+                      <TableCell className="text-xs sm:text-sm p-1 sm:p-2">{item.whatToLookFor}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
