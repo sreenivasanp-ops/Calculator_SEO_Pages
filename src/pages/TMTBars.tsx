@@ -1,4 +1,3 @@
-
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -23,6 +22,7 @@ const TMTBars = () => {
       diameter: item.diameter,
       rods: 0,
       bundles: 0,
+      bundleRods: 0, // New field for R sub-column
       weight: 0,
       price: 0,
       weightPer12m: item.weightPer12m
@@ -32,6 +32,11 @@ const TMTBars = () => {
   // Price per kg (example rate, can be made configurable)
   const pricePerKg = 65;
 
+  // Check if any inputs are present to show price column
+  const hasInputs = calculatorData.some(item => 
+    item.rods > 0 || item.bundles > 0 || item.bundleRods > 0 || item.weight > 0
+  );
+
   const handleInputChange = (index: number, field: string, value: string) => {
     const numValue = Math.max(0, parseFloat(value) || 0);
     
@@ -39,10 +44,18 @@ const TMTBars = () => {
       const newData = [...prev];
       newData[index] = { ...newData[index], [field]: numValue };
       
-      // Auto-calculate weight and price when rods, bundles, or weight changes
-      if (field === 'rods' || field === 'bundles') {
-        const totalRods = (field === 'rods' ? numValue : newData[index].rods) + 
-                         (field === 'bundles' ? numValue : newData[index].bundles) * 10; // Assuming 10 rods per bundle
+      // Handle bi-directional bundle calculations
+      if (field === 'bundles') {
+        // When bundles change, update bundleRods
+        newData[index].bundleRods = numValue * 10;
+      } else if (field === 'bundleRods') {
+        // When bundleRods change, update bundles
+        newData[index].bundles = numValue > 0 ? numValue / 10 : 0;
+      }
+      
+      // Calculate total rods and update weight/price
+      if (field === 'rods' || field === 'bundles' || field === 'bundleRods') {
+        const totalRods = newData[index].rods + newData[index].bundleRods;
         newData[index].weight = totalRods * newData[index].weightPer12m;
         newData[index].price = newData[index].weight * pricePerKg;
       } else if (field === 'weight') {
@@ -57,7 +70,7 @@ const TMTBars = () => {
     // Recalculate all values
     setCalculatorData(prev => 
       prev.map(item => {
-        const totalRods = item.rods + (item.bundles * 10);
+        const totalRods = item.rods + item.bundleRods;
         const weight = totalRods * item.weightPer12m;
         const price = weight * pricePerKg;
         return { ...item, weight, price };
@@ -71,16 +84,18 @@ const TMTBars = () => {
         ...item,
         rods: 0,
         bundles: 0,
+        bundleRods: 0,
         weight: 0,
         price: 0
       }))
     );
   };
 
-  const totalRods = calculatorData.reduce((sum, item) => sum + item.rods + (item.bundles * 10), 0);
+  const totalRods = calculatorData.reduce((sum, item) => sum + item.rods + item.bundleRods, 0);
   const totalWeight = calculatorData.reduce((sum, item) => sum + item.weight, 0);
   const totalPrice = calculatorData.reduce((sum, item) => sum + item.price, 0);
 
+  // Selection Criteria
   const selectionCriteria = [
     { criteria: 'Grade', whatToLookFor: 'Fe 415, Fe 500, Fe 550D, Fe 600 (Higher grade = Higher strength)' },
     { criteria: 'Corrosion Resistance', whatToLookFor: 'Go for CRS (Corrosion Resistant Steel) for coastal/monsoon areas' },
@@ -120,9 +135,9 @@ const TMTBars = () => {
                   <Table className="w-full min-w-[320px]">
                     <TableHeader>
                       <TableRow className="bg-teal-500">
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[12%]">Dia</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[15%]">Rods</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[25%]">
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Dia</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Rods</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">
                           <div className="flex flex-col">
                             <span>Bundles</span>
                             <div className="flex justify-center gap-1 text-xs mt-1">
@@ -131,8 +146,10 @@ const TMTBars = () => {
                             </div>
                           </div>
                         </TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[25%]">Weight (Kg)</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[23%]">Price</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Weight (Kg)</TableHead>
+                        {hasInputs && (
+                          <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Price</TableHead>
+                        )}
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -154,6 +171,7 @@ const TMTBars = () => {
                               <Input
                                 type="number"
                                 min="0"
+                                step="0.1"
                                 value={row.bundles || ''}
                                 onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
                                 className="w-8 sm:w-10 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
@@ -162,9 +180,10 @@ const TMTBars = () => {
                               <Input
                                 type="number"
                                 min="0"
-                                value={row.rods + (row.bundles * 10) || ''}
-                                readOnly
-                                className="w-6 sm:w-8 h-6 sm:h-8 text-center text-xs bg-gray-100 border-gray-200 p-1"
+                                value={row.bundleRods || ''}
+                                onChange={(e) => handleInputChange(index, 'bundleRods', e.target.value)}
+                                className="w-6 sm:w-8 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                                placeholder="0"
                               />
                             </div>
                           </TableCell>
@@ -179,9 +198,11 @@ const TMTBars = () => {
                               placeholder="0.00"
                             />
                           </TableCell>
-                          <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
-                            ₹{row.price.toFixed(0)}
-                          </TableCell>
+                          {hasInputs && (
+                            <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
+                              ₹{row.price.toFixed(0)}
+                            </TableCell>
+                          )}
                         </TableRow>
                       ))}
                     </TableBody>
@@ -216,10 +237,12 @@ const TMTBars = () => {
                       <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Rods</p>
                       <p className="text-2xl sm:text-3xl font-bold text-orange-500">{totalRods}</p>
                     </div>
-                    <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
-                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Est. Price</p>
-                      <p className="text-2xl sm:text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
-                    </div>
+                    {hasInputs && (
+                      <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
+                        <p className="text-xs sm:text-sm text-gray-600 mb-1">Est. Price</p>
+                        <p className="text-2xl sm:text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
+                      </div>
+                    )}
                     <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
                       <p className="text-xs sm:text-sm text-gray-600 mb-1">Weight</p>
                       <p className="text-2xl sm:text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
