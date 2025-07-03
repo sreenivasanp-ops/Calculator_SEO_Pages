@@ -1,10 +1,15 @@
 
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Paintbrush, Square, Sun, Zap, DollarSign } from 'lucide-react';
+import { Paintbrush, Square, Sun, Zap, DollarSign, BarChart3 } from 'lucide-react';
 
 const BuyerAssistant = () => {
   const buildingItems = [
+    {
+      title: 'TMT Bars',
+      icon: BarChart3,
+      description: 'TMT Steel Bars & Rods'
+    },
     {
       title: 'Paints',
       icon: Paintbrush,
@@ -49,7 +54,7 @@ const BuyerAssistant = () => {
           <h2 className="text-xl font-semibold text-gray-700 mb-4">
             Building & Construction
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {buildingItems.map((item) => (
               <Card key={item.title} className="hover:shadow-md transition-shadow cursor-pointer">
                 <CardHeader className="pb-3">
