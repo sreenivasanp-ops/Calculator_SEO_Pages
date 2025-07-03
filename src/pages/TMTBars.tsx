@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -15,6 +16,17 @@ const TMTBars = () => {
     { diameter: '25mm', weightPerMeter: 3.850, weightPerFeet: 1.1722, weightPer12m: 46.20 },
     { diameter: '32mm', weightPerMeter: 6.320, weightPerFeet: 1.9266, weightPer12m: 75.84 }
   ];
+
+  // Diameter-specific rods per bundle mapping
+  const rodsPerBundle = {
+    '8mm': 10,
+    '10mm': 7,
+    '12mm': 5,
+    '16mm': 3,
+    '20mm': 2,
+    '25mm': 1,
+    '32mm': 1
+  };
 
   // State for calculator inputs
   const [calculatorData, setCalculatorData] = useState(
@@ -39,31 +51,41 @@ const TMTBars = () => {
 
   const handleInputChange = (index: number, field: string, value: string) => {
     const numValue = Math.max(0, parseFloat(value) || 0);
+    const diameter = calculatorData[index].diameter;
+    const rodsPerBundleForDia = rodsPerBundle[diameter];
     
     setCalculatorData(prev => {
       const newData = [...prev];
       newData[index] = { ...newData[index], [field]: numValue };
       
-      // Handle different input scenarios
       if (field === 'rods') {
-        // When rods change, don't auto-update bundles - they are independent
-        const totalRods = numValue + newData[index].bundleRods;
+        // When rods change, calculate bundles and remaining rods
+        const totalRods = numValue;
+        const fullBundles = Math.floor(totalRods / rodsPerBundleForDia);
+        const remainingRods = totalRods % rodsPerBundleForDia;
+        
+        newData[index].bundles = fullBundles;
+        newData[index].bundleRods = remainingRods;
         newData[index].weight = totalRods * newData[index].weightPer12m;
         newData[index].price = newData[index].weight * pricePerKg;
+        
       } else if (field === 'bundles') {
-        // When bundles change, update bundleRods
-        newData[index].bundleRods = numValue * 10;
-        const totalRods = newData[index].rods + newData[index].bundleRods;
-        newData[index].weight = totalRods * newData[index].weightPer12m;
+        // When bundles change, calculate total rods
+        const totalRodsFromBundles = numValue * rodsPerBundleForDia;
+        newData[index].rods = totalRodsFromBundles;
+        newData[index].bundleRods = 0; // No remaining rods when entering complete bundles
+        newData[index].weight = totalRodsFromBundles * newData[index].weightPer12m;
         newData[index].price = newData[index].weight * pricePerKg;
-      } else if (field === 'bundleRods') {
-        // When bundleRods change, update bundles
-        newData[index].bundles = numValue > 0 ? numValue / 10 : 0;
-        const totalRods = newData[index].rods + numValue;
-        newData[index].weight = totalRods * newData[index].weightPer12m;
-        newData[index].price = newData[index].weight * pricePerKg;
+        
       } else if (field === 'weight') {
-        // When weight changes, update price but not rods
+        // When weight changes, calculate total rods, bundles, and remaining rods
+        const totalRods = Math.round(numValue / newData[index].weightPer12m);
+        const fullBundles = Math.floor(totalRods / rodsPerBundleForDia);
+        const remainingRods = totalRods % rodsPerBundleForDia;
+        
+        newData[index].rods = totalRods;
+        newData[index].bundles = fullBundles;
+        newData[index].bundleRods = remainingRods;
         newData[index].price = numValue * pricePerKg;
       }
       
@@ -75,7 +97,7 @@ const TMTBars = () => {
     // Recalculate all values
     setCalculatorData(prev => 
       prev.map(item => {
-        const totalRods = item.rods + item.bundleRods;
+        const totalRods = item.rods;
         const weight = totalRods * item.weightPer12m;
         const price = weight * pricePerKg;
         return { ...item, weight, price };
@@ -96,7 +118,7 @@ const TMTBars = () => {
     );
   };
 
-  const totalRods = calculatorData.reduce((sum, item) => sum + item.rods + item.bundleRods, 0);
+  const totalRods = calculatorData.reduce((sum, item) => sum + item.rods, 0);
   const totalWeight = calculatorData.reduce((sum, item) => sum + item.weight, 0);
   const totalPrice = calculatorData.reduce((sum, item) => sum + item.price, 0);
 
@@ -182,14 +204,9 @@ const TMTBars = () => {
                                 className="w-12 sm:w-14 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                                 placeholder="0"
                               />
-                              <Input
-                                type="number"
-                                min="0"
-                                value={row.bundleRods || ''}
-                                onChange={(e) => handleInputChange(index, 'bundleRods', e.target.value)}
-                                className="w-6 sm:w-8 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
-                                placeholder="0"
-                              />
+                              <div className="w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center bg-gray-100 rounded border text-xs text-gray-600">
+                                {row.bundleRods}
+                              </div>
                             </div>
                           </TableCell>
                           <TableCell className="text-center p-0.5 sm:p-1">
