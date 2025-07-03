@@ -22,7 +22,7 @@ const TMTBars = () => {
       diameter: item.diameter,
       rods: 0,
       bundles: 0,
-      bundleRods: 0, // New field for R sub-column
+      bundleRods: 0,
       weight: 0,
       price: 0,
       weightPer12m: item.weightPer12m
@@ -58,6 +58,12 @@ const TMTBars = () => {
         const totalRods = newData[index].rods + newData[index].bundleRods;
         newData[index].weight = totalRods * newData[index].weightPer12m;
         newData[index].price = newData[index].weight * pricePerKg;
+        
+        // Update bundles when rods change
+        if (field === 'rods') {
+          const totalBundleRods = newData[index].bundleRods;
+          newData[index].bundles = totalBundleRods > 0 ? totalBundleRods / 10 : 0;
+        }
       } else if (field === 'weight') {
         newData[index].price = numValue * pricePerKg;
       }
@@ -146,35 +152,33 @@ const TMTBars = () => {
                             </div>
                           </div>
                         </TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Weight (Kg)</TableHead>
-                        {hasInputs && (
-                          <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Price</TableHead>
-                        )}
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Kg</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Price</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {calculatorData.map((row, index) => (
                         <TableRow key={row.diameter} className="hover:bg-gray-50">
                           <TableCell className="font-medium text-center text-xs sm:text-sm p-1 sm:p-2">{row.diameter}</TableCell>
-                          <TableCell className="text-center p-1 sm:p-2">
+                          <TableCell className="text-center p-0.5 sm:p-1">
                             <Input
                               type="number"
                               min="0"
                               value={row.rods || ''}
                               onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-10 sm:w-12 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                              className="w-13 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                               placeholder="0"
                             />
                           </TableCell>
-                          <TableCell className="text-center p-1 sm:p-2">
-                            <div className="flex justify-center gap-1">
+                          <TableCell className="text-center p-0.5 sm:p-1">
+                            <div className="flex justify-center gap-0.5">
                               <Input
                                 type="number"
                                 min="0"
                                 step="0.1"
                                 value={row.bundles || ''}
                                 onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-8 sm:w-10 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                                className="w-10 sm:w-12 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                                 placeholder="0"
                               />
                               <Input
@@ -187,22 +191,20 @@ const TMTBars = () => {
                               />
                             </div>
                           </TableCell>
-                          <TableCell className="text-center p-1 sm:p-2">
+                          <TableCell className="text-center p-0.5 sm:p-1">
                             <Input
                               type="number"
                               min="0"
                               step="0.01"
-                              value={row.weight.toFixed(2) || ''}
+                              value={row.weight || ''}
                               onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
                               className="w-14 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                               placeholder="0.00"
                             />
                           </TableCell>
-                          {hasInputs && (
-                            <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
-                              ₹{row.price.toFixed(0)}
-                            </TableCell>
-                          )}
+                          <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
+                            ₹{row.price.toFixed(0)}
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -233,19 +235,17 @@ const TMTBars = () => {
                     <CardTitle className="text-base sm:text-lg text-center">Total Summary</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-6 pt-0">
-                    <div className="text-center p-2 sm:p-3 bg-orange-50 rounded-lg">
-                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Rods</p>
-                      <p className="text-2xl sm:text-3xl font-bold text-orange-500">{totalRods}</p>
+                    <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Est. Price</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
                     </div>
-                    {hasInputs && (
-                      <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
-                        <p className="text-xs sm:text-sm text-gray-600 mb-1">Est. Price</p>
-                        <p className="text-2xl sm:text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
-                      </div>
-                    )}
                     <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
                       <p className="text-xs sm:text-sm text-gray-600 mb-1">Weight</p>
                       <p className="text-2xl sm:text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
+                    </div>
+                    <div className="text-center p-2 sm:p-3 bg-orange-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Rods</p>
+                      <p className="text-2xl sm:text-3xl font-bold text-orange-500">{totalRods}</p>
                     </div>
                     <p className="text-xs text-gray-500 text-center mt-3 sm:mt-4">
                       * Prices may vary based on market conditions
