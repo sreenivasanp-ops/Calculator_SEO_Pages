@@ -2,13 +2,17 @@
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Paintbrush, Square, Sun, Zap, DollarSign, BarChart3 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const BuyerAssistant = () => {
+  const navigate = useNavigate();
+
   const buildingItems = [
     {
       title: 'TMT Bars',
       icon: BarChart3,
-      description: 'TMT Steel Bars & Rods'
+      description: 'TMT Steel Bars & Rods',
+      onClick: () => navigate('/tmt-bars')
     },
     {
       title: 'Paints',
@@ -56,7 +60,11 @@ const BuyerAssistant = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {buildingItems.map((item) => (
-              <Card key={item.title} className="hover:shadow-md transition-shadow cursor-pointer">
+              <Card 
+                key={item.title} 
+                className="hover:shadow-md transition-shadow cursor-pointer"
+                onClick={item.onClick}
+              >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3 text-lg">
                     <item.icon className="w-6 h-6 text-indiamart-teal" />
