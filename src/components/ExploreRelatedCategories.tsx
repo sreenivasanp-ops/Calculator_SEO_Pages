@@ -3,37 +3,47 @@ const ExploreRelatedCategories = () => {
   const categories = [
     {
       title: "TMT Bars",
-      image: "/lovable-uploads/5fc31e69-174b-404c-951e-76a3ea5b2337.png",
-      buttonText: "Get Quotes"
+      image: "/lovable-uploads/4b338d1f-d0d2-473f-8d19-14cbcd900038.png",
+      buttonText: "Get Quotes",
+      url: "https://m.indiamart.com/impcat/tmt-bars.html"
     },
     {
       title: "Ribbed Bar",
-      image: "/lovable-uploads/8d8f0ced-1c67-47f6-9114-a5b3b2801dc7.png",
-      buttonText: "Get Quotes"
+      image: "/lovable-uploads/9b331f35-ecb3-45a1-8420-25f6cc8424b4.png",
+      buttonText: "Get Quotes",
+      url: "https://m.indiamart.com/impcat/ribbed-bar.html"
     },
     {
       title: "Concrete Reinforcement Bars",
-      image: "/lovable-uploads/c3d8aee2-aa64-4bbd-a706-21c2c8a4e3e7.png",
-      buttonText: "Get Quotes"
+      image: "/lovable-uploads/e2eadd8f-1522-4511-a638-bbc5e2f9e248.png",
+      buttonText: "Get Quotes",
+      url: "https://m.indiamart.com/impcat/concrete-reinforcing-bars.html"
     }
   ];
 
+  const handleCategoryClick = (url: string) => {
+    window.open(url, '_blank');
+  };
+
   return (
     <div className="px-4 py-4">
-      <h2 className="text-gray-800 font-medium mb-3">Explore Related Categories Near Noida</h2>
+      <h2 className="text-gray-800 font-medium mb-3">Explore Related Categories</h2>
       <div className="flex space-x-3 overflow-x-auto">
         {categories.map((category, index) => (
-          <div key={index} className="flex-shrink-0 w-32">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
-              <div className="w-full h-16 bg-gray-100 rounded mb-2 flex items-center justify-center overflow-hidden">
+          <div key={index} className="flex-shrink-0 w-36">
+            <div 
+              className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => handleCategoryClick(category.url)}
+            >
+              <div className="w-full h-20 bg-gray-100 rounded mb-2 flex items-center justify-center overflow-hidden">
                 <img 
                   src={category.image} 
                   alt={category.title}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="text-xs font-medium text-gray-800 mb-2 text-center">{category.title}</h3>
-              <button className="w-full bg-indiamart-teal text-white text-xs py-1.5 rounded-md font-medium">
+              <h3 className="text-xs font-medium text-gray-800 mb-2 text-center min-h-[32px] flex items-center justify-center">{category.title}</h3>
+              <button className="w-full bg-indiamart-teal text-white text-xs py-1.5 rounded-md font-medium hover:bg-teal-600 transition-colors">
                 {category.buttonText}
               </button>
             </div>
