@@ -116,47 +116,47 @@ const TMTBars = () => {
             <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
               {/* Calculator Table */}
               <div className="xl:col-span-3">
-                <div className="overflow-x-auto">
-                  <Table className="min-w-full">
+                <div className="overflow-hidden rounded-lg border border-gray-200">
+                  <Table className="w-full">
                     <TableHeader>
                       <TableRow className="bg-teal-500">
-                        <TableHead className="text-white font-semibold text-center min-w-[80px]">Diameter</TableHead>
-                        <TableHead className="text-white font-semibold text-center min-w-[80px]">Rods</TableHead>
-                        <TableHead className="text-white font-semibold text-center min-w-[120px]">
+                        <TableHead className="text-white font-semibold text-center w-16">Dia</TableHead>
+                        <TableHead className="text-white font-semibold text-center w-20">Rods</TableHead>
+                        <TableHead className="text-white font-semibold text-center w-28">
                           <div className="flex flex-col">
                             <span>Bundles</span>
-                            <div className="flex justify-center gap-4 text-xs mt-1">
-                              <span>B</span>
-                              <span>R</span>
+                            <div className="flex justify-center gap-2 text-xs mt-1">
+                              <span className="w-12">B</span>
+                              <span className="w-8">R</span>
                             </div>
                           </div>
                         </TableHead>
-                        <TableHead className="text-white font-semibold text-center min-w-[100px]">Weight in Kg</TableHead>
-                        <TableHead className="text-white font-semibold text-center min-w-[100px]">Price</TableHead>
+                        <TableHead className="text-white font-semibold text-center w-24">Weight (Kg)</TableHead>
+                        <TableHead className="text-white font-semibold text-center w-24">Price</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {calculatorData.map((row, index) => (
                         <TableRow key={row.diameter} className="hover:bg-gray-50">
-                          <TableCell className="font-medium text-center">{row.diameter}</TableCell>
+                          <TableCell className="font-medium text-center text-sm">{row.diameter}</TableCell>
                           <TableCell className="text-center">
                             <Input
                               type="number"
                               min="0"
                               value={row.rods || ''}
                               onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-16 h-8 text-center text-sm"
+                              className="w-16 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                               placeholder="0"
                             />
                           </TableCell>
                           <TableCell className="text-center">
-                            <div className="flex justify-center gap-2">
+                            <div className="flex justify-center gap-1">
                               <Input
                                 type="number"
                                 min="0"
                                 value={row.bundles || ''}
                                 onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-12 h-8 text-center text-sm"
+                                className="w-12 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                                 placeholder="0"
                               />
                               <Input
@@ -164,7 +164,7 @@ const TMTBars = () => {
                                 min="0"
                                 value={row.rods + (row.bundles * 10) || ''}
                                 readOnly
-                                className="w-12 h-8 text-center text-sm bg-gray-100"
+                                className="w-8 h-8 text-center text-sm bg-gray-100 border-gray-200 text-xs"
                               />
                             </div>
                           </TableCell>
@@ -175,11 +175,11 @@ const TMTBars = () => {
                               step="0.01"
                               value={row.weight.toFixed(2) || ''}
                               onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
-                              className="w-20 h-8 text-center text-sm"
+                              className="w-20 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                               placeholder="0.00"
                             />
                           </TableCell>
-                          <TableCell className="text-center font-medium text-green-600">
+                          <TableCell className="text-center font-medium text-green-600 text-sm">
                             ₹{row.price.toFixed(0)}
                           </TableCell>
                         </TableRow>
@@ -188,7 +188,7 @@ const TMTBars = () => {
                   </Table>
                 </div>
                 
-                <div className="flex gap-4 mt-6">
+                <div className="flex justify-center gap-4 mt-6">
                   <Button 
                     onClick={calculateTotals}
                     className="bg-teal-500 hover:bg-teal-600 text-white px-6"
@@ -241,29 +241,29 @@ const TMTBars = () => {
           </h2>
         </div>
 
-        {/* TMT Bar Chart Section */}
+        {/* TMT Bar Chart Section - Optimized */}
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="text-xl text-gray-800">TMT Bar Chart</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="overflow-x-auto">
-              <Table>
+          <CardContent className="p-4">
+            <div className="overflow-hidden rounded-lg border border-gray-200">
+              <Table className="w-full">
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Diameter (mm)</TableHead>
-                    <TableHead>Weight per Meter (kg)</TableHead>
-                    <TableHead>Weight per Feet (kg)</TableHead>
-                    <TableHead>Weight per 12m Bar (kg)</TableHead>
+                  <TableRow className="bg-gray-100">
+                    <TableHead className="font-semibold text-gray-700 text-center w-1/4">Diameter</TableHead>
+                    <TableHead className="font-semibold text-gray-700 text-center w-1/4">Weight/Meter (kg)</TableHead>
+                    <TableHead className="font-semibold text-gray-700 text-center w-1/4">Weight/Feet (kg)</TableHead>
+                    <TableHead className="font-semibold text-gray-700 text-center w-1/4">Weight/12m Bar (kg)</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {tmtData.map((row) => (
-                    <TableRow key={row.diameter}>
-                      <TableCell className="font-medium">{row.diameter.replace('mm', ' mm')}</TableCell>
-                      <TableCell>{row.weightPerMeter}</TableCell>
-                      <TableCell>{row.weightPerFeet}</TableCell>
-                      <TableCell>{row.weightPer12m}</TableCell>
+                  {tmtData.map((row, index) => (
+                    <TableRow key={row.diameter} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+                      <TableCell className="font-medium text-center">{row.diameter.replace('mm', ' mm')}</TableCell>
+                      <TableCell className="text-center">{row.weightPerMeter}</TableCell>
+                      <TableCell className="text-center">{row.weightPerFeet}</TableCell>
+                      <TableCell className="text-center font-medium">{row.weightPer12m}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -331,17 +331,17 @@ const TMTBars = () => {
             <CardTitle className="text-xl text-gray-800">Selection Criteria</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto">
-              <Table>
+            <div className="overflow-hidden rounded-lg border border-gray-200">
+              <Table className="w-full">
                 <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-1/3">Criteria</TableHead>
-                    <TableHead>What to Look For</TableHead>
+                  <TableRow className="bg-gray-100">
+                    <TableHead className="w-1/3 font-semibold text-gray-700">Criteria</TableHead>
+                    <TableHead className="font-semibold text-gray-700">What to Look For</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {selectionCriteria.map((item, index) => (
-                    <TableRow key={index}>
+                    <TableRow key={index} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
                       <TableCell className="font-medium">{item.criteria}</TableCell>
                       <TableCell>{item.whatToLookFor}</TableCell>
                     </TableRow>
