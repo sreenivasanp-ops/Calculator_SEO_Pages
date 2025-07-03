@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import Categories from '@/components/Categories';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
@@ -160,7 +161,7 @@ const TMTBars = () => {
                 <div className="overflow-x-hidden rounded-lg border border-gray-200">
                   <Table className="w-full">
                     <TableHeader>
-                      <TableRow className="bg-teal-500">
+                      <TableRow className="bg-teal-500 hover:bg-teal-500">
                         <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[15%]">Dia</TableHead>
                         <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Rods</TableHead>
                         <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[25%]">
@@ -276,12 +277,8 @@ const TMTBars = () => {
           </CardContent>
         </Card>
 
-        {/* More Sellers Section */}
-        <div className="mb-6 sm:mb-8 px-2">
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-700 mb-4">
-            More Sellers Near You For <span className="text-blue-600 underline">TMT Bars</span>
-          </h2>
-        </div>
+        {/* Categories Section */}
+        <Categories />
 
         {/* TMT Bar Chart Section - Optimized */}
         <Card className="mb-6 sm:mb-8">
