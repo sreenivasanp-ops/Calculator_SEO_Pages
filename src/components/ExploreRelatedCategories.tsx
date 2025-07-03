@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const ExploreRelatedCategories = () => {
@@ -33,7 +32,7 @@ const ExploreRelatedCategories = () => {
         <CardTitle className="text-lg sm:text-xl text-gray-800">Explore Related Categories</CardTitle>
       </CardHeader>
       <CardContent className="p-3 sm:p-6 pt-0">
-        <div className="flex space-x-3 overflow-x-auto scrollbar-hide">
+        <div className="flex space-x-3 overflow-x-auto scrollbar-subtle">
           {categories.map((category, index) => (
             <div key={index} className="flex-shrink-0 w-36">
               <div 
