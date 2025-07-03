@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -167,7 +168,7 @@ const TMTBars = () => {
                               min="0"
                               value={row.rods || ''}
                               onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-8 sm:w-10 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                              className="w-12 sm:w-14 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                               placeholder="0"
                             />
                           </TableCell>
