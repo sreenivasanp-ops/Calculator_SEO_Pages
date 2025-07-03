@@ -1,6 +1,10 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useScrollDetection } from '@/hooks/useScrollDetection';
 
 const ExploreRelatedCategories = () => {
+  const { elementRef, isScrolling } = useScrollDetection();
+  
   const categories = [
     {
       title: "TMT Bars",
@@ -27,12 +31,15 @@ const ExploreRelatedCategories = () => {
   };
 
   return (
-    <Card className="mb-6 sm:mb-8">
+    <Card className="mb-4 sm:mb-6 border border-gray-200">
       <CardHeader className="p-3 sm:p-6">
         <CardTitle className="text-lg sm:text-xl text-gray-800">Explore Related Categories</CardTitle>
       </CardHeader>
       <CardContent className="p-3 sm:p-6 pt-0">
-        <div className="flex space-x-3 overflow-x-auto scrollbar-subtle">
+        <div 
+          ref={elementRef}
+          className={`flex space-x-3 overflow-x-auto scrollbar-subtle ${isScrolling ? 'scrolling' : ''}`}
+        >
           {categories.map((category, index) => (
             <div key={index} className="flex-shrink-0 w-36">
               <div 
