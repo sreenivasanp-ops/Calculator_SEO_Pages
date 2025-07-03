@@ -1,6 +1,7 @@
 
 import { Search, Menu, Mic, Camera } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import NavigationMenu from '@/components/NavigationMenu';
 
@@ -20,13 +21,13 @@ const Header = () => {
           </button>
           
           {/* Logo */}
-          <div className="flex items-center mr-2 flex-shrink-0">
+          <Link to="/" className="flex items-center mr-2 flex-shrink-0">
             <img 
               src="/lovable-uploads/a1ef4a30-1ecb-43da-8b6d-5a568da3e769.png" 
               alt="IndiaMART" 
               className="w-7 h-7 rounded-full object-cover"
             />
-          </div>
+          </Link>
           
           {/* Search bar */}
           <div className="flex-1 relative min-w-0">
