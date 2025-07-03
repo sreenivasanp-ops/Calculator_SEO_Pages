@@ -1,4 +1,3 @@
-
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -158,13 +157,13 @@ const TMTBars = () => {
             <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 sm:gap-6">
               {/* Calculator Table */}
               <div className="xl:col-span-3">
-                <div className="overflow-x-auto rounded-lg border border-gray-200">
-                  <Table className="w-full min-w-[320px]">
+                <div className="overflow-x-hidden rounded-lg border border-gray-200">
+                  <Table className="w-full">
                     <TableHeader>
                       <TableRow className="bg-teal-500">
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Dia</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Rods</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[15%]">Dia</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Rods</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[25%]">
                           <div className="flex flex-col">
                             <span>Bundles</span>
                             <div className="flex justify-center gap-1 text-xs mt-1">
@@ -173,9 +172,9 @@ const TMTBars = () => {
                             </div>
                           </div>
                         </TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Kg</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Kg</TableHead>
                         {hasInputs && (
-                          <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2">Price</TableHead>
+                          <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Price</TableHead>
                         )}
                       </TableRow>
                     </TableHeader>
@@ -189,7 +188,7 @@ const TMTBars = () => {
                               min="0"
                               value={row.rods || ''}
                               onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-12 sm:w-14 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                              className="w-14 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1 mx-auto"
                               placeholder="0"
                             />
                           </TableCell>
@@ -201,7 +200,7 @@ const TMTBars = () => {
                                 step="0.1"
                                 value={row.bundles || ''}
                                 onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-12 sm:w-14 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                                className="w-14 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                                 placeholder="0"
                               />
                               <div className="w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center bg-gray-100 rounded border text-xs text-gray-600">
@@ -216,7 +215,7 @@ const TMTBars = () => {
                               step="0.01"
                               value={row.weight || ''}
                               onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
-                              className="w-14 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                              className="w-16 sm:w-18 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1 mx-auto"
                               placeholder="0.00"
                             />
                           </TableCell>
