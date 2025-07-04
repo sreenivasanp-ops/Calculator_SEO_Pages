@@ -1,4 +1,3 @@
-
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Paintbrush, Square, Sun, Zap, DollarSign, BarChart3, Cpu, Battery } from 'lucide-react';
@@ -30,7 +29,8 @@ const BuyerAssistant = () => {
     {
       title: 'Resistors',
       icon: Cpu,
-      description: 'Electronic Resistors & Components'
+      description: 'Electronic Resistors & Components',
+      onClick: () => navigate('/resistors')
     }
   ];
 

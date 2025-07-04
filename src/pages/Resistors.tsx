@@ -1,0 +1,405 @@
+
+import Header from '@/components/Header';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useState } from 'react';
+
+const Resistors = () => {
+  const [numberOfBands, setNumberOfBands] = useState('4');
+  const [band1, setBand1] = useState('');
+  const [band2, setBand2] = useState('');
+  const [band3, setBand3] = useState('');
+  const [multiplier, setMultiplier] = useState('');
+  const [tolerance, setTolerance] = useState('');
+  const [temperatureCoeff, setTemperatureCoeff] = useState('');
+  const [resistorValue, setResistorValue] = useState('');
+
+  const colorValues = {
+    'Black': { value: 0, color: '#000000' },
+    'Brown': { value: 1, color: '#8B4513' },
+    'Red': { value: 2, color: '#FF0000' },
+    'Orange': { value: 3, color: '#FFA500' },
+    'Yellow': { value: 4, color: '#FFFF00' },
+    'Green': { value: 5, color: '#008000' },
+    'Blue': { value: 6, color: '#0000FF' },
+    'Violet': { value: 7, color: '#8A2BE2' },
+    'Grey': { value: 8, color: '#808080' },
+    'White': { value: 9, color: '#FFFFFF' }
+  };
+
+  const multiplierValues = {
+    'Black': { value: 1, label: '× 1' },
+    'Brown': { value: 10, label: '× 10' },
+    'Red': { value: 100, label: '× 100' },
+    'Orange': { value: 1000, label: '× 1K' },
+    'Yellow': { value: 10000, label: '× 10K' },
+    'Green': { value: 100000, label: '× 100K' },
+    'Blue': { value: 1000000, label: '× 1M' },
+    'Violet': { value: 10000000, label: '× 10M' },
+    'Grey': { value: 100000000, label: '× 100M' },
+    'White': { value: 1000000000, label: '× 1G' },
+    'Gold': { value: 0.1, label: '× 0.1' },
+    'Silver': { value: 0.01, label: '× 0.01' }
+  };
+
+  const toleranceValues = {
+    'Brown': '±1% (F)',
+    'Red': '±2% (G)',
+    'Orange': '±0.05% (W)',
+    'Yellow': '±0.02% (P)',
+    'Green': '±0.5% (D)',
+    'Blue': '±0.25% (C)',
+    'Violet': '±0.1% (B)',
+    'Grey': '±0.01% (L)',
+    'Gold': '±5% (J)',
+    'Silver': '±10% (K)'
+  };
+
+  const temperatureCoeffValues = {
+    'Black': '250 ppm/K(U)',
+    'Brown': '100 ppm/K(S)',
+    'Red': '50 ppm/K (R)',
+    'Orange': '15 ppm/K (P)',
+    'Yellow': '25 ppm/K (Q)',
+    'Green': '20 ppm/K (Z)',
+    'Blue': '10 ppm/K (Z)',
+    'Violet': '5 ppm/K (M)',
+    'Grey': '1 ppm/K (K)'
+  };
+
+  const calculateResistor = () => {
+    if (!band1 || !band2 || !multiplier || !tolerance) return;
+
+    let baseValue = 0;
+    
+    if (numberOfBands === '4') {
+      baseValue = (colorValues[band1].value * 10 + colorValues[band2].value) * multiplierValues[multiplier].value;
+    } else if (numberOfBands === '5') {
+      if (!band3) return;
+      baseValue = (colorValues[band1].value * 100 + colorValues[band2].value * 10 + colorValues[band3].value) * multiplierValues[multiplier].value;
+    } else if (numberOfBands === '6') {
+      if (!band3 || !temperatureCoeff) return;
+      baseValue = (colorValues[band1].value * 100 + colorValues[band2].value * 10 + colorValues[band3].value) * multiplierValues[multiplier].value;
+    }
+
+    // Format the value
+    let formattedValue = '';
+    if (baseValue >= 1000000) {
+      formattedValue = `${(baseValue / 1000000).toFixed(2)} MΩ`;
+    } else if (baseValue >= 1000) {
+      formattedValue = `${(baseValue / 1000).toFixed(2)} kΩ`;
+    } else {
+      formattedValue = `${baseValue.toFixed(2)} Ω`;
+    }
+
+    const toleranceText = toleranceValues[tolerance];
+    const tempCoeffText = numberOfBands === '6' && temperatureCoeff ? temperatureCoeffValues[temperatureCoeff] : '';
+    
+    setResistorValue(`${formattedValue} ${toleranceText}${tempCoeffText ? ` ${tempCoeffText}` : ''}`);
+  };
+
+  const clearAll = () => {
+    setBand1('');
+    setBand2('');
+    setBand3('');
+    setMultiplier('');
+    setTolerance('');
+    setTemperatureCoeff('');
+    setResistorValue('');
+  };
+
+  const renderResistorVisual = () => {
+    const getBandColor = (colorName) => {
+      if (colorName === 'Gold') return '#FFD700';
+      if (colorName === 'Silver') return '#C0C0C0';
+      return colorValues[colorName]?.color || '#FFFFFF';
+    };
+
+    const bands = [];
+    if (band1) bands.push(getBandColor(band1));
+    if (band2) bands.push(getBandColor(band2));
+    if (numberOfBands !== '4' && band3) bands.push(getBandColor(band3));
+    if (multiplier) bands.push(getBandColor(multiplier));
+    if (tolerance) bands.push(getBandColor(tolerance));
+    if (numberOfBands === '6' && temperatureCoeff) bands.push(getBandColor(temperatureCoeff));
+
+    return (
+      <div className="flex justify-center mt-6 mb-4">
+        <svg width="300" height="80" viewBox="0 0 300 80">
+          {/* Resistor body */}
+          <rect x="50" y="25" width="200" height="30" fill="#F5E6D3" stroke="#D4B896" strokeWidth="1" rx="15"/>
+          
+          {/* Wire leads */}
+          <line x1="0" y1="40" x2="50" y2="40" stroke="#666" strokeWidth="3"/>
+          <line x1="250" y1="40" x2="300" y2="40" stroke="#666" strokeWidth="3"/>
+          
+          {/* Color bands */}
+          {bands.map((color, index) => {
+            let x = 70 + (index * 25);
+            if (numberOfBands === '4' && index === 3) x = 220; // Tolerance band spacing for 4-band
+            if (numberOfBands === '5' && index === 4) x = 220; // Tolerance band spacing for 5-band
+            if (numberOfBands === '6' && index === 4) x = 210; // Tolerance band spacing for 6-band
+            if (numberOfBands === '6' && index === 5) x = 230; // Temperature coefficient spacing for 6-band
+            
+            return (
+              <rect
+                key={index}
+                x={x}
+                y="25"
+                width="8"
+                height="30"
+                fill={color}
+                stroke={color === '#FFFFFF' ? '#000' : 'none'}
+                strokeWidth={color === '#FFFFFF' ? '1' : '0'}
+              />
+            );
+          })}
+        </svg>
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
+        <h1 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 px-2">
+          Find Your Resistor – Color Code to Value
+        </h1>
+        
+        {/* Resistor Calculator Section */}
+        <Card className="mb-6 sm:mb-8 border-2 border-teal-200">
+          <CardHeader className="bg-teal-50 p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800 flex flex-col sm:flex-row sm:items-center gap-2">
+              🔧 Resistor Color Code Calculator
+              <span className="text-xs sm:text-sm font-normal text-gray-600">
+                Calculate Resistor Value from Color Bands
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-3 sm:p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Input Section */}
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Number of Bands</label>
+                  <Select value={numberOfBands} onValueChange={setNumberOfBands}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select number of bands" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="4">4</SelectItem>
+                      <SelectItem value="5">5</SelectItem>
+                      <SelectItem value="6">6</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">1st Band</label>
+                  <Select value={band1} onValueChange={setBand1}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select color" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.keys(colorValues).map(color => (
+                        <SelectItem key={color} value={color}>{color} ({colorValues[color].value})</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">2nd Band</label>
+                  <Select value={band2} onValueChange={setBand2}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select color" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.keys(colorValues).map(color => (
+                        <SelectItem key={color} value={color}>{color} ({colorValues[color].value})</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {numberOfBands !== '4' && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">3rd Band</label>
+                    <Select value={band3} onValueChange={setBand3}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select color" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.keys(colorValues).map(color => (
+                          <SelectItem key={color} value={color}>{color} ({colorValues[color].value})</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Multiplier ({numberOfBands === '4' ? '3rd' : '4th'} Band)</label>
+                  <Select value={multiplier} onValueChange={setMultiplier}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select multiplier" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.keys(multiplierValues).map(color => (
+                        <SelectItem key={color} value={color}>{color} ({multiplierValues[color].label})</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Tolerance ({numberOfBands === '4' ? '4th' : numberOfBands === '5' ? '5th' : '5th'} Band)</label>
+                  <Select value={tolerance} onValueChange={setTolerance}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select tolerance" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.keys(toleranceValues).map(color => (
+                        <SelectItem key={color} value={color}>{color} ({toleranceValues[color]})</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {numberOfBands === '6' && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Temperature Coefficient (6th Band)</label>
+                    <Select value={temperatureCoeff} onValueChange={setTemperatureCoeff}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select temperature coefficient" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.keys(temperatureCoeffValues).map(color => (
+                          <SelectItem key={color} value={color}>{color} ({temperatureCoeffValues[color]})</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                <div className="flex gap-4 pt-4">
+                  <Button 
+                    onClick={calculateResistor}
+                    className="bg-teal-500 hover:bg-teal-600 text-white px-6"
+                  >
+                    Calculate
+                  </Button>
+                  <Button 
+                    onClick={clearAll}
+                    variant="outline" 
+                    className="border-orange-500 text-orange-500 hover:bg-orange-50 px-6"
+                  >
+                    Clear All
+                  </Button>
+                </div>
+              </div>
+
+              {/* Output Section */}
+              <div className="space-y-6">
+                {resistorValue && (
+                  <Card className="border-2 border-gray-200">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg text-center">Resistor Value</CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                      <div className="p-4 bg-blue-50 rounded-lg">
+                        <p className="text-xl font-bold text-blue-600">{resistorValue}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Resistor Visual */}
+                {(band1 && band2 && multiplier && tolerance) && (
+                  <Card className="border-2 border-gray-200">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg text-center">Resistor Visual</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      {renderResistorVisual()}
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Color Code Reference Chart */}
+        <Card className="mb-6 sm:mb-8">
+          <CardHeader className="p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800">Color Code Reference</CardTitle>
+          </CardHeader>
+          <CardContent className="p-3 sm:p-6">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse border border-gray-300">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="border border-gray-300 p-2 text-left">Color</th>
+                    <th className="border border-gray-300 p-2 text-center">1st, 2nd, 3rd Band<br/>Significant Figures</th>
+                    <th className="border border-gray-300 p-2 text-center">Multiplier</th>
+                    <th className="border border-gray-300 p-2 text-center">Tolerance</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.keys(colorValues).map(color => (
+                    <tr key={color}>
+                      <td className="border border-gray-300 p-2">
+                        <div className="flex items-center gap-2">
+                          <div 
+                            className="w-6 h-4 border border-gray-400" 
+                            style={{ backgroundColor: colorValues[color].color }}
+                          ></div>
+                          {color}
+                        </div>
+                      </td>
+                      <td className="border border-gray-300 p-2 text-center">{colorValues[color].value}</td>
+                      <td className="border border-gray-300 p-2 text-center">
+                        {multiplierValues[color] ? multiplierValues[color].label : '-'}
+                      </td>
+                      <td className="border border-gray-300 p-2 text-center">
+                        {toleranceValues[color] || '-'}
+                      </td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#FFD700' }}></div>
+                        Gold
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">-</td>
+                    <td className="border border-gray-300 p-2 text-center">× 0.1</td>
+                    <td className="border border-gray-300 p-2 text-center">±5% (J)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#C0C0C0' }}></div>
+                        Silver
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">-</td>
+                    <td className="border border-gray-300 p-2 text-center">× 0.01</td>
+                    <td className="border border-gray-300 p-2 text-center">±10% (K)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default Resistors;
