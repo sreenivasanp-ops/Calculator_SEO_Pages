@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -106,6 +107,17 @@ const Resistors = () => {
     setTolerance('');
     setTemperatureCoeff('');
     setResistorValue('');
+  };
+
+  const getResistorImage = () => {
+    if (numberOfBands === '4') {
+      return '/lovable-uploads/492b19a2-9e13-4add-a2f4-4644fa4b3e21.png';
+    } else if (numberOfBands === '5') {
+      return '/lovable-uploads/466b0287-ac38-485f-8222-091028a36960.png';
+    } else if (numberOfBands === '6') {
+      return '/lovable-uploads/1451d1f6-49fe-4c4a-acbf-34d22bed0b2e.png';
+    }
+    return '/lovable-uploads/492b19a2-9e13-4add-a2f4-4644fa4b3e21.png'; // default to 4-band
   };
 
   return (
@@ -257,10 +269,26 @@ const Resistors = () => {
                     <CardHeader className="pb-1">
                       <CardTitle className="text-lg text-center">Resistor Value</CardTitle>
                     </CardHeader>
-                    <CardContent className="text-center pt-0 pb-2">
-                      <div className="p-2 bg-blue-50 rounded-lg">
+                    <CardContent className="text-center pt-0 pb-1" style={{ height: '60%' }}>
+                      <div className="p-1 bg-blue-50 rounded-lg">
                         <p className="text-xl font-bold text-blue-600">{resistorValue}</p>
                       </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Resistor Visual Mockup */}
+                {(band1 && band2 && multiplier && tolerance) && (
+                  <Card className="border-2 border-gray-200">
+                    <CardHeader className="pb-1">
+                      <CardTitle className="text-lg text-center">Resistor Visual</CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-0 pb-2 flex justify-center">
+                      <img 
+                        src={getResistorImage()} 
+                        alt={`${numberOfBands}-band resistor visual`}
+                        className="max-w-full h-auto max-h-32"
+                      />
                     </CardContent>
                   </Card>
                 )}
