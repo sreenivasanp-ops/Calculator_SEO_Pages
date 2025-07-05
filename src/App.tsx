@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import BuyerAssistant from "./pages/BuyerAssistant";
 import TMTBars from "./pages/TMTBars";
 import Resistors from "./pages/Resistors";
+import InverterCalculator from "./pages/InverterCalculator";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/buyer-assistant" element={<BuyerAssistant />} />
           <Route path="/tmt-bars" element={<TMTBars />} />
           <Route path="/resistors" element={<Resistors />} />
+          <Route path="/inverter-calculator" element={<InverterCalculator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
