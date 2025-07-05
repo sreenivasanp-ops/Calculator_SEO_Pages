@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useState } from 'react';
 
 const Resistors = () => {
@@ -128,65 +129,86 @@ const Resistors = () => {
 
     return (
       <div className="flex justify-center">
-        <svg width="300" height="100" viewBox="0 0 300 100">
-          {/* Resistor body */}
-          <rect x="50" y="35" width="200" height="30" fill="#F5DEB3" stroke="#8B4513" strokeWidth="2" rx="3"/>
-          
+        <svg width="320" height="120" viewBox="0 0 320 120">
           {/* Left wire */}
-          <line x1="10" y1="50" x2="50" y2="50" stroke="#C0C0C0" strokeWidth="3"/>
+          <line x1="20" y1="60" x2="70" y2="60" stroke="#C0C0C0" strokeWidth="4"/>
           
           {/* Right wire */}
-          <line x1="250" y1="50" x2="290" y2="50" stroke="#C0C0C0" strokeWidth="3"/>
+          <line x1="250" y1="60" x2="300" y2="60" stroke="#C0C0C0" strokeWidth="4"/>
+          
+          {/* Resistor body - cylindrical shape */}
+          <ellipse cx="70" cy="60" rx="8" ry="25" fill="#F5DEB3" stroke="#8B4513" strokeWidth="2"/>
+          <rect x="70" y="35" width="180" height="50" fill="#F5DEB3" stroke="none"/>
+          <ellipse cx="250" cy="60" rx="8" ry="25" fill="#F5DEB3" stroke="#8B4513" strokeWidth="2"/>
+          
+          {/* Top and bottom edges */}
+          <line x1="70" y1="35" x2="250" y2="35" stroke="#8B4513" strokeWidth="2"/>
+          <line x1="70" y1="85" x2="250" y2="85" stroke="#8B4513" strokeWidth="2"/>
           
           {/* Color bands based on number of bands */}
           {numberOfBands === '4' && (
             <>
               {/* Band 1 */}
-              <rect x="70" y="33" width="8" height="34" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="90" y="32" width="12" height="56" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
               {/* Band 2 */}
-              <rect x="90" y="33" width="8" height="34" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="115" y="32" width="12" height="56" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
               {/* Multiplier */}
-              <rect x="150" y="33" width="8" height="34" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="170" y="32" width="12" height="56" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
               {/* Tolerance */}
-              <rect x="220" y="33" width="8" height="34" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="215" y="32" width="12" height="56" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
             </>
           )}
           
           {numberOfBands === '5' && (
             <>
               {/* Band 1 */}
-              <rect x="70" y="33" width="8" height="34" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="85" y="32" width="10" height="56" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
               {/* Band 2 */}
-              <rect x="90" y="33" width="8" height="34" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="105" y="32" width="10" height="56" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
               {/* Band 3 */}
-              <rect x="110" y="33" width="8" height="34" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="125" y="32" width="10" height="56" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
               {/* Multiplier */}
-              <rect x="150" y="33" width="8" height="34" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="170" y="32" width="10" height="56" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
               {/* Tolerance */}
-              <rect x="220" y="33" width="8" height="34" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="215" y="32" width="10" height="56" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
             </>
           )}
           
           {numberOfBands === '6' && (
             <>
               {/* Band 1 */}
-              <rect x="70" y="33" width="8" height="34" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="85" y="32" width="8" height="56" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
               {/* Band 2 */}
-              <rect x="90" y="33" width="8" height="34" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="100" y="32" width="8" height="56" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
               {/* Band 3 */}
-              <rect x="110" y="33" width="8" height="34" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="115" y="32" width="8" height="56" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
               {/* Multiplier */}
-              <rect x="140" y="33" width="8" height="34" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="150" y="32" width="8" height="56" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
               {/* Tolerance */}
-              <rect x="200" y="33" width="8" height="34" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="190" y="32" width="8" height="56" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
               {/* Temperature Coefficient */}
-              <rect x="220" y="33" width="8" height="34" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.5"/>
+              <rect x="210" y="32" width="8" height="56" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.5"/>
             </>
           )}
         </svg>
       </div>
     );
   };
+
+  const colorCodeData = [
+    { color: 'Black', colorCode: '#000000', band1: '0', band2: '0', band3: '0', multiplier: '× 1', tolerance: '', tempCoeff: '250 ppm/K(U)' },
+    { color: 'Brown', colorCode: '#8B4513', band1: '1', band2: '1', band3: '1', multiplier: '× 10', tolerance: '±1% (F)', tempCoeff: '100 ppm/K(S)' },
+    { color: 'Red', colorCode: '#FF0000', band1: '2', band2: '2', band3: '2', multiplier: '× 100', tolerance: '±2% (G)', tempCoeff: '50 ppm/K (R)' },
+    { color: 'Orange', colorCode: '#FFA500', band1: '3', band2: '3', band3: '3', multiplier: '× 1K', tolerance: '±0.05%(W)', tempCoeff: '15 ppm/K (P)' },
+    { color: 'Yellow', colorCode: '#FFFF00', band1: '4', band2: '4', band3: '4', multiplier: '× 10K', tolerance: '±0.02%(P)', tempCoeff: '25 ppm/K (Q)' },
+    { color: 'Green', colorCode: '#008000', band1: '5', band2: '5', band3: '5', multiplier: '× 100K', tolerance: '±0.5% (D)', tempCoeff: '20 ppm/K (Z)' },
+    { color: 'Blue', colorCode: '#0000FF', band1: '6', band2: '6', band3: '6', multiplier: '× 1M', tolerance: '±0.25%(C)', tempCoeff: '10 ppm/K (Z)' },
+    { color: 'Violet', colorCode: '#8A2BE2', band1: '7', band2: '7', band3: '7', multiplier: '× 10M', tolerance: '±0.1% (B)', tempCoeff: '5 ppm/K (M)' },
+    { color: 'Grey', colorCode: '#808080', band1: '8', band2: '8', band3: '8', multiplier: '× 100M', tolerance: '±0.01% (L)', tempCoeff: '1 ppm/K (K)' },
+    { color: 'White', colorCode: '#FFFFFF', band1: '9', band2: '9', band3: '9', multiplier: '× 1G', tolerance: '', tempCoeff: '' },
+    { color: 'Gold', colorCode: '#FFD700', band1: '', band2: '', band3: '', multiplier: '× 0.1', tolerance: '±5% (J)', tempCoeff: '' },
+    { color: 'Silver', colorCode: '#C0C0C0', band1: '', band2: '', band3: '', multiplier: '× 0.01', tolerance: '±10% (K)', tempCoeff: '' }
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -357,6 +379,68 @@ const Resistors = () => {
                   </Card>
                 )}
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Color Code Reference Section */}
+        <Card className="mb-6 sm:mb-8 border-2 border-blue-200">
+          <CardHeader className="bg-blue-50 p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800 flex flex-col sm:flex-row sm:items-center gap-2">
+              📊 Colour Code Reference
+              <span className="text-xs sm:text-sm font-normal text-gray-600">
+                Complete Resistor Color Code Chart
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-3 sm:p-6">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-center font-semibold">Color</TableHead>
+                    <TableHead className="text-center font-semibold">
+                      1st<br />
+                      2nd<br />
+                      3rd<br />
+                      Band
+                    </TableHead>
+                    <TableHead className="text-center font-semibold">Multiplier</TableHead>
+                    <TableHead className="text-center font-semibold">Tolerance</TableHead>
+                    <TableHead className="text-center font-semibold">
+                      Temperature<br />
+                      Coefficient
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {colorCodeData.map((row) => (
+                    <TableRow key={row.color}>
+                      <TableCell className="text-center">
+                        <div className="flex items-center justify-center gap-2">
+                          <div 
+                            className="w-6 h-6 border border-gray-400 rounded"
+                            style={{ backgroundColor: row.colorCode }}
+                          ></div>
+                          <span className="font-medium">{row.color}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-center font-mono">
+                        {row.band1 || row.band2 || row.band3 ? `${row.band1 || '-'}` : '-'}
+                      </TableCell>
+                      <TableCell className="text-center font-mono text-sm">
+                        {row.multiplier}
+                      </TableCell>
+                      <TableCell className="text-center font-mono text-sm">
+                        {row.tolerance || '-'}
+                      </TableCell>
+                      <TableCell className="text-center font-mono text-sm">
+                        {row.tempCoeff || '-'}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </div>
           </CardContent>
         </Card>
