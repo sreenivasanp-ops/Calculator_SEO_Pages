@@ -1,4 +1,3 @@
-
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -29,43 +28,43 @@ const Resistors = () => {
   };
 
   const multiplierValues = {
-    'Black': { value: 1, label: '× 1' },
-    'Brown': { value: 10, label: '× 10' },
-    'Red': { value: 100, label: '× 100' },
-    'Orange': { value: 1000, label: '× 1K' },
-    'Yellow': { value: 10000, label: '× 10K' },
-    'Green': { value: 100000, label: '× 100K' },
-    'Blue': { value: 1000000, label: '× 1M' },
-    'Violet': { value: 10000000, label: '× 10M' },
-    'Grey': { value: 100000000, label: '× 100M' },
-    'White': { value: 1000000000, label: '× 1G' },
-    'Gold': { value: 0.1, label: '× 0.1' },
-    'Silver': { value: 0.01, label: '× 0.01' }
+    'Black': { value: 1, label: '× 1', color: '#000000' },
+    'Brown': { value: 10, label: '× 10', color: '#8B4513' },
+    'Red': { value: 100, label: '× 100', color: '#FF0000' },
+    'Orange': { value: 1000, label: '× 1K', color: '#FFA500' },
+    'Yellow': { value: 10000, label: '× 10K', color: '#FFFF00' },
+    'Green': { value: 100000, label: '× 100K', color: '#008000' },
+    'Blue': { value: 1000000, label: '× 1M', color: '#0000FF' },
+    'Violet': { value: 10000000, label: '× 10M', color: '#8A2BE2' },
+    'Grey': { value: 100000000, label: '× 100M', color: '#808080' },
+    'White': { value: 1000000000, label: '× 1G', color: '#FFFFFF' },
+    'Gold': { value: 0.1, label: '× 0.1', color: '#FFD700' },
+    'Silver': { value: 0.01, label: '× 0.01', color: '#C0C0C0' }
   };
 
   const toleranceValues = {
-    'Brown': '±1% (F)',
-    'Red': '±2% (G)',
-    'Orange': '±0.05% (W)',
-    'Yellow': '±0.02% (P)',
-    'Green': '±0.5% (D)',
-    'Blue': '±0.25% (C)',
-    'Violet': '±0.1% (B)',
-    'Grey': '±0.01% (L)',
-    'Gold': '±5% (J)',
-    'Silver': '±10% (K)'
+    'Brown': { label: '±1% (F)', color: '#8B4513' },
+    'Red': { label: '±2% (G)', color: '#FF0000' },
+    'Orange': { label: '±0.05% (W)', color: '#FFA500' },
+    'Yellow': { label: '±0.02% (P)', color: '#FFFF00' },
+    'Green': { label: '±0.5% (D)', color: '#008000' },
+    'Blue': { label: '±0.25% (C)', color: '#0000FF' },
+    'Violet': { label: '±0.1% (B)', color: '#8A2BE2' },
+    'Grey': { label: '±0.01% (L)', color: '#808080' },
+    'Gold': { label: '±5% (J)', color: '#FFD700' },
+    'Silver': { label: '±10% (K)', color: '#C0C0C0' }
   };
 
   const temperatureCoeffValues = {
-    'Black': '250 ppm/K(U)',
-    'Brown': '100 ppm/K(S)',
-    'Red': '50 ppm/K (R)',
-    'Orange': '15 ppm/K (P)',
-    'Yellow': '25 ppm/K (Q)',
-    'Green': '20 ppm/K (Z)',
-    'Blue': '10 ppm/K (Z)',
-    'Violet': '5 ppm/K (M)',
-    'Grey': '1 ppm/K (K)'
+    'Black': { label: '250 ppm/K(U)', color: '#000000' },
+    'Brown': { label: '100 ppm/K(S)', color: '#8B4513' },
+    'Red': { label: '50 ppm/K (R)', color: '#FF0000' },
+    'Orange': { label: '15 ppm/K (P)', color: '#FFA500' },
+    'Yellow': { label: '25 ppm/K (Q)', color: '#FFFF00' },
+    'Green': { label: '20 ppm/K (Z)', color: '#008000' },
+    'Blue': { label: '10 ppm/K (Z)', color: '#0000FF' },
+    'Violet': { label: '5 ppm/K (M)', color: '#8A2BE2' },
+    'Grey': { label: '1 ppm/K (K)', color: '#808080' }
   };
 
   const calculateResistor = () => {
@@ -109,15 +108,84 @@ const Resistors = () => {
     setResistorValue('');
   };
 
-  const getResistorImage = () => {
-    if (numberOfBands === '4') {
-      return '/lovable-uploads/492b19a2-9e13-4add-a2f4-4644fa4b3e21.png';
-    } else if (numberOfBands === '5') {
-      return '/lovable-uploads/466b0287-ac38-485f-8222-091028a36960.png';
-    } else if (numberOfBands === '6') {
-      return '/lovable-uploads/1451d1f6-49fe-4c4a-acbf-34d22bed0b2e.png';
-    }
-    return '/lovable-uploads/492b19a2-9e13-4add-a2f4-4644fa4b3e21.png'; // default to 4-band
+  const ResistorVisual = () => {
+    const getBandColor = (bandValue: string, type: 'color' | 'multiplier' | 'tolerance' | 'tempCoeff') => {
+      if (!bandValue) return '#CCCCCC';
+      
+      switch (type) {
+        case 'color':
+          return colorValues[bandValue]?.color || '#CCCCCC';
+        case 'multiplier':
+          return multiplierValues[bandValue]?.color || '#CCCCCC';
+        case 'tolerance':
+          return toleranceValues[bandValue]?.color || '#CCCCCC';
+        case 'tempCoeff':
+          return temperatureCoeffValues[bandValue]?.color || '#CCCCCC';
+        default:
+          return '#CCCCCC';
+      }
+    };
+
+    return (
+      <div className="flex justify-center">
+        <svg width="300" height="100" viewBox="0 0 300 100">
+          {/* Resistor body */}
+          <rect x="50" y="35" width="200" height="30" fill="#F5DEB3" stroke="#8B4513" strokeWidth="2" rx="3"/>
+          
+          {/* Left wire */}
+          <line x1="10" y1="50" x2="50" y2="50" stroke="#C0C0C0" strokeWidth="3"/>
+          
+          {/* Right wire */}
+          <line x1="250" y1="50" x2="290" y2="50" stroke="#C0C0C0" strokeWidth="3"/>
+          
+          {/* Color bands based on number of bands */}
+          {numberOfBands === '4' && (
+            <>
+              {/* Band 1 */}
+              <rect x="70" y="33" width="8" height="34" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 2 */}
+              <rect x="90" y="33" width="8" height="34" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Multiplier */}
+              <rect x="150" y="33" width="8" height="34" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              {/* Tolerance */}
+              <rect x="220" y="33" width="8" height="34" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+            </>
+          )}
+          
+          {numberOfBands === '5' && (
+            <>
+              {/* Band 1 */}
+              <rect x="70" y="33" width="8" height="34" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 2 */}
+              <rect x="90" y="33" width="8" height="34" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 3 */}
+              <rect x="110" y="33" width="8" height="34" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Multiplier */}
+              <rect x="150" y="33" width="8" height="34" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              {/* Tolerance */}
+              <rect x="220" y="33" width="8" height="34" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+            </>
+          )}
+          
+          {numberOfBands === '6' && (
+            <>
+              {/* Band 1 */}
+              <rect x="70" y="33" width="8" height="34" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 2 */}
+              <rect x="90" y="33" width="8" height="34" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 3 */}
+              <rect x="110" y="33" width="8" height="34" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Multiplier */}
+              <rect x="140" y="33" width="8" height="34" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              {/* Tolerance */}
+              <rect x="200" y="33" width="8" height="34" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+              {/* Temperature Coefficient */}
+              <rect x="220" y="33" width="8" height="34" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.5"/>
+            </>
+          )}
+        </svg>
+      </div>
+    );
   };
 
   return (
@@ -223,7 +291,7 @@ const Resistors = () => {
                     </SelectTrigger>
                     <SelectContent>
                       {Object.keys(toleranceValues).map(color => (
-                        <SelectItem key={color} value={color}>{color} ({toleranceValues[color]})</SelectItem>
+                        <SelectItem key={color} value={color}>{color} ({toleranceValues[color].label})</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -238,7 +306,7 @@ const Resistors = () => {
                       </SelectTrigger>
                       <SelectContent>
                         {Object.keys(temperatureCoeffValues).map(color => (
-                          <SelectItem key={color} value={color}>{color} ({temperatureCoeffValues[color]})</SelectItem>
+                          <SelectItem key={color} value={color}>{color} ({temperatureCoeffValues[color].label})</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -283,12 +351,8 @@ const Resistors = () => {
                     <CardHeader className="pb-1">
                       <CardTitle className="text-lg text-center">Resistor Visual</CardTitle>
                     </CardHeader>
-                    <CardContent className="pt-0 pb-2 flex justify-center">
-                      <img 
-                        src={getResistorImage()} 
-                        alt={`${numberOfBands}-band resistor visual`}
-                        className="max-w-full h-auto max-h-32"
-                      />
+                    <CardContent className="pt-0 pb-2">
+                      <ResistorVisual />
                     </CardContent>
                   </Card>
                 )}
