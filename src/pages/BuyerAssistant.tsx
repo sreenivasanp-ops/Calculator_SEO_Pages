@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Paintbrush, Square, Sun, Zap, DollarSign, BarChart3, Cpu, Battery } from 'lucide-react';
@@ -102,7 +103,11 @@ const BuyerAssistant = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {electronicsComponentsItems.map((item) => (
-              <Card key={item.title} className="hover:shadow-md transition-shadow cursor-pointer">
+              <Card 
+                key={item.title} 
+                className="hover:shadow-md transition-shadow cursor-pointer"
+                onClick={item.onClick}
+              >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3 text-lg">
                     <item.icon className="w-6 h-6 text-indiamart-teal" />
