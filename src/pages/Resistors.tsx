@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -130,58 +131,63 @@ const Resistors = () => {
     return (
       <div className="flex justify-center">
         <svg width="320" height="120" viewBox="0 0 320 120">
-          {/* Left wire */}
-          <line x1="20" y1="60" x2="70" y2="60" stroke="#C0C0C0" strokeWidth="4"/>
+          {/* Left lead */}
+          <line x1="20" y1="60" x2="70" y2="60" stroke="#C0C0C0" strokeWidth="3"/>
           
-          {/* Right wire */}
-          <line x1="250" y1="60" x2="300" y2="60" stroke="#C0C0C0" strokeWidth="4"/>
+          {/* Right lead */}
+          <line x1="250" y1="60" x2="300" y2="60" stroke="#C0C0C0" strokeWidth="3"/>
           
-          {/* Resistor body - rectangular with rounded ends */}
-          <rect x="70" y="40" width="180" height="40" fill="#F5DEB3" stroke="#8B4513" strokeWidth="2" rx="5"/>
+          {/* Resistor body - wider in the middle, tapering to the leads */}
+          <path 
+            d="M 70 50 L 85 45 L 235 45 L 250 50 L 250 70 L 235 75 L 85 75 L 70 70 Z" 
+            fill="#F5DEB3" 
+            stroke="#8B4513" 
+            strokeWidth="1.5"
+          />
           
           {/* Color bands based on number of bands */}
           {numberOfBands === '4' && (
             <>
               {/* Band 1 */}
-              <rect x="90" y="38" width="12" height="44" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 95 46 L 100 45.5 L 100 74.5 L 95 74 Z" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 2 */}
-              <rect x="115" y="38" width="12" height="44" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 120 46.5 L 125 46 L 125 74 L 120 73.5 Z" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Multiplier */}
-              <rect x="170" y="38" width="12" height="44" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 180 47.5 L 185 47 L 185 73 L 180 72.5 Z" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
               {/* Tolerance */}
-              <rect x="215" y="38" width="12" height="44" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 220 48.5 L 225 48 L 225 72 L 220 71.5 Z" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
             </>
           )}
           
           {numberOfBands === '5' && (
             <>
               {/* Band 1 */}
-              <rect x="85" y="38" width="10" height="44" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 90 46 L 94 45.7 L 94 74.3 L 90 74 Z" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 2 */}
-              <rect x="105" y="38" width="10" height="44" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 110 46.2 L 114 45.9 L 114 74.1 L 110 73.8 Z" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 3 */}
-              <rect x="125" y="38" width="10" height="44" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 130 46.4 L 134 46.1 L 134 73.9 L 130 73.6 Z" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Multiplier */}
-              <rect x="170" y="38" width="10" height="44" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 175 47.5 L 179 47.2 L 179 72.8 L 175 72.5 Z" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
               {/* Tolerance */}
-              <rect x="215" y="38" width="10" height="44" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 215 48.5 L 219 48.2 L 219 71.8 L 215 71.5 Z" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
             </>
           )}
           
           {numberOfBands === '6' && (
             <>
               {/* Band 1 */}
-              <rect x="85" y="38" width="8" height="44" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 88 46 L 91 45.8 L 91 74.2 L 88 74 Z" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 2 */}
-              <rect x="100" y="38" width="8" height="44" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 105 46.1 L 108 45.9 L 108 74.1 L 105 73.9 Z" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 3 */}
-              <rect x="115" y="38" width="8" height="44" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 122 46.3 L 125 46.1 L 125 73.9 L 122 73.7 Z" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Multiplier */}
-              <rect x="150" y="38" width="8" height="44" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 160 47.2 L 163 47 L 163 73 L 160 72.8 Z" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
               {/* Tolerance */}
-              <rect x="190" y="38" width="8" height="44" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 195 48 L 198 47.8 L 198 72.2 L 195 72 Z" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
               {/* Temperature Coefficient */}
-              <rect x="210" y="38" width="8" height="44" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.5"/>
+              <path d="M 215 48.3 L 218 48.1 L 218 71.9 L 215 71.7 Z" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.3"/>
             </>
           )}
         </svg>
