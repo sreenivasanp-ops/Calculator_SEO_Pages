@@ -1,4 +1,3 @@
-
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -126,29 +125,29 @@ const Resistors = () => {
 
     return (
       <div className="flex justify-center mt-6 mb-4">
-        <svg width="300" height="80" viewBox="0 0 300 80">
-          {/* Resistor body */}
-          <rect x="50" y="25" width="200" height="30" fill="#F5E6D3" stroke="#D4B896" strokeWidth="1" rx="15"/>
-          
+        <svg width="400" height="120" viewBox="0 0 400 120">
           {/* Wire leads */}
-          <line x1="0" y1="40" x2="50" y2="40" stroke="#666" strokeWidth="3"/>
-          <line x1="250" y1="40" x2="300" y2="40" stroke="#666" strokeWidth="3"/>
+          <line x1="0" y1="60" x2="80" y2="60" stroke="#666" strokeWidth="4"/>
+          <line x1="320" y1="60" x2="400" y2="60" stroke="#666" strokeWidth="4"/>
+          
+          {/* Resistor body - rounded cylindrical shape */}
+          <ellipse cx="200" cy="60" rx="120" ry="30" fill="#F5E6D3" stroke="#D4B896" strokeWidth="2"/>
           
           {/* Color bands */}
           {bands.map((color, index) => {
-            let x = 70 + (index * 25);
-            if (numberOfBands === '4' && index === 3) x = 220; // Tolerance band spacing for 4-band
-            if (numberOfBands === '5' && index === 4) x = 220; // Tolerance band spacing for 5-band
-            if (numberOfBands === '6' && index === 4) x = 210; // Tolerance band spacing for 6-band
-            if (numberOfBands === '6' && index === 5) x = 230; // Temperature coefficient spacing for 6-band
+            let x = 120 + (index * 20);
+            if (numberOfBands === '4' && index === 3) x = 260; // Tolerance band spacing for 4-band
+            if (numberOfBands === '5' && index === 4) x = 260; // Tolerance band spacing for 5-band
+            if (numberOfBands === '6' && index === 4) x = 250; // Tolerance band spacing for 6-band
+            if (numberOfBands === '6' && index === 5) x = 270; // Temperature coefficient spacing for 6-band
             
             return (
-              <rect
+              <ellipse
                 key={index}
-                x={x}
-                y="25"
-                width="8"
-                height="30"
+                cx={x}
+                cy="60"
+                rx="8"
+                ry="30"
                 fill={color}
                 stroke={color === '#FFFFFF' ? '#000' : 'none'}
                 strokeWidth={color === '#FFFFFF' ? '1' : '0'}
@@ -285,7 +284,7 @@ const Resistors = () => {
                   </div>
                 )}
 
-                <div className="flex gap-4 pt-4">
+                <div className="flex justify-center gap-4 pt-4">
                   <Button 
                     onClick={calculateResistor}
                     className="bg-teal-500 hover:bg-teal-600 text-white px-6"
@@ -336,7 +335,7 @@ const Resistors = () => {
         {/* Color Code Reference Chart */}
         <Card className="mb-6 sm:mb-8">
           <CardHeader className="p-3 sm:p-6">
-            <CardTitle className="text-lg sm:text-xl text-gray-800">Color Code Reference</CardTitle>
+            <CardTitle className="text-lg sm:text-xl text-gray-800">Colour Code Reference</CardTitle>
           </CardHeader>
           <CardContent className="p-3 sm:p-6">
             <div className="overflow-x-auto">
@@ -344,32 +343,133 @@ const Resistors = () => {
                 <thead>
                   <tr className="bg-gray-100">
                     <th className="border border-gray-300 p-2 text-left">Color</th>
-                    <th className="border border-gray-300 p-2 text-center">1st, 2nd, 3rd Band<br/>Significant Figures</th>
+                    <th className="border border-gray-300 p-2 text-center">1st<br/>2nd<br/>3rd<br/>Band</th>
                     <th className="border border-gray-300 p-2 text-center">Multiplier</th>
                     <th className="border border-gray-300 p-2 text-center">Tolerance</th>
+                    <th className="border border-gray-300 p-2 text-center">Temperature<br/>Coefficient</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.keys(colorValues).map(color => (
-                    <tr key={color}>
-                      <td className="border border-gray-300 p-2">
-                        <div className="flex items-center gap-2">
-                          <div 
-                            className="w-6 h-4 border border-gray-400" 
-                            style={{ backgroundColor: colorValues[color].color }}
-                          ></div>
-                          {color}
-                        </div>
-                      </td>
-                      <td className="border border-gray-300 p-2 text-center">{colorValues[color].value}</td>
-                      <td className="border border-gray-300 p-2 text-center">
-                        {multiplierValues[color] ? multiplierValues[color].label : '-'}
-                      </td>
-                      <td className="border border-gray-300 p-2 text-center">
-                        {toleranceValues[color] || '-'}
-                      </td>
-                    </tr>
-                  ))}
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#000000' }}></div>
+                        Black
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">0</td>
+                    <td className="border border-gray-300 p-2 text-center">× 1</td>
+                    <td className="border border-gray-300 p-2 text-center">-</td>
+                    <td className="border border-gray-300 p-2 text-center">250 ppm/K(U)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#8B4513' }}></div>
+                        Brown
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">1</td>
+                    <td className="border border-gray-300 p-2 text-center">× 10</td>
+                    <td className="border border-gray-300 p-2 text-center">±1% (F)</td>
+                    <td className="border border-gray-300 p-2 text-center">100 ppm/K(S)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#FF0000' }}></div>
+                        Red
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">2</td>
+                    <td className="border border-gray-300 p-2 text-center">× 100</td>
+                    <td className="border border-gray-300 p-2 text-center">±2% (G)</td>
+                    <td className="border border-gray-300 p-2 text-center">50 ppm/K (R)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#FFA500' }}></div>
+                        Orange
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">3</td>
+                    <td className="border border-gray-300 p-2 text-center">× 1K</td>
+                    <td className="border border-gray-300 p-2 text-center">±0.05%(W)</td>
+                    <td className="border border-gray-300 p-2 text-center">15 ppm/K (P)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#FFFF00' }}></div>
+                        Yellow
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">4</td>
+                    <td className="border border-gray-300 p-2 text-center">× 10K</td>
+                    <td className="border border-gray-300 p-2 text-center">±0.02%(P)</td>
+                    <td className="border border-gray-300 p-2 text-center">25 ppm/K (Q)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#008000' }}></div>
+                        Green
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">5</td>
+                    <td className="border border-gray-300 p-2 text-center">× 100K</td>
+                    <td className="border border-gray-300 p-2 text-center">±0.5% (D)</td>
+                    <td className="border border-gray-300 p-2 text-center">20 ppm/K (Z)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#0000FF' }}></div>
+                        Blue
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">6</td>
+                    <td className="border border-gray-300 p-2 text-center">× 1M</td>
+                    <td className="border border-gray-300 p-2 text-center">±0.25%(C)</td>
+                    <td className="border border-gray-300 p-2 text-center">10 ppm/K (Z)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#8A2BE2' }}></div>
+                        Violet
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">7</td>
+                    <td className="border border-gray-300 p-2 text-center">× 10M</td>
+                    <td className="border border-gray-300 p-2 text-center">±0.1% (B)</td>
+                    <td className="border border-gray-300 p-2 text-center">5 ppm/K (M)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#808080' }}></div>
+                        Grey
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">8</td>
+                    <td className="border border-gray-300 p-2 text-center">× 100M</td>
+                    <td className="border border-gray-300 p-2 text-center">±0.01% (L)</td>
+                    <td className="border border-gray-300 p-2 text-center">1 ppm/K (K)</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-4 border border-gray-400" style={{ backgroundColor: '#FFFFFF' }}></div>
+                        White
+                      </div>
+                    </td>
+                    <td className="border border-gray-300 p-2 text-center">9</td>
+                    <td className="border border-gray-300 p-2 text-center">× 1G</td>
+                    <td className="border border-gray-300 p-2 text-center">-</td>
+                    <td className="border border-gray-300 p-2 text-center">-</td>
+                  </tr>
                   <tr>
                     <td className="border border-gray-300 p-2">
                       <div className="flex items-center gap-2">
@@ -380,6 +480,7 @@ const Resistors = () => {
                     <td className="border border-gray-300 p-2 text-center">-</td>
                     <td className="border border-gray-300 p-2 text-center">× 0.1</td>
                     <td className="border border-gray-300 p-2 text-center">±5% (J)</td>
+                    <td className="border border-gray-300 p-2 text-center">-</td>
                   </tr>
                   <tr>
                     <td className="border border-gray-300 p-2">
@@ -391,6 +492,7 @@ const Resistors = () => {
                     <td className="border border-gray-300 p-2 text-center">-</td>
                     <td className="border border-gray-300 p-2 text-center">× 0.01</td>
                     <td className="border border-gray-300 p-2 text-center">±10% (K)</td>
+                    <td className="border border-gray-300 p-2 text-center">-</td>
                   </tr>
                 </tbody>
               </table>
