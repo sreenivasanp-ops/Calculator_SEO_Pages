@@ -130,71 +130,64 @@ const Resistors = () => {
     return (
       <div className="flex justify-center">
         <svg width="320" height="120" viewBox="0 0 320 120">
-          {/* Left lead - thin wire */}
-          <line x1="20" y1="60" x2="65" y2="60" stroke="#C0C0C0" strokeWidth="2"/>
+          {/* Left lead - thin wire extending from center of left end cap */}
+          <rect x="20" y="57" width="35" height="6" fill="#C0C0C0" rx="3"/>
           
-          {/* Right lead - thin wire */}
-          <line x1="255" y1="60" x2="300" y2="60" stroke="#C0C0C0" strokeWidth="2"/>
+          {/* Right lead - thin wire extending from center of right end cap */}
+          <rect x="265" y="57" width="35" height="6" fill="#C0C0C0" rx="3"/>
           
-          {/* Resistor body with bulged ends tapering to thinner middle */}
-          <path 
-            d="M 65 55 
-               Q 75 45 85 45 
-               L 235 45 
-               Q 245 45 255 55
-               L 255 65
-               Q 245 75 235 75
-               L 85 75
-               Q 75 75 65 65
-               Z" 
-            fill="#F5DEB3" 
-            stroke="#8B4513" 
-            strokeWidth="1.5"
-          />
+          {/* Left end cap - thicker rounded rectangle */}
+          <rect x="55" y="50" width="25" height="20" fill="#D2B48C" stroke="#8B4513" strokeWidth="1" rx="10"/>
+          
+          {/* Main resistor body - long thin rounded rectangle */}
+          <rect x="80" y="54" width="160" height="12" fill="#F5DEB3" stroke="#8B4513" strokeWidth="1" rx="6"/>
+          
+          {/* Right end cap - thicker rounded rectangle */}
+          <rect x="240" y="50" width="25" height="20" fill="#D2B48C" stroke="#8B4513" strokeWidth="1" rx="10"/>
           
           {/* Color bands based on number of bands */}
           {numberOfBands === '4' && (
             <>
               {/* Band 1 */}
-              <ellipse cx="95" cy="60" rx="3" ry="15" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="95" y="52" width="4" height="16" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3" rx="2"/>
               {/* Band 2 */}
-              <ellipse cx="120" cy="60" rx="3" ry="15" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="115" y="52" width="4" height="16" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3" rx="2"/>
               {/* Multiplier */}
-              <ellipse cx="180" cy="60" rx="3" ry="15" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="185" y="52" width="4" height="16" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3" rx="2"/>
               {/* Tolerance */}
-              <ellipse cx="220" cy="60" rx="3" ry="15" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="215" y="52" width="4" height="16" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3" rx="2"/>
             </>
           )}
           
           {numberOfBands === '5' && (
             <>
               {/* Band 1 */}
-              <ellipse cx="90" cy="60" rx="2.5" ry="15" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="90" y="52" width="3" height="16" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
               {/* Band 2 */}
-              <ellipse cx="110" cy="60" rx="2.5" ry="15" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="105" y="52" width="3" height="16" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
               {/* Band 3 */}
-              <ellipse cx="130" cy="60" rx="2.5" ry="15" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="120" y="52" width="3" height="16" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
               {/* Multiplier */}
-              <ellipse cx="175" cy="60" rx="2.5" ry="15" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="175" y="52" width="3" height="16" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
               {/* Tolerance */}
-              <ellipse cx="215" cy="60" rx="2.5" ry="15" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="210" y="52" width="3" height="16" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
             </>
           )}
           
           {numberOfBands === '6' && (
             <>
               {/* Band 1 */}
-              <ellipse cx="88" cy="60" rx="2" ry="15" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="88" y="52" width="2.5" height="16" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
               {/* Band 2 */}
-              <ellipse cx="105" cy="60" rx="2" ry="15" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="100" y="52" width="2.5" height="16" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
               {/* Band 3 */}
-              <ellipse cx="122" cy="60" rx="2" ry="15" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="112" y="52" width="2.5" height="16" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
               {/* Multiplier */}
-              <ellipse cx="160" cy="60" rx="2" ry="15" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="160" y="52" width="2.5" height="16" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
               {/* Tolerance */}
-              <ellipse cx="195" cy="60" rx="2" ry="15" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="190" y="52" width="2.5" height="16" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
               {/* Temperature Coefficient */}
-              <ellipse cx="215" cy="60" rx="2" ry="15" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.3"/>
+              <rect x="210" y="52" width="2.5" height="16" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
             </>
           )}
         </svg>
