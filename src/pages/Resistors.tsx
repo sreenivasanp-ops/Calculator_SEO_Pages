@@ -130,65 +130,69 @@ const Resistors = () => {
 
     return (
       <div className="flex justify-center">
-        <svg width="320" height="120" viewBox="0 0 320 120">
-          {/* Left lead - thin wire */}
-          <rect x="20" y="57" width="40" height="6" fill="#C0C0C0" rx="3"/>
+        <svg width="400" height="140" viewBox="0 0 400 140">
+          {/* Left lead - straight thin line */}
+          <line x1="20" y1="70" x2="80" y2="70" stroke="#666666" strokeWidth="3" strokeLinecap="round"/>
           
-          {/* Right lead - thin wire */}
-          <rect x="260" y="57" width="40" height="6" fill="#C0C0C0" rx="3"/>
+          {/* Right lead - straight thin line */}
+          <line x1="320" y1="70" x2="380" y2="70" stroke="#666666" strokeWidth="3" strokeLinecap="round"/>
           
-          {/* Left end cap - rounded rectangle, slightly wider than main body */}
-          <rect x="60" y="52" width="20" height="16" fill="#E8E8E8" stroke="#CCCCCC" strokeWidth="1" rx="8"/>
-          
-          {/* Main resistor body - long cylindrical body */}
-          <rect x="80" y="54" width="160" height="12" fill="#F0F0F0" stroke="#CCCCCC" strokeWidth="1" rx="6"/>
-          
-          {/* Right end cap - rounded rectangle, slightly wider than main body */}
-          <rect x="240" y="52" width="20" height="16" fill="#E8E8E8" stroke="#CCCCCC" strokeWidth="1" rx="8"/>
+          {/* Main resistor body - rounded rectangle matching the uploaded image outline */}
+          <rect 
+            x="80" 
+            y="45" 
+            width="240" 
+            height="50" 
+            fill="#E8E8E8" 
+            stroke="#999999" 
+            strokeWidth="2" 
+            rx="25" 
+            ry="25"
+          />
           
           {/* Color bands based on number of bands */}
           {numberOfBands === '4' && (
             <>
               {/* Band 1 */}
-              <rect x="95" y="52" width="4" height="16" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3" rx="2"/>
+              <rect x="110" y="40" width="8" height="60" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5" rx="4"/>
               {/* Band 2 */}
-              <rect x="115" y="52" width="4" height="16" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3" rx="2"/>
+              <rect x="140" y="40" width="8" height="60" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5" rx="4"/>
               {/* Multiplier */}
-              <rect x="185" y="52" width="4" height="16" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3" rx="2"/>
+              <rect x="220" y="40" width="8" height="60" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5" rx="4"/>
               {/* Tolerance */}
-              <rect x="215" y="52" width="4" height="16" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3" rx="2"/>
+              <rect x="270" y="40" width="8" height="60" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5" rx="4"/>
             </>
           )}
           
           {numberOfBands === '5' && (
             <>
               {/* Band 1 */}
-              <rect x="90" y="52" width="3" height="16" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
+              <rect x="105" y="40" width="6" height="60" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5" rx="3"/>
               {/* Band 2 */}
-              <rect x="105" y="52" width="3" height="16" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
+              <rect x="125" y="40" width="6" height="60" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5" rx="3"/>
               {/* Band 3 */}
-              <rect x="120" y="52" width="3" height="16" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
+              <rect x="145" y="40" width="6" height="60" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5" rx="3"/>
               {/* Multiplier */}
-              <rect x="175" y="52" width="3" height="16" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
+              <rect x="210" y="40" width="6" height="60" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5" rx="3"/>
               {/* Tolerance */}
-              <rect x="210" y="52" width="3" height="16" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3" rx="1.5"/>
+              <rect x="260" y="40" width="6" height="60" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5" rx="3"/>
             </>
           )}
           
           {numberOfBands === '6' && (
             <>
               {/* Band 1 */}
-              <rect x="88" y="52" width="2.5" height="16" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
+              <rect x="100" y="40" width="5" height="60" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5" rx="2.5"/>
               {/* Band 2 */}
-              <rect x="100" y="52" width="2.5" height="16" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
+              <rect x="115" y="40" width="5" height="60" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5" rx="2.5"/>
               {/* Band 3 */}
-              <rect x="112" y="52" width="2.5" height="16" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
+              <rect x="130" y="40" width="5" height="60" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5" rx="2.5"/>
               {/* Multiplier */}
-              <rect x="160" y="52" width="2.5" height="16" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
+              <rect x="190" y="40" width="5" height="60" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5" rx="2.5"/>
               {/* Tolerance */}
-              <rect x="190" y="52" width="2.5" height="16" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
+              <rect x="230" y="40" width="5" height="60" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5" rx="2.5"/>
               {/* Temperature Coefficient */}
-              <rect x="210" y="52" width="2.5" height="16" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.3" rx="1.25"/>
+              <rect x="260" y="40" width="5" height="60" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.5" rx="2.5"/>
             </>
           )}
         </svg>
