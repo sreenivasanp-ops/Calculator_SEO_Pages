@@ -1,4 +1,3 @@
-
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -107,57 +106,6 @@ const Resistors = () => {
     setTolerance('');
     setTemperatureCoeff('');
     setResistorValue('');
-  };
-
-  const renderResistorVisual = () => {
-    const getBandColor = (colorName) => {
-      if (colorName === 'Gold') return '#FFD700';
-      if (colorName === 'Silver') return '#C0C0C0';
-      return colorValues[colorName]?.color || '#FFFFFF';
-    };
-
-    const bands = [];
-    if (band1) bands.push(getBandColor(band1));
-    if (band2) bands.push(getBandColor(band2));
-    if (numberOfBands !== '4' && band3) bands.push(getBandColor(band3));
-    if (multiplier) bands.push(getBandColor(multiplier));
-    if (tolerance) bands.push(getBandColor(tolerance));
-    if (numberOfBands === '6' && temperatureCoeff) bands.push(getBandColor(temperatureCoeff));
-
-    return (
-      <div className="flex justify-center mt-1 mb-1">
-        <svg width="300" height="60" viewBox="0 0 300 60">
-          {/* Wire leads */}
-          <line x1="0" y1="30" x2="40" y2="30" stroke="#C0C0C0" strokeWidth="2"/>
-          <line x1="260" y1="30" x2="300" y2="30" stroke="#C0C0C0" strokeWidth="2"/>
-          
-          {/* Resistor body - cylindrical shape */}
-          <ellipse cx="150" cy="30" rx="110" ry="12" fill="#E6D3A3" stroke="#B8860B" strokeWidth="1"/>
-          
-          {/* Color bands */}
-          {bands.map((color, index) => {
-            let x = 70 + (index * 20);
-            if (numberOfBands === '4' && index === 3) x = 210; // Tolerance band spacing for 4-band
-            if (numberOfBands === '5' && index === 4) x = 210; // Tolerance band spacing for 5-band
-            if (numberOfBands === '6' && index === 4) x = 200; // Tolerance band spacing for 6-band
-            if (numberOfBands === '6' && index === 5) x = 220; // Temperature coefficient spacing for 6-band
-            
-            return (
-              <rect
-                key={index}
-                x={x}
-                y="20"
-                width="8"
-                height="20"
-                fill={color}
-                stroke={color === '#FFFFFF' ? '#000' : 'none'}
-                strokeWidth={color === '#FFFFFF' ? '1' : '0'}
-              />
-            );
-          })}
-        </svg>
-      </div>
-    );
   };
 
   return (
@@ -316,35 +264,7 @@ const Resistors = () => {
                     </CardContent>
                   </Card>
                 )}
-
-                {/* Resistor Visual */}
-                {(band1 && band2 && multiplier && tolerance) && (
-                  <Card className="border-2 border-gray-200">
-                    <CardHeader className="pb-1">
-                      <CardTitle className="text-lg text-center">Resistor Visual</CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-0 pb-2">
-                      {renderResistorVisual()}
-                    </CardContent>
-                  </Card>
-                )}
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Color Code Reference Chart */}
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader className="p-3 sm:p-6">
-            <CardTitle className="text-lg sm:text-xl text-gray-800">Color Code Reference</CardTitle>
-          </CardHeader>
-          <CardContent className="p-3 sm:p-6">
-            <div className="flex justify-center">
-              <img 
-                src="/lovable-uploads/de89c643-07c5-4d4f-9071-c6aaeb69834b.png" 
-                alt="Resistor Color Code Reference Chart" 
-                className="max-w-full h-auto"
-              />
             </div>
           </CardContent>
         </Card>
