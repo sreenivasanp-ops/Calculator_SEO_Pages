@@ -1,4 +1,3 @@
-
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -94,8 +93,8 @@ const Resistors = () => {
       formattedValue = `${baseValue.toFixed(2)} Ω`;
     }
 
-    const toleranceText = toleranceValues[tolerance];
-    const tempCoeffText = numberOfBands === '6' && temperatureCoeff ? temperatureCoeffValues[temperatureCoeff] : '';
+    const toleranceText = toleranceValues[tolerance].label;
+    const tempCoeffText = numberOfBands === '6' && temperatureCoeff ? temperatureCoeffValues[temperatureCoeff].label : '';
     
     setResistorValue(`${formattedValue} ${toleranceText}${tempCoeffText ? ` ${tempCoeffText}` : ''}`);
   };
@@ -131,15 +130,23 @@ const Resistors = () => {
     return (
       <div className="flex justify-center">
         <svg width="320" height="120" viewBox="0 0 320 120">
-          {/* Left lead */}
-          <line x1="20" y1="60" x2="70" y2="60" stroke="#C0C0C0" strokeWidth="3"/>
+          {/* Left lead - thin wire */}
+          <line x1="20" y1="60" x2="65" y2="60" stroke="#C0C0C0" strokeWidth="2"/>
           
-          {/* Right lead */}
-          <line x1="250" y1="60" x2="300" y2="60" stroke="#C0C0C0" strokeWidth="3"/>
+          {/* Right lead - thin wire */}
+          <line x1="255" y1="60" x2="300" y2="60" stroke="#C0C0C0" strokeWidth="2"/>
           
-          {/* Resistor body - wider in the middle, tapering to the leads */}
+          {/* Resistor body with bulged ends tapering to thinner middle */}
           <path 
-            d="M 70 50 L 85 45 L 235 45 L 250 50 L 250 70 L 235 75 L 85 75 L 70 70 Z" 
+            d="M 65 55 
+               Q 75 45 85 45 
+               L 235 45 
+               Q 245 45 255 55
+               L 255 65
+               Q 245 75 235 75
+               L 85 75
+               Q 75 75 65 65
+               Z" 
             fill="#F5DEB3" 
             stroke="#8B4513" 
             strokeWidth="1.5"
@@ -149,45 +156,45 @@ const Resistors = () => {
           {numberOfBands === '4' && (
             <>
               {/* Band 1 */}
-              <path d="M 95 46 L 100 45.5 L 100 74.5 L 95 74 Z" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="95" cy="60" rx="3" ry="15" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 2 */}
-              <path d="M 120 46.5 L 125 46 L 125 74 L 120 73.5 Z" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="120" cy="60" rx="3" ry="15" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Multiplier */}
-              <path d="M 180 47.5 L 185 47 L 185 73 L 180 72.5 Z" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="180" cy="60" rx="3" ry="15" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
               {/* Tolerance */}
-              <path d="M 220 48.5 L 225 48 L 225 72 L 220 71.5 Z" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="220" cy="60" rx="3" ry="15" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
             </>
           )}
           
           {numberOfBands === '5' && (
             <>
               {/* Band 1 */}
-              <path d="M 90 46 L 94 45.7 L 94 74.3 L 90 74 Z" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="90" cy="60" rx="2.5" ry="15" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 2 */}
-              <path d="M 110 46.2 L 114 45.9 L 114 74.1 L 110 73.8 Z" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="110" cy="60" rx="2.5" ry="15" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 3 */}
-              <path d="M 130 46.4 L 134 46.1 L 134 73.9 L 130 73.6 Z" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="130" cy="60" rx="2.5" ry="15" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Multiplier */}
-              <path d="M 175 47.5 L 179 47.2 L 179 72.8 L 175 72.5 Z" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="175" cy="60" rx="2.5" ry="15" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
               {/* Tolerance */}
-              <path d="M 215 48.5 L 219 48.2 L 219 71.8 L 215 71.5 Z" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="215" cy="60" rx="2.5" ry="15" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
             </>
           )}
           
           {numberOfBands === '6' && (
             <>
               {/* Band 1 */}
-              <path d="M 88 46 L 91 45.8 L 91 74.2 L 88 74 Z" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="88" cy="60" rx="2" ry="15" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 2 */}
-              <path d="M 105 46.1 L 108 45.9 L 108 74.1 L 105 73.9 Z" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="105" cy="60" rx="2" ry="15" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Band 3 */}
-              <path d="M 122 46.3 L 125 46.1 L 125 73.9 L 122 73.7 Z" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="122" cy="60" rx="2" ry="15" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.3"/>
               {/* Multiplier */}
-              <path d="M 160 47.2 L 163 47 L 163 73 L 160 72.8 Z" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="160" cy="60" rx="2" ry="15" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.3"/>
               {/* Tolerance */}
-              <path d="M 195 48 L 198 47.8 L 198 72.2 L 195 72 Z" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="195" cy="60" rx="2" ry="15" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.3"/>
               {/* Temperature Coefficient */}
-              <path d="M 215 48.3 L 218 48.1 L 218 71.9 L 215 71.7 Z" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.3"/>
+              <ellipse cx="215" cy="60" rx="2" ry="15" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.3"/>
             </>
           )}
         </svg>
