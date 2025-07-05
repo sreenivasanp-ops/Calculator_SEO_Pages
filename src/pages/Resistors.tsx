@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -130,20 +131,20 @@ const Resistors = () => {
     return (
       <div className="flex justify-center">
         <svg width="320" height="120" viewBox="0 0 320 120">
-          {/* Left lead - thin wire extending from center of left end cap */}
-          <rect x="20" y="57" width="35" height="6" fill="#C0C0C0" rx="3"/>
+          {/* Left lead - thin wire */}
+          <rect x="20" y="57" width="40" height="6" fill="#C0C0C0" rx="3"/>
           
-          {/* Right lead - thin wire extending from center of right end cap */}
-          <rect x="265" y="57" width="35" height="6" fill="#C0C0C0" rx="3"/>
+          {/* Right lead - thin wire */}
+          <rect x="260" y="57" width="40" height="6" fill="#C0C0C0" rx="3"/>
           
-          {/* Left end cap - thicker rounded rectangle */}
-          <rect x="55" y="50" width="25" height="20" fill="#D2B48C" stroke="#8B4513" strokeWidth="1" rx="10"/>
+          {/* Left end cap - rounded rectangle, slightly wider than main body */}
+          <rect x="60" y="52" width="20" height="16" fill="#E8E8E8" stroke="#CCCCCC" strokeWidth="1" rx="8"/>
           
-          {/* Main resistor body - long thin rounded rectangle */}
-          <rect x="80" y="54" width="160" height="12" fill="#F5DEB3" stroke="#8B4513" strokeWidth="1" rx="6"/>
+          {/* Main resistor body - long cylindrical body */}
+          <rect x="80" y="54" width="160" height="12" fill="#F0F0F0" stroke="#CCCCCC" strokeWidth="1" rx="6"/>
           
-          {/* Right end cap - thicker rounded rectangle */}
-          <rect x="240" y="50" width="25" height="20" fill="#D2B48C" stroke="#8B4513" strokeWidth="1" rx="10"/>
+          {/* Right end cap - rounded rectangle, slightly wider than main body */}
+          <rect x="240" y="52" width="20" height="16" fill="#E8E8E8" stroke="#CCCCCC" strokeWidth="1" rx="8"/>
           
           {/* Color bands based on number of bands */}
           {numberOfBands === '4' && (
