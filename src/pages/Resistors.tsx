@@ -126,213 +126,64 @@ const Resistors = () => {
       }
     };
 
-    const getResistorImage = () => {
-      switch (numberOfBands) {
-        case '4':
-          return '/lovable-uploads/492b19a2-9e13-4add-a2f4-4644fa4b3e21.png';
-        case '5':
-          return '/lovable-uploads/466b0287-ac38-485f-8222-091028a36960.png';
-        case '6':
-          return '/lovable-uploads/1451d1f6-49fe-4c4a-acbf-34d22bed0b2e.png';
-        default:
-          return '/lovable-uploads/492b19a2-9e13-4add-a2f4-4644fa4b3e21.png';
-      }
-    };
-
     return (
-      <div className="flex justify-center relative">
-        <div className="relative">
-          <img 
-            src={getResistorImage()} 
-            alt={`${numberOfBands}-band resistor`} 
-            className="w-full max-w-md h-auto"
-          />
+      <div className="flex justify-center">
+        <svg width="300" height="100" viewBox="0 0 300 100">
+          {/* Resistor body */}
+          <rect x="50" y="35" width="200" height="30" fill="#F5DEB3" stroke="#8B4513" strokeWidth="2" rx="3"/>
           
-          {/* Color band overlays */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-full max-w-md h-full">
-              {numberOfBands === '4' && (
-                <>
-                  {/* Band 1 */}
-                  {band1 && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '25%',
-                        backgroundColor: getBandColor(band1, 'color'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Band 2 */}
-                  {band2 && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '35%',
-                        backgroundColor: getBandColor(band2, 'color'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Multiplier */}
-                  {multiplier && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '50%',
-                        backgroundColor: getBandColor(multiplier, 'multiplier'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Tolerance */}
-                  {tolerance && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '70%',
-                        backgroundColor: getBandColor(tolerance, 'tolerance'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                </>
-              )}
-              
-              {numberOfBands === '5' && (
-                <>
-                  {/* Band 1 */}
-                  {band1 && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '22%',
-                        backgroundColor: getBandColor(band1, 'color'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Band 2 */}
-                  {band2 && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '30%',
-                        backgroundColor: getBandColor(band2, 'color'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Band 3 */}
-                  {band3 && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '38%',
-                        backgroundColor: getBandColor(band3, 'color'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Multiplier */}
-                  {multiplier && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '50%',
-                        backgroundColor: getBandColor(multiplier, 'multiplier'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Tolerance */}
-                  {tolerance && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '70%',
-                        backgroundColor: getBandColor(tolerance, 'tolerance'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                </>
-              )}
-              
-              {numberOfBands === '6' && (
-                <>
-                  {/* Band 1 */}
-                  {band1 && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '20%',
-                        backgroundColor: getBandColor(band1, 'color'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Band 2 */}
-                  {band2 && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '27%',
-                        backgroundColor: getBandColor(band2, 'color'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Band 3 */}
-                  {band3 && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '34%',
-                        backgroundColor: getBandColor(band3, 'color'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Multiplier */}
-                  {multiplier && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '46%',
-                        backgroundColor: getBandColor(multiplier, 'multiplier'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Tolerance */}
-                  {tolerance && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '62%',
-                        backgroundColor: getBandColor(tolerance, 'tolerance'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                  {/* Temperature Coefficient */}
-                  {temperatureCoeff && (
-                    <div 
-                      className="absolute w-2 h-8 top-1/2 transform -translate-y-1/2"
-                      style={{ 
-                        left: '70%',
-                        backgroundColor: getBandColor(temperatureCoeff, 'tempCoeff'),
-                        border: '1px solid rgba(0,0,0,0.3)'
-                      }}
-                    />
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+          {/* Left wire */}
+          <line x1="10" y1="50" x2="50" y2="50" stroke="#C0C0C0" strokeWidth="3"/>
+          
+          {/* Right wire */}
+          <line x1="250" y1="50" x2="290" y2="50" stroke="#C0C0C0" strokeWidth="3"/>
+          
+          {/* Color bands based on number of bands */}
+          {numberOfBands === '4' && (
+            <>
+              {/* Band 1 */}
+              <rect x="70" y="33" width="8" height="34" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 2 */}
+              <rect x="90" y="33" width="8" height="34" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Multiplier */}
+              <rect x="150" y="33" width="8" height="34" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              {/* Tolerance */}
+              <rect x="220" y="33" width="8" height="34" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+            </>
+          )}
+          
+          {numberOfBands === '5' && (
+            <>
+              {/* Band 1 */}
+              <rect x="70" y="33" width="8" height="34" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 2 */}
+              <rect x="90" y="33" width="8" height="34" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 3 */}
+              <rect x="110" y="33" width="8" height="34" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Multiplier */}
+              <rect x="150" y="33" width="8" height="34" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              {/* Tolerance */}
+              <rect x="220" y="33" width="8" height="34" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+            </>
+          )}
+          
+          {numberOfBands === '6' && (
+            <>
+              {/* Band 1 */}
+              <rect x="70" y="33" width="8" height="34" fill={getBandColor(band1, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 2 */}
+              <rect x="90" y="33" width="8" height="34" fill={getBandColor(band2, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Band 3 */}
+              <rect x="110" y="33" width="8" height="34" fill={getBandColor(band3, 'color')} stroke="#000" strokeWidth="0.5"/>
+              {/* Multiplier */}
+              <rect x="140" y="33" width="8" height="34" fill={getBandColor(multiplier, 'multiplier')} stroke="#000" strokeWidth="0.5"/>
+              {/* Tolerance */}
+              <rect x="200" y="33" width="8" height="34" fill={getBandColor(tolerance, 'tolerance')} stroke="#000" strokeWidth="0.5"/>
+              {/* Temperature Coefficient */}
+              <rect x="220" y="33" width="8" height="34" fill={getBandColor(temperatureCoeff, 'tempCoeff')} stroke="#000" strokeWidth="0.5"/>
+            </>
+          )}
+        </svg>
       </div>
     );
   };
