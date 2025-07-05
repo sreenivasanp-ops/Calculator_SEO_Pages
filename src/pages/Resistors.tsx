@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -124,18 +125,18 @@ const Resistors = () => {
     if (numberOfBands === '6' && temperatureCoeff) bands.push(getBandColor(temperatureCoeff));
 
     return (
-      <div className="flex justify-center mt-2 mb-2">
-        <svg width="300" height="80" viewBox="0 0 300 80">
+      <div className="flex justify-center mt-1 mb-1">
+        <svg width="300" height="60" viewBox="0 0 300 60">
           {/* Wire leads */}
-          <line x1="0" y1="40" x2="50" y2="40" stroke="#666" strokeWidth="3"/>
-          <line x1="250" y1="40" x2="300" y2="40" stroke="#666" strokeWidth="3"/>
+          <line x1="0" y1="30" x2="40" y2="30" stroke="#C0C0C0" strokeWidth="2"/>
+          <line x1="260" y1="30" x2="300" y2="30" stroke="#C0C0C0" strokeWidth="2"/>
           
-          {/* Resistor body - rounded rectangular shape like the uploaded image */}
-          <rect x="50" y="20" width="200" height="40" rx="20" ry="20" fill="#F5F5DC" stroke="#8B7355" strokeWidth="2"/>
+          {/* Resistor body - cylindrical shape */}
+          <ellipse cx="150" cy="30" rx="110" ry="12" fill="#E6D3A3" stroke="#B8860B" strokeWidth="1"/>
           
           {/* Color bands */}
           {bands.map((color, index) => {
-            let x = 70 + (index * 25);
+            let x = 70 + (index * 20);
             if (numberOfBands === '4' && index === 3) x = 210; // Tolerance band spacing for 4-band
             if (numberOfBands === '5' && index === 4) x = 210; // Tolerance band spacing for 5-band
             if (numberOfBands === '6' && index === 4) x = 200; // Tolerance band spacing for 6-band
@@ -145,9 +146,9 @@ const Resistors = () => {
               <rect
                 key={index}
                 x={x}
-                y="22"
-                width="12"
-                height="36"
+                y="20"
+                width="8"
+                height="20"
                 fill={color}
                 stroke={color === '#FFFFFF' ? '#000' : 'none'}
                 strokeWidth={color === '#FFFFFF' ? '1' : '0'}
@@ -305,11 +306,11 @@ const Resistors = () => {
               <div className="space-y-4">
                 {resistorValue && (
                   <Card className="border-2 border-gray-200">
-                    <CardHeader className="pb-2">
+                    <CardHeader className="pb-1">
                       <CardTitle className="text-lg text-center">Resistor Value</CardTitle>
                     </CardHeader>
-                    <CardContent className="text-center pt-0 pb-3">
-                      <div className="p-3 bg-blue-50 rounded-lg">
+                    <CardContent className="text-center pt-0 pb-2">
+                      <div className="p-2 bg-blue-50 rounded-lg">
                         <p className="text-xl font-bold text-blue-600">{resistorValue}</p>
                       </div>
                     </CardContent>
@@ -319,10 +320,10 @@ const Resistors = () => {
                 {/* Resistor Visual */}
                 {(band1 && band2 && multiplier && tolerance) && (
                   <Card className="border-2 border-gray-200">
-                    <CardHeader className="pb-2">
+                    <CardHeader className="pb-1">
                       <CardTitle className="text-lg text-center">Resistor Visual</CardTitle>
                     </CardHeader>
-                    <CardContent className="pt-0 pb-3">
+                    <CardContent className="pt-0 pb-2">
                       {renderResistorVisual()}
                     </CardContent>
                   </Card>
