@@ -1,7 +1,14 @@
-
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { 
@@ -127,6 +134,10 @@ const InverterCalculator = () => {
 
   const [totalLoad, setTotalLoad] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const [averageRunningLoad, setAverageRunningLoad] = useState('');
+  const [backupHours, setBackupHours] = useState('2');
+  const [showPlanningInputs, setShowPlanningInputs] = useState(false);
+  const [showRecommendations, setShowRecommendations] = useState(false);
 
   const toggleSection = (sectionId: string) => {
     setOpenSections(prev => ({
@@ -158,6 +169,7 @@ const InverterCalculator = () => {
     });
     setTotalLoad(total);
     setShowResult(true);
+    setShowPlanningInputs(true);
   };
 
   const clearAll = () => {
@@ -167,7 +179,34 @@ const InverterCalculator = () => {
     })));
     setTotalLoad(0);
     setShowResult(false);
+    setShowPlanningInputs(false);
+    setShowRecommendations(false);
+    setAverageRunningLoad('');
+    setBackupHours('2');
   };
+
+  const handleLetsPlan = () => {
+    if (averageRunningLoad && backupHours) {
+      setShowRecommendations(true);
+    }
+  };
+
+  const calculateRecommendations = () => {
+    const runningLoadPercentage = parseInt(averageRunningLoad) / 100;
+    const effectiveLoad = totalLoad * runningLoadPercentage;
+    const vaRating = Math.ceil(effectiveLoad * 1.2); // Adding 20% buffer
+    const hours = parseInt(backupHours);
+    const batteryCapacity = Math.ceil((effectiveLoad * hours) / 12); // Assuming 12V system
+    const batteryQty = Math.ceil(batteryCapacity / 100); // Assuming 100AH batteries
+    
+    return {
+      vaRating,
+      batteryCapacity: batteryQty * 100,
+      batteryQty
+    };
+  };
+
+  const recommendations = calculateRecommendations();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -251,6 +290,92 @@ const InverterCalculator = () => {
                   </div>
                 </CardContent>
               </Card>
+            )}
+
+            {showPlanningInputs && (
+              <div className="mt-6 space-y-4">
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Average Running Load (%)*
+                        </label>
+                        <Select value={averageRunningLoad} onValueChange={setAverageRunningLoad}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select percentage" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white border shadow-lg">
+                            <SelectItem value="25">25%</SelectItem>
+                            <SelectItem value="50">50%</SelectItem>
+                            <SelectItem value="75">75%</SelectItem>
+                            <SelectItem value="100">100%</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Define Your Backup Requirement
+                        </label>
+                        <div className="relative">
+                          <Input
+                            type="number"
+                            value={backupHours}
+                            onChange={(e) => setBackupHours(e.target.value)}
+                            className="pr-12"
+                            min="1"
+                            max="24"
+                          />
+                          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
+                            Hrs
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <div className="flex justify-center">
+                  <Button 
+                    onClick={handleLetsPlan}
+                    className="bg-blue-600 hover:bg-blue-700 px-8"
+                    disabled={!averageRunningLoad}
+                  >
+                    Let's Plan
+                  </Button>
+                </div>
+
+                {showRecommendations && (
+                  <Card className="mt-6 bg-gray-50">
+                    <CardContent className="p-6">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
+                            <span className="text-blue-600 font-bold text-sm">⚡</span>
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-gray-800">Inverter VA Rating</h4>
+                            <p className="text-blue-600 font-bold">{recommendations.vaRating} VA</p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
+                            <span className="text-blue-600 font-bold text-sm">🔋</span>
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-gray-800">Battery Capacity & Batteries (Qty.)</h4>
+                            <p className="text-blue-600 font-bold">
+                              {recommendations.batteryCapacity} AH & {recommendations.batteryQty} x 12V battery
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
             )}
           </CardContent>
         </Card>
