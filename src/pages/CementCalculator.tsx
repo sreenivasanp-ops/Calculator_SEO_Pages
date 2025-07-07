@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -48,7 +47,7 @@ const CementCalculator = () => {
   const [plasterWidthInch, setPlasterWidthInch] = useState('0');
   const [plasterWidthUnit, setPlasterWidthUnit] = useState('meter');
   const [plasterWidthInchUnit, setPlasterWidthInchUnit] = useState('cm');
-  const [gradeOfFooting, setGradeOfFooting] = useState('C.M(1:3)');
+  const [plasterGrade, setPlasterGrade] = useState('C.M(1:3)');
   
   // Unit states
   const [lengthUnit, setLengthUnit] = useState('feet');
@@ -205,6 +204,9 @@ const CementCalculator = () => {
         case '15 MM':
           depth = 0.015; // 15mm in meters
           break;
+        case '18 MM':
+          depth = 0.018; // 18mm in meters
+          break;
         case '20 MM':
           depth = 0.020; // 20mm in meters
           break;
@@ -219,7 +221,7 @@ const CementCalculator = () => {
       const dryVolumeOfPlaster = plasterVolume * 1.3 * 1.25;
       
       // Extract ratios from grade
-      const ratioString = gradeOfFooting.split('(')[1].split(')')[0];
+      const ratioString = plasterGrade.split('(')[1].split(')')[0];
       const ratioNumbers = ratioString.split(':').map(num => parseFloat(num));
       const sumOfRatios = ratioNumbers.reduce((sum, num) => sum + num, 0);
       
@@ -286,7 +288,7 @@ const CementCalculator = () => {
     setPlasterLengthInchUnit('cm');
     setPlasterWidthUnit('meter');
     setPlasterWidthInchUnit('cm');
-    setGradeOfFooting('C.M(1:3)');
+    setPlasterGrade('C.M(1:3)');
     setPlasterResult(null);
   };
 
@@ -872,6 +874,7 @@ const CementCalculator = () => {
                           <SelectContent className="bg-white z-50">
                             <SelectItem value="12 MM">12 MM</SelectItem>
                             <SelectItem value="15 MM">15 MM</SelectItem>
+                            <SelectItem value="18 MM">18 MM</SelectItem>
                             <SelectItem value="20 MM">20 MM</SelectItem>
                           </SelectContent>
                         </Select>
@@ -981,16 +984,16 @@ const CementCalculator = () => {
                     </div>
                   </div>
 
-                  {/* Grade of footing */}
+                  {/* Plaster Grade */}
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        Grade of footing
+                        Plaster Grade
                       </label>
                     </div>
                     <div className="grid grid-cols-1 gap-2">
                       <div>
-                        <Select value={gradeOfFooting} onValueChange={setGradeOfFooting}>
+                        <Select value={plasterGrade} onValueChange={setPlasterGrade}>
                           <SelectTrigger className="border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9">
                             <SelectValue />
                           </SelectTrigger>
