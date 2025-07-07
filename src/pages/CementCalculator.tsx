@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -5,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calculator, RotateCcw, Info } from 'lucide-react';
+import { Calculator, RotateCcw } from 'lucide-react';
 
 const CementCalculator = () => {
   const [activeTab, setActiveTab] = useState('brickwork');
@@ -117,14 +118,35 @@ const CementCalculator = () => {
           </h1>
           
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-20">
-              <TabsTrigger value="brickwork" className="text-xs sm:text-sm py-4 px-2 h-full flex items-center justify-center text-center leading-tight">
+            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-16 sm:h-20 bg-gradient-to-r from-teal-50 to-blue-50 border-2 border-teal-200 rounded-xl shadow-md">
+              <TabsTrigger 
+                value="brickwork" 
+                className="text-base sm:text-xl font-bold py-4 px-3 h-full flex items-center justify-center text-center leading-tight 
+                          transition-all duration-300 rounded-lg mx-1 my-1
+                          data-[state=active]:bg-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg
+                          data-[state=inactive]:text-teal-700 data-[state=inactive]:hover:bg-teal-100
+                          data-[state=inactive]:bg-white/70 data-[state=inactive]:border data-[state=inactive]:border-teal-200"
+              >
                 Brickwork
               </TabsTrigger>
-              <TabsTrigger value="concrete" className="text-xs sm:text-sm py-4 px-2 h-full flex items-center justify-center text-center leading-tight">
+              <TabsTrigger 
+                value="concrete" 
+                className="text-base sm:text-xl font-bold py-4 px-3 h-full flex items-center justify-center text-center leading-tight
+                          transition-all duration-300 rounded-lg mx-1 my-1
+                          data-[state=active]:bg-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg
+                          data-[state=inactive]:text-teal-700 data-[state=inactive]:hover:bg-teal-100
+                          data-[state=inactive]:bg-white/70 data-[state=inactive]:border data-[state=inactive]:border-teal-200"
+              >
                 Concrete
               </TabsTrigger>
-              <TabsTrigger value="plaster" className="text-xs sm:text-sm py-4 px-2 h-full flex items-center justify-center text-center leading-tight">
+              <TabsTrigger 
+                value="plaster" 
+                className="text-base sm:text-xl font-bold py-4 px-3 h-full flex items-center justify-center text-center leading-tight
+                          transition-all duration-300 rounded-lg mx-1 my-1
+                          data-[state=active]:bg-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg
+                          data-[state=inactive]:text-teal-700 data-[state=inactive]:hover:bg-teal-100
+                          data-[state=inactive]:bg-white/70 data-[state=inactive]:border data-[state=inactive]:border-teal-200"
+              >
                 Plaster
               </TabsTrigger>
             </TabsList>
@@ -142,7 +164,7 @@ const CementCalculator = () => {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        Length <Info className="inline w-4 h-4 ml-1" />
+                        Length
                       </label>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
@@ -193,7 +215,7 @@ const CementCalculator = () => {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        Height / Depth <Info className="inline w-4 h-4 ml-1" />
+                        Height / Depth
                       </label>
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
@@ -244,7 +266,7 @@ const CementCalculator = () => {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        Wall Thickness <Info className="inline w-4 h-4 ml-1" />
+                        Wall Thickness
                       </label>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -279,7 +301,7 @@ const CementCalculator = () => {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        Ratio <Info className="inline w-4 h-4 ml-1" />
+                        Ratio
                       </label>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -306,7 +328,7 @@ const CementCalculator = () => {
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        Size of Brick <Info className="inline w-4 h-4 ml-1" />
+                        Size of Brick
                       </label>
                     </div>
                     
@@ -376,9 +398,9 @@ const CementCalculator = () => {
                       <h3 className="text-lg font-semibold text-green-800 mb-4">Cement Calculator</h3>
                       <div className="space-y-3 text-sm">
                         {/* Highlighted Cement Required Row */}
-                        <div className="flex justify-between items-center border-2 border-green-500 bg-green-100 p-3 rounded-lg">
-                          <span className="text-green-800 font-bold">Cement Required:</span>
-                          <span className="font-bold text-lg text-green-800">
+                        <div className="flex justify-between items-center border-2 border-teal-400 bg-teal-100 p-3 rounded-lg shadow-sm">
+                          <span className="text-teal-800 font-bold">Cement Required:</span>
+                          <span className="font-bold text-lg text-teal-800">
                             {result.cementBags} Bags{result.excessCement > 0 ? `, ${result.excessCement} Kg` : ''}
                           </span>
                         </div>
