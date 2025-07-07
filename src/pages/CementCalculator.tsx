@@ -35,13 +35,6 @@ const CementCalculator = () => {
     return totalInches * 0.0254;
   };
 
-  const convertToCm = (value: string, unit: string) => {
-    if (unit === 'feet') return parseFloat(value || '0') * 30.48;
-    if (unit === 'inch') return parseFloat(value || '0') * 2.54;
-    if (unit === 'm') return parseFloat(value || '0') * 100;
-    return parseFloat(value || '0');
-  };
-
   const calculateCement = () => {
     try {
       // Convert dimensions to meters
@@ -49,57 +42,46 @@ const CementCalculator = () => {
       const height = lengthUnit === 'feet' ? convertToMeters(heightFeet, heightInch) : parseFloat(heightFeet || '0');
       const thickness = (parseFloat(wallThickness === 'others' ? customThickness : wallThickness) || 0) / 100; // Convert cm to m
       
-      // Calculate volume of brick masonry
+      // 1) Calculate Volume of Brick Masonry
       const volumeBrickMasonry = length * height * thickness;
       
-      // Convert brick dimensions to meters
-      const brickL = parseFloat(brickLength || '0') / 100;
-      const brickW = parseFloat(brickWidth || '0') / 100;
-      const brickH = parseFloat(brickHeight || '0') / 100;
+      // 2) Calculate Number of Bricks
+      // Convert brick dimensions with 1cm added to meters
+      const brickLengthWithMortar = (parseFloat(brickLength || '0') + 1) / 100; // Add 1cm and convert to meters
+      const brickWidthWithMortar = (parseFloat(brickWidth || '0') + 1) / 100;
+      const brickHeightWithMortar = (parseFloat(brickHeight || '0') + 1) / 100;
       
-      // Volume of one brick
-      const volumeOneBrick = brickL * brickW * brickH;
+      const volumeBrickMortar = brickLengthWithMortar * brickWidthWithMortar * brickHeightWithMortar;
+      const numberOfBricks = Math.floor(volumeBrickMasonry / volumeBrickMortar);
       
-      // Number of bricks
-      const numberOfBricks = Math.ceil(volumeBrickMasonry / volumeOneBrick);
+      // 3) Calculate Quantity of Mortar
+      // Actual Volume of Bricks (without mortar addition)
+      const actualBrickLength = parseFloat(brickLength || '0') / 100; // Convert to meters
+      const actualBrickWidth = parseFloat(brickWidth || '0') / 100;
+      const actualBrickHeight = parseFloat(brickHeight || '0') / 100;
       
-      // Size of brick with mortar (adding 1cm mortar on each side)
-      const brickWithMortarL = brickL + 0.01;
-      const brickWithMortarW = brickW + 0.01;
-      const brickWithMortarH = brickH + 0.01;
+      const actualVolumeBricks = numberOfBricks * actualBrickLength * actualBrickWidth * actualBrickHeight;
       
-      const volumeBrickWithMortar = brickWithMortarL * brickWithMortarW * brickWithMortarH;
+      // Quantity of Mortar
+      const quantityMortar = (volumeBrickMasonry - actualVolumeBricks) * 1.15;
       
-      // Actual volume of bricks
-      const actualVolumeBricks = numberOfBricks * volumeOneBrick;
-      
-      // Volume of mortar
-      const volumeMortar = volumeBrickMasonry - actualVolumeBricks;
-      
-      // Calculate cement quantity based on mortar ratio
+      // Calculate Volume of Cement
       const ratioNumbers = mortarRatio.split(':').map(num => parseFloat(num));
-      const cementRatio = ratioNumbers[0];
-      const sandRatio = ratioNumbers[1];
-      const totalRatio = cementRatio + sandRatio;
+      const denominator = ratioNumbers[1]; // Sand ratio
+      const volumeCement = quantityMortar / (denominator + 1);
       
-      // Cement volume
-      const cementVolume = (cementRatio / totalRatio) * volumeMortar;
-      
-      // Add 15% for wastage
-      const cementVolumeWithWastage = cementVolume * 1.15;
-      
-      // Add 25% for dry volume
-      const finalCementVolume = cementVolumeWithWastage * 1.25;
-      
-      // Convert to bags (1 bag = 0.035 m³)
-      const cementBags = Math.ceil(finalCementVolume / 0.035);
+      // Calculate number of cement bags
+      const totalCementBags = volumeCement / 0.035;
+      const cementBags = Math.floor(totalCementBags);
+      const excessCement = (totalCementBags - cementBags) * 50; // Convert remainder to kg
       
       setResult({
         volumeBrickMasonry: volumeBrickMasonry.toFixed(4),
         numberOfBricks,
-        volumeMortar: volumeMortar.toFixed(4),
-        cementVolume: finalCementVolume.toFixed(4),
-        cementBags
+        quantityMortar: quantityMortar.toFixed(4),
+        volumeCement: volumeCement.toFixed(4),
+        cementBags,
+        excessCement: excessCement.toFixed(2)
       });
     } catch (error) {
       console.error('Calculation error:', error);
@@ -131,14 +113,14 @@ const CementCalculator = () => {
           </h1>
           
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-16">
-              <TabsTrigger value="brickwork" className="text-xs sm:text-sm py-3 px-2 h-full flex items-center justify-center text-center leading-tight">
+            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-20">
+              <TabsTrigger value="brickwork" className="text-xs sm:text-sm py-4 px-2 h-full flex items-center justify-center text-center leading-tight">
                 Material Calculator for Brickwork
               </TabsTrigger>
-              <TabsTrigger value="concrete" className="text-xs sm:text-sm py-3 px-2 h-full flex items-center justify-center text-center leading-tight">
+              <TabsTrigger value="concrete" className="text-xs sm:text-sm py-4 px-2 h-full flex items-center justify-center text-center leading-tight">
                 Material Calculator for Concrete
               </TabsTrigger>
-              <TabsTrigger value="plaster" className="text-xs sm:text-sm py-3 px-2 h-full flex items-center justify-center text-center leading-tight">
+              <TabsTrigger value="plaster" className="text-xs sm:text-sm py-4 px-2 h-full flex items-center justify-center text-center leading-tight">
                 Material Calculator for Plaster
               </TabsTrigger>
             </TabsList>
@@ -391,12 +373,18 @@ const CementCalculator = () => {
                       <div className="space-y-3 text-sm">
                         <div className="flex justify-between items-center border-b pb-2">
                           <span className="text-gray-700 font-semibold">Total Cement Volume:</span>
-                          <span className="font-bold text-lg text-green-700">{result.cementVolume} m³</span>
+                          <span className="font-bold text-lg text-green-700">{result.volumeCement} m³</span>
                         </div>
                         <div className="flex justify-between items-center border-b pb-2">
                           <span className="text-gray-700 font-semibold">Cement Required:</span>
                           <span className="font-bold text-lg text-green-700">{result.cementBags} Bags</span>
                         </div>
+                        {result.excessCement > 0 && (
+                          <div className="flex justify-between items-center border-b pb-2">
+                            <span className="text-gray-700 font-semibold">Excess Cement:</span>
+                            <span className="font-bold text-lg text-green-700">{result.excessCement} kg</span>
+                          </div>
+                        )}
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700">Volume of Brick Masonry:</span>
                           <span className="font-semibold">{result.volumeBrickMasonry} m³</span>
@@ -406,11 +394,11 @@ const CementCalculator = () => {
                           <span className="font-semibold">{result.numberOfBricks} Bricks</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-700">Volume of Mortar:</span>
-                          <span className="font-semibold">{result.volumeMortar} m³</span>
+                          <span className="text-gray-700">Quantity of Mortar:</span>
+                          <span className="font-semibold">{result.quantityMortar} m³</span>
                         </div>
                         <div className="text-xs text-gray-500 mt-2">
-                          * Calculation includes 15% wastage and 25% dry volume
+                          * Calculation includes 15% wastage factor
                         </div>
                       </div>
                     </div>
