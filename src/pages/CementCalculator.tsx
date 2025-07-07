@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -80,6 +79,7 @@ const CementCalculator = () => {
         numberOfBricks,
         quantityMortar: quantityMortar.toFixed(4),
         volumeCement: volumeCement.toFixed(4),
+        actualVolumeBricks: actualVolumeBricks.toFixed(4),
         cementBags,
         excessCement: excessCement.toFixed(2)
       });
@@ -392,6 +392,10 @@ const CementCalculator = () => {
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700">Number of Bricks:</span>
                           <span className="font-semibold">{result.numberOfBricks} Bricks</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-700">Actual Volume of Bricks Mortar:</span>
+                          <span className="font-semibold">{result.actualVolumeBricks} m³</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700">Quantity of Mortar:</span>
