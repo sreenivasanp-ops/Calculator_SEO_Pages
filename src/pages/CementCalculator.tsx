@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -25,12 +24,18 @@ const CementCalculator = () => {
   
   // Concrete states
   const [concreteGrade, setConcreteGrade] = useState('M20 (1:1.5:3)');
-  const [concreteLength, setConcreteLength] = useState('10');
+  const [concreteLengthFeet, setConcreteLengthFeet] = useState('10');
+  const [concreteLengthInch, setConcreteLengthInch] = useState('0');
   const [concreteLengthUnit, setConcreteLengthUnit] = useState('meter');
-  const [concreteWidth, setConcreteWidth] = useState('7');
+  const [concreteLengthInchUnit, setConcreteLengthInchUnit] = useState('cm');
+  const [concreteWidthFeet, setConcreteWidthFeet] = useState('7');
+  const [concreteWidthInch, setConcreteWidthInch] = useState('0');
   const [concreteWidthUnit, setConcreteWidthUnit] = useState('meter');
-  const [concreteDepth, setConcreteDepth] = useState('4');
+  const [concreteWidthInchUnit, setConcreteWidthInchUnit] = useState('cm');
+  const [concreteDepthFeet, setConcreteDepthFeet] = useState('4');
+  const [concreteDepthInch, setConcreteDepthInch] = useState('0');
   const [concreteDepthUnit, setConcreteDepthUnit] = useState('meter');
+  const [concreteDepthInchUnit, setConcreteDepthInchUnit] = useState('cm');
   
   // Unit states
   const [lengthUnit, setLengthUnit] = useState('feet');
@@ -45,11 +50,27 @@ const CementCalculator = () => {
     return totalInches * 0.0254;
   };
 
-  const convertToMetersFromUnit = (value: string, unit: string) => {
-    const numValue = parseFloat(value || '0');
-    if (unit === 'meter') return numValue;
-    if (unit === 'cm') return numValue / 100;
-    return numValue;
+  const convertToMetersFromDualUnit = (mainValue: string, mainUnit: string, subValue: string, subUnit: string) => {
+    let mainInMeters = 0;
+    let subInMeters = 0;
+    
+    // Convert main value
+    const mainNum = parseFloat(mainValue || '0');
+    if (mainUnit === 'meter') {
+      mainInMeters = mainNum;
+    } else if (mainUnit === 'feet') {
+      mainInMeters = mainNum * 0.3048;
+    }
+    
+    // Convert sub value
+    const subNum = parseFloat(subValue || '0');
+    if (subUnit === 'cm') {
+      subInMeters = subNum / 100;
+    } else if (subUnit === 'inch') {
+      subInMeters = subNum * 0.0254;
+    }
+    
+    return mainInMeters + subInMeters;
   };
 
   const calculateCement = () => {
@@ -112,10 +133,10 @@ const CementCalculator = () => {
 
   const calculateConcrete = () => {
     try {
-      // Convert dimensions to meters
-      const length = convertToMetersFromUnit(concreteLength, concreteLengthUnit);
-      const width = convertToMetersFromUnit(concreteWidth, concreteWidthUnit);
-      const depth = convertToMetersFromUnit(concreteDepth, concreteDepthUnit);
+      // Convert dimensions to meters using dual inputs
+      const length = convertToMetersFromDualUnit(concreteLengthFeet, concreteLengthUnit, concreteLengthInch, concreteLengthInchUnit);
+      const width = convertToMetersFromDualUnit(concreteWidthFeet, concreteWidthUnit, concreteWidthInch, concreteWidthInchUnit);
+      const depth = convertToMetersFromDualUnit(concreteDepthFeet, concreteDepthUnit, concreteDepthInch, concreteDepthInchUnit);
       
       // Calculate Cement Concrete Volume
       const cementConcreteVolume = length * width * depth;
@@ -145,7 +166,6 @@ const CementCalculator = () => {
       const aggregateRequired = aggregateVolume * 1.35;
       
       setConcreteResult({
-        wetVolumeOfMix: wetVolumeOfMix.toFixed(4),
         cementBags,
         excessCement,
         sandRequired: sandRequired.toFixed(2),
@@ -172,12 +192,18 @@ const CementCalculator = () => {
 
   const resetConcreteForm = () => {
     setConcreteGrade('M20 (1:1.5:3)');
-    setConcreteLength('10');
-    setConcreteWidth('7');
-    setConcreteDepth('4');
+    setConcreteLengthFeet('10');
+    setConcreteLengthInch('0');
+    setConcreteWidthFeet('7');
+    setConcreteWidthInch('0');
+    setConcreteDepthFeet('4');
+    setConcreteDepthInch('0');
     setConcreteLengthUnit('meter');
+    setConcreteLengthInchUnit('cm');
     setConcreteWidthUnit('meter');
+    setConcreteWidthInchUnit('cm');
     setConcreteDepthUnit('meter');
+    setConcreteDepthInchUnit('cm');
     setConcreteResult(null);
   };
 
@@ -549,12 +575,12 @@ const CementCalculator = () => {
                         Length
                       </label>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 items-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
                       <div>
                         <Input
                           type="number"
-                          value={concreteLength}
-                          onChange={(e) => setConcreteLength(e.target.value)}
+                          value={concreteLengthFeet}
+                          onChange={(e) => setConcreteLengthFeet(e.target.value)}
                           placeholder="10"
                           className="text-center border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9"
                         />
@@ -566,7 +592,27 @@ const CementCalculator = () => {
                           </SelectTrigger>
                           <SelectContent className="bg-white z-50">
                             <SelectItem value="meter">meter</SelectItem>
+                            <SelectItem value="feet">feet</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Input
+                          type="number"
+                          value={concreteLengthInch}
+                          onChange={(e) => setConcreteLengthInch(e.target.value)}
+                          placeholder="0"
+                          className="text-center border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={concreteLengthInchUnit} onValueChange={setConcreteLengthInchUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
                             <SelectItem value="cm">cm</SelectItem>
+                            <SelectItem value="inch">inch</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -580,12 +626,12 @@ const CementCalculator = () => {
                         Width
                       </label>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 items-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
                       <div>
                         <Input
                           type="number"
-                          value={concreteWidth}
-                          onChange={(e) => setConcreteWidth(e.target.value)}
+                          value={concreteWidthFeet}
+                          onChange={(e) => setConcreteWidthFeet(e.target.value)}
                           placeholder="7"
                           className="text-center border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9"
                         />
@@ -597,7 +643,27 @@ const CementCalculator = () => {
                           </SelectTrigger>
                           <SelectContent className="bg-white z-50">
                             <SelectItem value="meter">meter</SelectItem>
+                            <SelectItem value="feet">feet</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Input
+                          type="number"
+                          value={concreteWidthInch}
+                          onChange={(e) => setConcreteWidthInch(e.target.value)}
+                          placeholder="0"
+                          className="text-center border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={concreteWidthInchUnit} onValueChange={setConcreteWidthInchUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
                             <SelectItem value="cm">cm</SelectItem>
+                            <SelectItem value="inch">inch</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -611,12 +677,12 @@ const CementCalculator = () => {
                         Depth
                       </label>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 items-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
                       <div>
                         <Input
                           type="number"
-                          value={concreteDepth}
-                          onChange={(e) => setConcreteDepth(e.target.value)}
+                          value={concreteDepthFeet}
+                          onChange={(e) => setConcreteDepthFeet(e.target.value)}
                           placeholder="4"
                           className="text-center border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9"
                         />
@@ -628,7 +694,27 @@ const CementCalculator = () => {
                           </SelectTrigger>
                           <SelectContent className="bg-white z-50">
                             <SelectItem value="meter">meter</SelectItem>
+                            <SelectItem value="feet">feet</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Input
+                          type="number"
+                          value={concreteDepthInch}
+                          onChange={(e) => setConcreteDepthInch(e.target.value)}
+                          placeholder="0"
+                          className="text-center border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={concreteDepthInchUnit} onValueChange={setConcreteDepthInchUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
                             <SelectItem value="cm">cm</SelectItem>
+                            <SelectItem value="inch">inch</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -658,12 +744,6 @@ const CementCalculator = () => {
                           <span className="font-bold text-lg text-blue-900">
                             {concreteResult.cementBags} Bags{concreteResult.excessCement > 0 ? `, ${concreteResult.excessCement} Kg` : ''}
                           </span>
-                        </div>
-                        
-                        {/* Wet Volume of Mix */}
-                        <div className="flex justify-between items-center border-b pb-2">
-                          <span className="text-gray-700 font-semibold">Wet Volume of Mix:</span>
-                          <span className="font-bold text-lg text-blue-700">{concreteResult.wetVolumeOfMix} m³</span>
                         </div>
                         
                         {/* Sand Required */}
