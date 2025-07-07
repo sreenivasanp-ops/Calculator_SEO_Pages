@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -37,6 +38,18 @@ const CementCalculator = () => {
   const [concreteDepthUnit, setConcreteDepthUnit] = useState('meter');
   const [concreteDepthInchUnit, setConcreteDepthInchUnit] = useState('cm');
   
+  // Plaster states
+  const [plasterType, setPlasterType] = useState('12 MM');
+  const [plasterLengthFeet, setPlasterLengthFeet] = useState('10');
+  const [plasterLengthInch, setPlasterLengthInch] = useState('0');
+  const [plasterLengthUnit, setPlasterLengthUnit] = useState('meter');
+  const [plasterLengthInchUnit, setPlasterLengthInchUnit] = useState('cm');
+  const [plasterWidthFeet, setPlasterWidthFeet] = useState('10');
+  const [plasterWidthInch, setPlasterWidthInch] = useState('0');
+  const [plasterWidthUnit, setPlasterWidthUnit] = useState('meter');
+  const [plasterWidthInchUnit, setPlasterWidthInchUnit] = useState('cm');
+  const [gradeOfFooting, setGradeOfFooting] = useState('C.M(1:3)');
+  
   // Unit states
   const [lengthUnit, setLengthUnit] = useState('feet');
   const [inchUnit, setInchUnit] = useState('inch');
@@ -44,6 +57,7 @@ const CementCalculator = () => {
   // Result states
   const [result, setResult] = useState(null);
   const [concreteResult, setConcreteResult] = useState(null);
+  const [plasterResult, setPlasterResult] = useState(null);
 
   const convertToMeters = (feet: string, inches: string) => {
     const totalInches = parseFloat(feet || '0') * 12 + parseFloat(inches || '0');
@@ -176,6 +190,61 @@ const CementCalculator = () => {
     }
   };
 
+  const calculatePlaster = () => {
+    try {
+      // Convert dimensions to meters using dual inputs
+      const length = convertToMetersFromDualUnit(plasterLengthFeet, plasterLengthUnit, plasterLengthInch, plasterLengthInchUnit);
+      const width = convertToMetersFromDualUnit(plasterWidthFeet, plasterWidthUnit, plasterWidthInch, plasterWidthInchUnit);
+      
+      // Get depth/thickness from plaster type
+      let depth;
+      switch (plasterType) {
+        case '12 MM':
+          depth = 0.012; // 12mm in meters
+          break;
+        case '15 MM':
+          depth = 0.015; // 15mm in meters
+          break;
+        case '20 MM':
+          depth = 0.020; // 20mm in meters
+          break;
+        default:
+          depth = 0.012;
+      }
+      
+      // Calculate Plaster Volume
+      const plasterVolume = length * width * depth;
+      
+      // Calculate Dry Volume of Plaster
+      const dryVolumeOfPlaster = plasterVolume * 1.3 * 1.25;
+      
+      // Extract ratios from grade
+      const ratioString = gradeOfFooting.split('(')[1].split(')')[0];
+      const ratioNumbers = ratioString.split(':').map(num => parseFloat(num));
+      const sumOfRatios = ratioNumbers.reduce((sum, num) => sum + num, 0);
+      
+      // Calculate Cement Volume
+      const cementVolume = dryVolumeOfPlaster * (ratioNumbers[0] / sumOfRatios);
+      
+      // Calculate number of cement bags
+      const totalCementBags = cementVolume / 0.035;
+      const cementBags = Math.floor(totalCementBags);
+      const excessCement = Math.floor((totalCementBags - cementBags) * 50);
+      
+      // Calculate Sand Volume and Required
+      const sandVolume = dryVolumeOfPlaster * (ratioNumbers[1] / sumOfRatios);
+      const sandRequired = sandVolume * 1.55;
+      
+      setPlasterResult({
+        cementBags,
+        excessCement,
+        sandRequired: sandRequired.toFixed(2)
+      });
+    } catch (error) {
+      console.error('Plaster calculation error:', error);
+    }
+  };
+
   const resetForm = () => {
     setLengthFeet('3');
     setLengthInch('6');
@@ -207,6 +276,20 @@ const CementCalculator = () => {
     setConcreteResult(null);
   };
 
+  const resetPlasterForm = () => {
+    setPlasterType('12 MM');
+    setPlasterLengthFeet('10');
+    setPlasterLengthInch('0');
+    setPlasterWidthFeet('10');
+    setPlasterWidthInch('0');
+    setPlasterLengthUnit('meter');
+    setPlasterLengthInchUnit('cm');
+    setPlasterWidthUnit('meter');
+    setPlasterWidthInchUnit('cm');
+    setGradeOfFooting('C.M(1:3)');
+    setPlasterResult(null);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -218,10 +301,10 @@ const CementCalculator = () => {
           </h1>
           
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-16 sm:h-19 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl shadow-lg">
+            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-12 sm:h-15 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl shadow-lg">
               <TabsTrigger 
                 value="brickwork" 
-                className="text-xl sm:text-2xl font-black py-4 px-3 h-full flex items-center justify-center text-center leading-tight 
+                className="text-lg sm:text-xl font-black py-3 px-2 h-full flex items-center justify-center text-center leading-tight 
                           transition-all duration-300 rounded-lg mx-1 my-1 font-sans
                           data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 
                           data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:scale-[0.98]
@@ -233,7 +316,7 @@ const CementCalculator = () => {
               </TabsTrigger>
               <TabsTrigger 
                 value="concrete" 
-                className="text-xl sm:text-2xl font-black py-4 px-3 h-full flex items-center justify-center text-center leading-tight
+                className="text-lg sm:text-xl font-black py-3 px-2 h-full flex items-center justify-center text-center leading-tight
                           transition-all duration-300 rounded-lg mx-1 my-1 font-sans
                           data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 
                           data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:scale-[0.98]
@@ -245,7 +328,7 @@ const CementCalculator = () => {
               </TabsTrigger>
               <TabsTrigger 
                 value="plaster" 
-                className="text-xl sm:text-2xl font-black py-4 px-3 h-full flex items-center justify-center text-center leading-tight
+                className="text-lg sm:text-xl font-black py-3 px-2 h-full flex items-center justify-center text-center leading-tight
                           transition-all duration-300 rounded-lg mx-1 my-1 font-sans
                           data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 
                           data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:scale-[0.98]
@@ -765,11 +848,196 @@ const CementCalculator = () => {
             </TabsContent>
             
             <TabsContent value="plaster">
-              <Card className="border-2 border-teal-200">
-                <CardContent className="p-8">
-                  <div className="text-center text-gray-500">
-                    <p>Plaster calculator coming soon...</p>
+              <Card className="border-2 border-purple-200">
+                <CardHeader className="bg-purple-50 p-3 sm:p-6">
+                  <CardTitle className="flex items-center gap-2 text-lg sm:text-xl text-gray-800">
+                    <Calculator className="w-5 h-5" />
+                    Plaster Cement Calculator
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 p-3 sm:p-6">
+                  {/* Plaster Type */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Plaster Type
+                      </label>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2">
+                      <div>
+                        <Select value={plasterType} onValueChange={setPlasterType}>
+                          <SelectTrigger className="border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="12 MM">12 MM</SelectItem>
+                            <SelectItem value="15 MM">15 MM</SelectItem>
+                            <SelectItem value="20 MM">20 MM</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
                   </div>
+
+                  {/* Length Input */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Length
+                      </label>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
+                      <div>
+                        <Input
+                          type="number"
+                          value={plasterLengthFeet}
+                          onChange={(e) => setPlasterLengthFeet(e.target.value)}
+                          placeholder="10"
+                          className="text-center border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={plasterLengthUnit} onValueChange={setPlasterLengthUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="meter">meter</SelectItem>
+                            <SelectItem value="feet">feet</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Input
+                          type="number"
+                          value={plasterLengthInch}
+                          onChange={(e) => setPlasterLengthInch(e.target.value)}
+                          placeholder="0"
+                          className="text-center border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={plasterLengthInchUnit} onValueChange={setPlasterLengthInchUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="cm">cm</SelectItem>
+                            <SelectItem value="inch">inch</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Width Input */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Width
+                      </label>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
+                      <div>
+                        <Input
+                          type="number"
+                          value={plasterWidthFeet}
+                          onChange={(e) => setPlasterWidthFeet(e.target.value)}
+                          placeholder="10"
+                          className="text-center border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={plasterWidthUnit} onValueChange={setPlasterWidthUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="meter">meter</SelectItem>
+                            <SelectItem value="feet">feet</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Input
+                          type="number"
+                          value={plasterWidthInch}
+                          onChange={(e) => setPlasterWidthInch(e.target.value)}
+                          placeholder="0"
+                          className="text-center border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={plasterWidthInchUnit} onValueChange={setPlasterWidthInchUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="cm">cm</SelectItem>
+                            <SelectItem value="inch">inch</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Grade of footing */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Grade of footing
+                      </label>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2">
+                      <div>
+                        <Select value={gradeOfFooting} onValueChange={setGradeOfFooting}>
+                          <SelectTrigger className="border-gray-300 focus:border-purple-500 focus:ring-purple-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="C.M(1:3)">C.M(1:3)</SelectItem>
+                            <SelectItem value="C.M(1:4)">C.M(1:4)</SelectItem>
+                            <SelectItem value="C.M(1:5)">C.M(1:5)</SelectItem>
+                            <SelectItem value="C.M(1:6)">C.M(1:6)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-3 sm:gap-4 justify-center pt-4">
+                    <Button onClick={calculatePlaster} className="bg-purple-500 hover:bg-purple-600 text-white px-4 sm:px-6">
+                      <Calculator className="w-4 h-4 mr-2" />
+                      Calculate
+                    </Button>
+                    <Button onClick={resetPlasterForm} variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 px-4 sm:px-6">
+                      <RotateCcw className="w-4 h-4 mr-2" />
+                      Clear All
+                    </Button>
+                  </div>
+
+                  {/* Plaster Results */}
+                  {plasterResult && (
+                    <div className="mt-6 p-4 sm:p-6 bg-purple-50 rounded-lg border border-purple-200">
+                      <h3 className="text-lg font-semibold text-purple-800 mb-4">Plaster Calculator Results</h3>
+                      <div className="space-y-3 text-sm">
+                        {/* Highlighted Cement Required Row */}
+                        <div className="flex justify-between items-center border-2 border-purple-500 bg-purple-200 p-3 rounded-lg shadow-sm">
+                          <span className="text-purple-900 font-bold">Cement Bags Required:</span>
+                          <span className="font-bold text-lg text-purple-900">
+                            {plasterResult.cementBags} Bags{plasterResult.excessCement > 0 ? `, ${plasterResult.excessCement} Kg` : ''}
+                          </span>
+                        </div>
+                        
+                        {/* Sand Required */}
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-gray-700 font-semibold">Sand Required:</span>
+                          <span className="font-bold text-lg text-purple-700">{plasterResult.sandRequired} Tonne</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
