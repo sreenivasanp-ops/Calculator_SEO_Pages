@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -144,6 +145,7 @@ const CementCalculator = () => {
       const aggregateRequired = aggregateVolume * 1.35;
       
       setConcreteResult({
+        wetVolumeOfMix: wetVolumeOfMix.toFixed(4),
         cementBags,
         excessCement,
         sandRequired: sandRequired.toFixed(2),
@@ -656,6 +658,12 @@ const CementCalculator = () => {
                           <span className="font-bold text-lg text-blue-900">
                             {concreteResult.cementBags} Bags{concreteResult.excessCement > 0 ? `, ${concreteResult.excessCement} Kg` : ''}
                           </span>
+                        </div>
+                        
+                        {/* Wet Volume of Mix */}
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-gray-700 font-semibold">Wet Volume of Mix:</span>
+                          <span className="font-bold text-lg text-blue-700">{concreteResult.wetVolumeOfMix} m³</span>
                         </div>
                         
                         {/* Sand Required */}
