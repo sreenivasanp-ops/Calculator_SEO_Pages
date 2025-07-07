@@ -61,8 +61,8 @@ const CementCalculator = () => {
       
       const actualVolumeBricks = numberOfBricks * actualBrickLength * actualBrickWidth * actualBrickHeight;
       
-      // Quantity of Mortar
-      const quantityMortar = (volumeBrickMasonry - actualVolumeBricks) * 1.15;
+      // Quantity of Mortar with Dry Volume Calculator (1.25)
+      const quantityMortar = (volumeBrickMasonry - actualVolumeBricks) * 1.15 * 1.25;
       
       // Calculate Volume of Cement
       const ratioNumbers = mortarRatio.split(':').map(num => parseFloat(num));
@@ -72,7 +72,7 @@ const CementCalculator = () => {
       // Calculate number of cement bags
       const totalCementBags = volumeCement / 0.035;
       const cementBags = Math.floor(totalCementBags);
-      const excessCement = (totalCementBags - cementBags) * 50; // Convert remainder to kg
+      const excessCement = Math.floor((totalCementBags - cementBags) * 50); // Convert remainder to kg without decimals
       
       setResult({
         volumeBrickMasonry: volumeBrickMasonry.toFixed(4),
@@ -81,7 +81,7 @@ const CementCalculator = () => {
         volumeCement: volumeCement.toFixed(4),
         actualVolumeBricks: actualVolumeBricks.toFixed(4),
         cementBags,
-        excessCement: excessCement.toFixed(2)
+        excessCement
       });
     } catch (error) {
       console.error('Calculation error:', error);
@@ -377,14 +377,10 @@ const CementCalculator = () => {
                         </div>
                         <div className="flex justify-between items-center border-b pb-2">
                           <span className="text-gray-700 font-semibold">Cement Required:</span>
-                          <span className="font-bold text-lg text-green-700">{result.cementBags} Bags</span>
+                          <span className="font-bold text-lg text-green-700">
+                            {result.cementBags} Bags{result.excessCement > 0 ? `, ${result.excessCement} Kg` : ''}
+                          </span>
                         </div>
-                        {result.excessCement > 0 && (
-                          <div className="flex justify-between items-center border-b pb-2">
-                            <span className="text-gray-700 font-semibold">Excess Cement:</span>
-                            <span className="font-bold text-lg text-green-700">{result.excessCement} kg</span>
-                          </div>
-                        )}
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700">Volume of Brick Masonry:</span>
                           <span className="font-semibold">{result.volumeBrickMasonry} m³</span>
@@ -402,7 +398,7 @@ const CementCalculator = () => {
                           <span className="font-semibold">{result.quantityMortar} m³</span>
                         </div>
                         <div className="text-xs text-gray-500 mt-2">
-                          * Calculation includes 15% wastage factor
+                          * Calculation includes 15% wastage factor and 1.25 dry volume factor
                         </div>
                       </div>
                     </div>
