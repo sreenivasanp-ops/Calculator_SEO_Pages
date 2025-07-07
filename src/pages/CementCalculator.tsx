@@ -74,6 +74,9 @@ const CementCalculator = () => {
       const cementBags = Math.floor(totalCementBags);
       const excessCement = Math.floor((totalCementBags - cementBags) * 50); // Convert remainder to kg without decimals
       
+      // Calculate Sand Required
+      const sandRequired = (quantityMortar * (denominator / (denominator + 1))) * 1.5;
+      
       setResult({
         volumeBrickMasonry: volumeBrickMasonry.toFixed(4),
         numberOfBricks,
@@ -81,7 +84,8 @@ const CementCalculator = () => {
         volumeCement: volumeCement.toFixed(4),
         actualVolumeBricks: actualVolumeBricks.toFixed(4),
         cementBags,
-        excessCement
+        excessCement,
+        sandRequired: sandRequired.toFixed(2)
       });
     } catch (error) {
       console.error('Calculation error:', error);
@@ -371,23 +375,33 @@ const CementCalculator = () => {
                     <div className="mt-6 p-4 sm:p-6 bg-green-50 rounded-lg border border-green-200">
                       <h3 className="text-lg font-semibold text-green-800 mb-4">Cement Calculator</h3>
                       <div className="space-y-3 text-sm">
+                        {/* Highlighted Cement Required Row */}
+                        <div className="flex justify-between items-center border-2 border-green-500 bg-green-100 p-3 rounded-lg">
+                          <span className="text-green-800 font-bold">Cement Required:</span>
+                          <span className="font-bold text-lg text-green-800">
+                            {result.cementBags} Bags{result.excessCement > 0 ? `, ${result.excessCement} Kg` : ''}
+                          </span>
+                        </div>
+                        
+                        {/* Number of Bricks */}
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-gray-700 font-semibold">Number of Bricks:</span>
+                          <span className="font-bold text-lg text-green-700">{result.numberOfBricks} Bricks</span>
+                        </div>
+                        
+                        {/* Sand Required */}
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-gray-700 font-semibold">Sand Required:</span>
+                          <span className="font-bold text-lg text-green-700">{result.sandRequired} Tonne</span>
+                        </div>
+                        
                         <div className="flex justify-between items-center border-b pb-2">
                           <span className="text-gray-700 font-semibold">Total Cement Volume:</span>
                           <span className="font-bold text-lg text-green-700">{result.volumeCement} m³</span>
                         </div>
-                        <div className="flex justify-between items-center border-b pb-2">
-                          <span className="text-gray-700 font-semibold">Cement Required:</span>
-                          <span className="font-bold text-lg text-green-700">
-                            {result.cementBags} Bags{result.excessCement > 0 ? `, ${result.excessCement} Kg` : ''}
-                          </span>
-                        </div>
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700">Volume of Brick Masonry:</span>
                           <span className="font-semibold">{result.volumeBrickMasonry} m³</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-700">Number of Bricks:</span>
-                          <span className="font-semibold">{result.numberOfBricks} Bricks</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700">Actual Volume of Bricks Mortar:</span>
