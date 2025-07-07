@@ -10,6 +10,7 @@ import TMTBars from "./pages/TMTBars";
 import Resistors from "./pages/Resistors";
 import InverterCalculator from "./pages/InverterCalculator";
 import SolarPanel from "./pages/SolarPanel";
+import CementCalculator from "./pages/CementCalculator";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/resistors" element={<Resistors />} />
           <Route path="/inverter-calculator" element={<InverterCalculator />} />
           <Route path="/solar-panel" element={<SolarPanel />} />
+          <Route path="/cement-calculator" element={<CementCalculator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

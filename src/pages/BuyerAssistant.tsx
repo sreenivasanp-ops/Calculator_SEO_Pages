@@ -1,7 +1,7 @@
 
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Paintbrush, Square, Sun, Zap, DollarSign, BarChart3, Cpu, Battery } from 'lucide-react';
+import { Paintbrush, Square, Sun, Zap, DollarSign, BarChart3, Cpu, Battery, Hammer } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const BuyerAssistant = () => {
@@ -13,6 +13,12 @@ const BuyerAssistant = () => {
       icon: BarChart3,
       description: 'TMT Steel Bars & Rods',
       onClick: () => navigate('/tmt-bars')
+    },
+    {
+      title: 'Cement',
+      icon: Hammer,
+      description: 'Cement Calculator for Construction',
+      onClick: () => navigate('/cement-calculator')
     },
     {
       title: 'Paints',
