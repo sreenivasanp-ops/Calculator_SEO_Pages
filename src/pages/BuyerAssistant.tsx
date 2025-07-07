@@ -1,7 +1,7 @@
 
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Paintbrush, Square, Sun, Zap, DollarSign, BarChart3, Cpu, Battery, Hammer } from 'lucide-react';
+import { BarChart3, Cpu, Sun, Battery, Hammer } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const BuyerAssistant = () => {
@@ -19,16 +19,6 @@ const BuyerAssistant = () => {
       icon: Hammer,
       description: 'Cement Calculator for Construction',
       onClick: () => navigate('/cement-calculator')
-    },
-    {
-      title: 'Paints',
-      icon: Paintbrush,
-      description: 'Interior & Exterior Paints'
-    },
-    {
-      title: 'Tiles',
-      icon: Square,
-      description: 'Floor & Wall Tiles'
     }
   ];
 
@@ -47,16 +37,6 @@ const BuyerAssistant = () => {
       icon: Sun,
       description: 'Solar Energy Solutions',
       onClick: () => navigate('/solar-panel')
-    },
-    {
-      title: 'House Wire',
-      icon: Zap,
-      description: 'Electrical Wiring Solutions'
-    },
-    {
-      title: 'Solar Loan',
-      icon: DollarSign,
-      description: 'Solar Financing Options'
     }
   ];
 
