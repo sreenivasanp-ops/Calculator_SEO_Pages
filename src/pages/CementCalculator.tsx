@@ -131,10 +131,16 @@ const CementCalculator = () => {
           </h1>
           
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-12">
-              <TabsTrigger value="brickwork" className="text-xs sm:text-sm py-2">Material Calculator for Brickwork</TabsTrigger>
-              <TabsTrigger value="concrete" className="text-xs sm:text-sm py-2">Material Calculator for Concrete</TabsTrigger>
-              <TabsTrigger value="plaster" className="text-xs sm:text-sm py-2">Material Calculator for Plaster</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-16">
+              <TabsTrigger value="brickwork" className="text-xs sm:text-sm py-3 px-2 h-full flex items-center justify-center text-center leading-tight">
+                Material Calculator for Brickwork
+              </TabsTrigger>
+              <TabsTrigger value="concrete" className="text-xs sm:text-sm py-3 px-2 h-full flex items-center justify-center text-center leading-tight">
+                Material Calculator for Concrete
+              </TabsTrigger>
+              <TabsTrigger value="plaster" className="text-xs sm:text-sm py-3 px-2 h-full flex items-center justify-center text-center leading-tight">
+                Material Calculator for Plaster
+              </TabsTrigger>
             </TabsList>
             
             <TabsContent value="brickwork">
@@ -145,27 +151,27 @@ const CementCalculator = () => {
                     Brickwork Calculator
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6 p-3 sm:p-6">
+                <CardContent className="space-y-4 p-3 sm:p-6">
                   {/* Length Input */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
                         Length <Info className="inline w-4 h-4 ml-1" />
                       </label>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 items-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
                       <div>
                         <Input
                           type="number"
                           value={lengthFeet}
                           onChange={(e) => setLengthFeet(e.target.value)}
                           placeholder="3"
-                          className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                          className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9"
                         />
                       </div>
                       <div>
                         <Select value={lengthUnit} onValueChange={setLengthUnit}>
-                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500">
+                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="bg-white z-50">
@@ -180,12 +186,12 @@ const CementCalculator = () => {
                           value={lengthInch}
                           onChange={(e) => setLengthInch(e.target.value)}
                           placeholder="6"
-                          className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                          className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9"
                         />
                       </div>
                       <div>
                         <Select value={inchUnit} onValueChange={setInchUnit}>
-                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500">
+                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="bg-white z-50">
@@ -198,25 +204,25 @@ const CementCalculator = () => {
                   </div>
 
                   {/* Height/Depth Input */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
                         Height / Depth <Info className="inline w-4 h-4 ml-1" />
                       </label>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 items-center">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
                       <div>
                         <Input
                           type="number"
                           value={heightFeet}
                           onChange={(e) => setHeightFeet(e.target.value)}
                           placeholder="3"
-                          className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                          className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9"
                         />
                       </div>
                       <div>
                         <Select value={lengthUnit} onValueChange={setLengthUnit}>
-                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500">
+                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="bg-white z-50">
@@ -231,12 +237,12 @@ const CementCalculator = () => {
                           value={heightInch}
                           onChange={(e) => setHeightInch(e.target.value)}
                           placeholder="6"
-                          className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                          className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9"
                         />
                       </div>
                       <div>
                         <Select value={inchUnit} onValueChange={setInchUnit}>
-                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500">
+                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="bg-white z-50">
@@ -249,16 +255,16 @@ const CementCalculator = () => {
                   </div>
 
                   {/* Wall Thickness */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
                         Wall Thickness <Info className="inline w-4 h-4 ml-1" />
                       </label>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <div>
                         <Select value={wallThickness} onValueChange={setWallThickness}>
-                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500">
+                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="bg-white z-50">
@@ -276,7 +282,7 @@ const CementCalculator = () => {
                             value={customThickness}
                             onChange={(e) => setCustomThickness(e.target.value)}
                             placeholder="Enter thickness"
-                            className="border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                            className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9"
                           />
                         </div>
                       )}
@@ -284,16 +290,16 @@ const CementCalculator = () => {
                   </div>
 
                   {/* Mortar Ratio */}
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
                         Ratio <Info className="inline w-4 h-4 ml-1" />
                       </label>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       <div>
                         <Select value={mortarRatio} onValueChange={setMortarRatio}>
-                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500">
+                          <SelectTrigger className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="bg-white z-50">
@@ -311,61 +317,63 @@ const CementCalculator = () => {
                   </div>
 
                   {/* Size of Brick */}
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <label className="block text-sm font-medium text-gray-700">
                         Size of Brick <Info className="inline w-4 h-4 ml-1" />
                       </label>
                     </div>
                     
-                    {/* Length */}
-                    <div className="space-y-2">
-                      <div className="text-sm font-medium text-gray-600">Length</div>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          value={brickLength}
-                          onChange={(e) => setBrickLength(e.target.value)}
-                          placeholder="23"
-                          className="w-24 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-                        />
-                        <span className="text-sm text-gray-500">cm</span>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {/* Length */}
+                      <div className="space-y-2">
+                        <div className="text-sm font-medium text-gray-600">Length</div>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            value={brickLength}
+                            onChange={(e) => setBrickLength(e.target.value)}
+                            placeholder="23"
+                            className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9"
+                          />
+                          <span className="text-sm text-gray-500">cm</span>
+                        </div>
                       </div>
-                    </div>
-                    
-                    {/* Width */}
-                    <div className="space-y-2">
-                      <div className="text-sm font-medium text-gray-600">Width</div>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          value={brickWidth}
-                          onChange={(e) => setBrickWidth(e.target.value)}
-                          placeholder="11.5"
-                          className="w-24 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-                        />
-                        <span className="text-sm text-gray-500">cm</span>
+                      
+                      {/* Width */}
+                      <div className="space-y-2">
+                        <div className="text-sm font-medium text-gray-600">Width</div>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            value={brickWidth}
+                            onChange={(e) => setBrickWidth(e.target.value)}
+                            placeholder="11.5"
+                            className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9"
+                          />
+                          <span className="text-sm text-gray-500">cm</span>
+                        </div>
                       </div>
-                    </div>
-                    
-                    {/* Height */}
-                    <div className="space-y-2">
-                      <div className="text-sm font-medium text-gray-600">Height</div>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          value={brickHeight}
-                          onChange={(e) => setBrickHeight(e.target.value)}
-                          placeholder="7.5"
-                          className="w-24 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-                        />
-                        <span className="text-sm text-gray-500">cm</span>
+                      
+                      {/* Height */}
+                      <div className="space-y-2">
+                        <div className="text-sm font-medium text-gray-600">Height</div>
+                        <div className="flex items-center gap-2">
+                          <Input
+                            type="number"
+                            value={brickHeight}
+                            onChange={(e) => setBrickHeight(e.target.value)}
+                            placeholder="7.5"
+                            className="text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 h-9"
+                          />
+                          <span className="text-sm text-gray-500">cm</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3 sm:gap-4 justify-center pt-6">
+                  <div className="flex gap-3 sm:gap-4 justify-center pt-4">
                     <Button onClick={calculateCement} className="bg-teal-500 hover:bg-teal-600 text-white px-4 sm:px-6">
                       <Calculator className="w-4 h-4 mr-2" />
                       Calculate
@@ -378,9 +386,17 @@ const CementCalculator = () => {
 
                   {/* Results */}
                   {result && (
-                    <div className="mt-8 p-4 sm:p-6 bg-green-50 rounded-lg border border-green-200">
-                      <h3 className="text-lg font-semibold text-green-800 mb-4">Calculation Results</h3>
+                    <div className="mt-6 p-4 sm:p-6 bg-green-50 rounded-lg border border-green-200">
+                      <h3 className="text-lg font-semibold text-green-800 mb-4">Cement Calculator</h3>
                       <div className="space-y-3 text-sm">
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-gray-700 font-semibold">Total Cement Volume:</span>
+                          <span className="font-bold text-lg text-green-700">{result.cementVolume} m³</span>
+                        </div>
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-gray-700 font-semibold">Cement Required:</span>
+                          <span className="font-bold text-lg text-green-700">{result.cementBags} Bags</span>
+                        </div>
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700">Volume of Brick Masonry:</span>
                           <span className="font-semibold">{result.volumeBrickMasonry} m³</span>
@@ -392,14 +408,6 @@ const CementCalculator = () => {
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700">Volume of Mortar:</span>
                           <span className="font-semibold">{result.volumeMortar} m³</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-700">Total Cement Volume:</span>
-                          <span className="font-semibold">{result.cementVolume} m³</span>
-                        </div>
-                        <div className="flex justify-between items-center border-t pt-2">
-                          <span className="text-gray-700 font-semibold">Cement Required:</span>
-                          <span className="font-bold text-lg text-green-700">{result.cementBags} Bags</span>
                         </div>
                         <div className="text-xs text-gray-500 mt-2">
                           * Calculation includes 15% wastage and 25% dry volume
