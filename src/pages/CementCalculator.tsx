@@ -121,7 +121,7 @@ const CementCalculator = () => {
       const cementConcreteVolume = length * width * depth;
       
       // Calculate Wet Volume of Mix
-      const wetVolumeOfMix = cementConcreteVolume * 1.52;
+      const wetVolumeOfMix = cementConcreteVolume * 1.524;
       
       // Extract ratios from grade
       const ratioString = concreteGrade.split('(')[1].split(')')[0];
@@ -192,7 +192,7 @@ const CementCalculator = () => {
           </h1>
           
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-20 sm:h-24 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl shadow-lg">
+            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-16 sm:h-19 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl shadow-lg">
               <TabsTrigger 
                 value="brickwork" 
                 className="text-xl sm:text-2xl font-black py-4 px-3 h-full flex items-center justify-center text-center leading-tight 
