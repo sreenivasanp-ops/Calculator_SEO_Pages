@@ -119,13 +119,13 @@ const CementCalculator = () => {
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-20">
               <TabsTrigger value="brickwork" className="text-xs sm:text-sm py-4 px-2 h-full flex items-center justify-center text-center leading-tight">
-                Material Calculator for Brickwork
+                Brickwork
               </TabsTrigger>
               <TabsTrigger value="concrete" className="text-xs sm:text-sm py-4 px-2 h-full flex items-center justify-center text-center leading-tight">
-                Material Calculator for Concrete
+                Concrete
               </TabsTrigger>
               <TabsTrigger value="plaster" className="text-xs sm:text-sm py-4 px-2 h-full flex items-center justify-center text-center leading-tight">
-                Material Calculator for Plaster
+                Plaster
               </TabsTrigger>
             </TabsList>
             
@@ -395,24 +395,8 @@ const CementCalculator = () => {
                           <span className="font-bold text-lg text-green-700">{result.sandRequired} Tonne</span>
                         </div>
                         
-                        <div className="flex justify-between items-center border-b pb-2">
-                          <span className="text-gray-700 font-semibold">Total Cement Volume:</span>
-                          <span className="font-bold text-lg text-green-700">{result.volumeCement} m³</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-700">Volume of Brick Masonry:</span>
-                          <span className="font-semibold">{result.volumeBrickMasonry} m³</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-700">Actual Volume of Bricks Mortar:</span>
-                          <span className="font-semibold">{result.actualVolumeBricks} m³</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                          <span className="text-gray-700">Quantity of Mortar:</span>
-                          <span className="font-semibold">{result.quantityMortar} m³</span>
-                        </div>
                         <div className="text-xs text-gray-500 mt-2">
-                          * Calculation includes 15% wastage factor and 1.25 dry volume factor
+                          * Calculation includes 15% wastage factor and 25% dry volume factor
                         </div>
                       </div>
                     </div>
