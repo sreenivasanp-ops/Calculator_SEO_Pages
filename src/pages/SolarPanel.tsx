@@ -1,6 +1,6 @@
 
 import Header from '@/components/Header';
-import ExploreRelatedCategories from '@/components/ExploreRelatedCategories';
+import SolarRelatedCategories from '@/components/SolarRelatedCategories';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -378,7 +378,7 @@ const SolarPanel = () => {
         )}
 
         {/* Explore Related Categories */}
-        <ExploreRelatedCategories />
+        <SolarRelatedCategories />
       </div>
     </div>
   );

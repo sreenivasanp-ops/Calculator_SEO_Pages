@@ -1,5 +1,5 @@
-
 import Header from '@/components/Header';
+import ResistorRelatedCategories from '@/components/ResistorRelatedCategories';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -449,6 +449,9 @@ const Resistors = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Explore Related Categories */}
+        <ResistorRelatedCategories />
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ const BuyerAssistant = () => {
 
   const consumerElectronicsItems = [
     {
-      title: 'UPS',
+      title: 'Inverter Battery',
       icon: Battery,
       description: 'Uninterruptible Power Supply',
       onClick: () => navigate('/inverter-calculator')
