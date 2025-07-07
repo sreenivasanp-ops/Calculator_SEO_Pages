@@ -1,415 +1,346 @@
-
 import Header from '@/components/Header';
+import AllCalculatorsCTA from '@/components/AllCalculatorsCTA';
 import InverterBatteryRelatedCategories from '@/components/InverterBatteryRelatedCategories';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { 
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import { 
-  Collapsible, 
-  CollapsibleContent, 
-  CollapsibleTrigger 
-} from '@/components/ui/collapsible';
-
-interface ApplianceItem {
-  name: string;
-  wattage: number;
-  quantity: number;
-}
-
-interface ApplianceCategory {
-  id: string;
-  name: string;
-  icon: string;
-  items: ApplianceItem[];
-}
 
 const InverterCalculator = () => {
-  const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
-  const [appliances, setAppliances] = useState<ApplianceCategory[]>([
-    {
-      id: 'fans',
-      name: 'Fans and coolers',
-      icon: '🌀',
-      items: [
-        { name: 'Ceiling Fan 75W', wattage: 75, quantity: 0 },
-        { name: 'Table Fan 50W', wattage: 50, quantity: 0 },
-        { name: 'Room Cooler 250W', wattage: 250, quantity: 0 }
-      ]
-    },
-    {
-      id: 'laptops',
-      name: 'Laptops and Computers',
-      icon: '💻',
-      items: [
-        { name: 'Laptop 100W', wattage: 100, quantity: 0 }
-      ]
-    },
-    {
-      id: 'lights',
-      name: 'Lights',
-      icon: '💡',
-      items: [
-        { name: 'LED Bulb 5W', wattage: 5, quantity: 0 },
-        { name: 'LED Bulb 9W', wattage: 9, quantity: 0 },
-        { name: 'CFL Light 15W', wattage: 15, quantity: 0 },
-        { name: 'Tubelight 20W', wattage: 20, quantity: 0 },
-        { name: 'CFL Heavy 30W', wattage: 30, quantity: 0 },
-        { name: 'Tubelight 40W', wattage: 40, quantity: 0 },
-        { name: 'Light Bulb (Incandescent) 40W', wattage: 40, quantity: 0 },
-        { name: 'Light Bulb (Incandescent) 60W', wattage: 60, quantity: 0 },
-        { name: 'Light Bulb (Incandescent) 100W', wattage: 100, quantity: 0 }
-      ]
-    },
-    {
-      id: 'appliances',
-      name: 'Home Appliances',
-      icon: '🏠',
-      items: [
-        { name: 'Juicer Mixer Grinder 800W', wattage: 800, quantity: 0 },
-        { name: 'Toaster 800W', wattage: 800, quantity: 0 },
-        { name: 'Refrigerator (upto 200L) 300W', wattage: 300, quantity: 0 },
-        { name: 'Refrigerator (upto 500L) 500W', wattage: 500, quantity: 0 },
-        { name: 'Microwave Oven 1400W', wattage: 1400, quantity: 0 },
-        { name: 'Vacuum Cleaner 1400W', wattage: 1400, quantity: 0 },
-        { name: 'Washing Machine 1000W', wattage: 1000, quantity: 0 },
-        { name: 'Geyser/Water Heater 2200W', wattage: 2200, quantity: 0 },
-        { name: 'Room Heater 2200W', wattage: 2200, quantity: 0 }
-      ]
-    },
-    {
-      id: 'entertainment',
-      name: 'TV & other entertainment',
-      icon: '📺',
-      items: [
-        { name: 'Television LED (upto 40") 60W', wattage: 60, quantity: 0 },
-        { name: 'Television CRT (upto 21") 100W', wattage: 100, quantity: 0 },
-        { name: 'Television Plasma 250W', wattage: 250, quantity: 0 },
-        { name: 'Set Top Box (DTH) 50W', wattage: 50, quantity: 0 },
-        { name: 'Music System 300W', wattage: 300, quantity: 0 },
-        { name: 'Gaming Console 200W', wattage: 200, quantity: 0 }
-      ]
-    },
-    {
-      id: 'acs',
-      name: 'ACs',
-      icon: '❄️',
-      items: [
-        { name: 'Air Conditioner (1 Ton, 3 star) 1200W', wattage: 1200, quantity: 0 },
-        { name: 'Air Conditioner (1.5 Ton, 3 star) 1700W', wattage: 1700, quantity: 0 },
-        { name: 'Air Conditioner (2 Ton, 3 star) 2300W', wattage: 2300, quantity: 0 },
-        { name: 'Air Conditioner (1 Ton, Inverter) 1100W', wattage: 1100, quantity: 0 },
-        { name: 'Air Conditioner (1.5 Ton, Inverter) 1600W', wattage: 1600, quantity: 0 },
-        { name: 'Air Conditioner (2 Ton, Inverter) 2100W', wattage: 2100, quantity: 0 }
-      ]
-    },
-    {
-      id: 'others',
-      name: 'Others',
-      icon: '📋',
-      items: [
-        { name: 'Photo Copier 2000W', wattage: 2000, quantity: 0 },
-        { name: 'Office Printer/Scanner 2000W', wattage: 2000, quantity: 0 },
-        { name: 'Petrol Filling Machine 1500W', wattage: 1500, quantity: 0 },
-        { name: 'Projector 600W', wattage: 600, quantity: 0 },
-        { name: 'Surveillance System 100W', wattage: 100, quantity: 0 }
-      ]
-    },
-    {
-      id: 'motors',
-      name: 'Motors',
-      icon: '⚙️',
-      items: [
-        { name: 'Water Pump (0.5 HP) 400W', wattage: 400, quantity: 0 },
-        { name: 'Water Pump (1 HP) 800W', wattage: 800, quantity: 0 }
-      ]
-    }
-  ]);
+  const [loadWattage, setLoadWattage] = useState('');
+  const [backupTime, setBackupTime] = useState('');
+  const [inverterType, setInverterType] = useState('normal');
+  const [batteryType, setBatteryType] = useState('tubular');
+  const [showResults, setShowResults] = useState(false);
 
-  const [totalLoad, setTotalLoad] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-  const [averageRunningLoad, setAverageRunningLoad] = useState('');
-  const [backupHours, setBackupHours] = useState('2');
-  const [showPlanningInputs, setShowPlanningInputs] = useState(false);
-  const [showRecommendations, setShowRecommendations] = useState(false);
+  const calculateInverter = () => {
+    if (!loadWattage || !backupTime) return;
 
-  const toggleSection = (sectionId: string) => {
-    setOpenSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }));
-  };
+    const wattage = parseFloat(loadWattage);
+    const hours = parseFloat(backupTime);
 
-  const updateQuantity = (categoryId: string, itemIndex: number, change: number) => {
-    setAppliances(prev => prev.map(category => {
-      if (category.id === categoryId) {
-        const updatedItems = [...category.items];
-        updatedItems[itemIndex] = {
-          ...updatedItems[itemIndex],
-          quantity: Math.max(0, updatedItems[itemIndex].quantity + change)
-        };
-        return { ...category, items: updatedItems };
-      }
-      return category;
-    }));
-  };
+    // Calculate VA rating (considering power factor of 0.8)
+    const vaRating = wattage / 0.8;
 
-  const calculateTotal = () => {
-    let total = 0;
-    appliances.forEach(category => {
-      category.items.forEach(item => {
-        total += item.wattage * item.quantity;
-      });
-    });
-    setTotalLoad(total);
-    setShowResult(true);
-    setShowPlanningInputs(true);
+    // Calculate battery capacity in Volt-Ampere-Hours (VAH)
+    const batteryCapacityVAH = vaRating * hours;
+
+    // Calculate battery voltage (assuming 12V system)
+    const batteryVoltage = 12;
+
+    // Calculate battery Ampere-Hours (AH)
+    const batteryCapacityAH = batteryCapacityVAH / batteryVoltage;
+
+    // Round values for practical use
+    const roundedVaRating = Math.ceil(vaRating / 100) * 100;
+    const roundedBatteryAH = Math.ceil(batteryCapacityAH / 20) * 20;
+
+    // Set results
+    setInverterVa(roundedVaRating);
+    setBatteryAh(roundedBatteryAH);
+    setShowResults(true);
   };
 
   const clearAll = () => {
-    setAppliances(prev => prev.map(category => ({
-      ...category,
-      items: category.items.map(item => ({ ...item, quantity: 0 }))
-    })));
-    setTotalLoad(0);
-    setShowResult(false);
-    setShowPlanningInputs(false);
-    setShowRecommendations(false);
-    setAverageRunningLoad('');
-    setBackupHours('2');
+    setLoadWattage('');
+    setBackupTime('');
+    setInverterType('normal');
+    setBatteryType('tubular');
+    setShowResults(false);
+    setInverterVa(0);
+    setBatteryAh(0);
   };
 
-  const handleLetsPlan = () => {
-    if (averageRunningLoad && backupHours) {
-      setShowRecommendations(true);
-    }
-  };
+  const [inverterVa, setInverterVa] = useState(0);
+  const [batteryAh, setBatteryAh] = useState(0);
 
-  const calculateRecommendations = () => {
-    const runningLoadPercentage = parseInt(averageRunningLoad) / 100;
-    const effectiveLoad = totalLoad * runningLoadPercentage;
-    const vaRating = Math.ceil(totalLoad / 0.7);
-    const hours = parseInt(backupHours);
-    const batteryCapacity = Math.ceil((effectiveLoad * hours) / (12 * 0.8));
-    
-    let recommendedVA;
-    if (vaRating < 500) {
-      recommendedVA = 500;
-    } else {
-      recommendedVA = Math.ceil(vaRating / 100) * 100;
-    }
-    
-    let recommendedBattery;
-    if (batteryCapacity < 100) {
-      recommendedBattery = 100;
-    } else if (batteryCapacity >= 100 && batteryCapacity < 150) {
-      recommendedBattery = 150;
-    } else if (batteryCapacity >= 150 && batteryCapacity < 200) {
-      recommendedBattery = 200;
-    } else if (batteryCapacity >= 200 && batteryCapacity < 220) {
-      recommendedBattery = 220;
-    } else {
-      recommendedBattery = Math.ceil(batteryCapacity / 10) * 10;
-    }
-    
-    return {
-      vaRating,
-      batteryCapacity,
-      recommendedVA,
-      recommendedBattery
-    };
-  };
-
-  const recommendations = calculateRecommendations();
+  // Cost Estimation
+  const inverterCost = inverterVa * 8; // Assuming ₹8 per VA
+  const batteryCost = batteryAh * 250; // Assuming ₹250 per AH
+  const totalCost = inverterCost + batteryCost;
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
+      <AllCalculatorsCTA />
       
-      <div className="container mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-          Inverter Size Calculator – Know What You Need
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
+        {/* Main Title */}
+        <h1 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 px-2">
+          Find the Right Inverter & Battery – Power Backup Calculator
         </h1>
         
-        <Card className="max-w-4xl mx-auto">
-          <CardHeader>
-            <CardTitle className="text-xl text-center">Inverter Load Calculator</CardTitle>
+        {/* Inverter Calculator Section */}
+        <Card className="mb-6 sm:mb-8 border-2 border-blue-200">
+          <CardHeader className="bg-blue-50 p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800 flex flex-col sm:flex-row sm:items-center gap-2">
+              ⚡ Inverter & Battery Calculator
+              <span className="text-xs sm:text-sm font-normal text-gray-600">
+                Find the Perfect Power Backup Solution
+              </span>
+            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {appliances.map((category) => (
-              <Collapsible 
-                key={category.id}
-                open={openSections[category.id]}
-                onOpenChange={() => toggleSection(category.id)}
+          <CardContent className="p-4 sm:p-6 space-y-6">
+            {/* Load Wattage Input */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Total Load Wattage (Watts)
+              </label>
+              <Input
+                type="number"
+                value={loadWattage}
+                onChange={(e) => setLoadWattage(e.target.value)}
+                placeholder="Enter total load wattage"
+                className="w-full"
+              />
+            </div>
+
+            {/* Backup Time Input */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Required Backup Time (Hours)
+              </label>
+              <Input
+                type="number"
+                value={backupTime}
+                onChange={(e) => setBackupTime(e.target.value)}
+                placeholder="Enter required backup time"
+                className="w-full"
+              />
+            </div>
+
+            {/* Inverter Type Selection */}
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-4">
+                Select Inverter Type:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {['normal', 'pure sine wave'].map((type) => (
+                  <Button
+                    key={type}
+                    onClick={() => setInverterType(type)}
+                    variant={inverterType === type ? 'default' : 'outline'}
+                    className={`px-4 py-2 text-sm ${
+                      inverterType === type
+                        ? 'bg-gray-700 text-white'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    }`}
+                  >
+                    {type === 'normal' ? 'Normal' : 'Pure Sine Wave'}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Battery Type Selection */}
+            <div>
+              <p className="text-sm font-medium text-gray-700 mb-4">
+                Select Battery Type:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {['tubular', 'flat plate', 'lithium-ion'].map((type) => (
+                  <Button
+                    key={type}
+                    onClick={() => setBatteryType(type)}
+                    variant={batteryType === type ? 'default' : 'outline'}
+                    className={`px-4 py-2 text-sm ${
+                      batteryType === type
+                        ? 'bg-gray-700 text-white'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    }`}
+                  >
+                    {type === 'tubular' ? 'Tubular' : type === 'flat plate' ? 'Flat Plate' : 'Lithium-ion'}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Calculate Button */}
+            <div className="flex justify-center">
+              <Button
+                onClick={calculateInverter}
+                className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold"
+                disabled={!loadWattage || !backupTime}
               >
-                <CollapsibleTrigger className="w-full">
-                  <div className="flex items-center justify-between w-full p-3 border rounded-lg hover:bg-gray-50">
-                    <div className="flex items-center gap-3">
-                      <span className="text-lg">{category.icon}</span>
-                      <span className="font-medium text-blue-600">{category.name}</span>
-                    </div>
-                    {openSections[category.id] ? 
-                      <ChevronUp className="w-5 h-5" /> : 
-                      <ChevronDown className="w-5 h-5" />
-                    }
-                  </div>
-                </CollapsibleTrigger>
-                
-                <CollapsibleContent className="mt-2">
-                  <div className="space-y-2 ml-6">
-                    {category.items.map((item, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 border rounded">
-                        <span className="text-sm">{item.name}</span>
-                        <div className="flex items-center gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => updateQuantity(category.id, index, -1)}
-                            className="w-8 h-8 p-0"
-                          >
-                            -
-                          </Button>
-                          <span className="w-8 text-center">{item.quantity}</span>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => updateQuantity(category.id, index, 1)}
-                            className="w-8 h-8 p-0"
-                          >
-                            +
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
-            ))}
-            
-            <div className="flex justify-center gap-4 mt-6">
-              <Button onClick={calculateTotal} className="bg-blue-600 hover:bg-blue-700">
-                Calculate
-              </Button>
-              <Button onClick={clearAll} variant="outline">
-                Clear All
+                CALCULATE
               </Button>
             </div>
-            
-            {showResult && (
-              <Card className="mt-6 bg-blue-50">
-                <CardContent className="p-4">
-                  <div className="text-center">
-                    <h3 className="font-semibold text-lg mb-2">Total Load (W)*</h3>
-                    <div className="text-2xl font-bold text-blue-600">{totalLoad}W</div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {showPlanningInputs && (
-              <div className="mt-6 space-y-4">
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Average Running Load (%)*
-                        </label>
-                        <Select value={averageRunningLoad} onValueChange={setAverageRunningLoad}>
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select percentage" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-white border shadow-lg">
-                            <SelectItem value="25">25%</SelectItem>
-                            <SelectItem value="50">50%</SelectItem>
-                            <SelectItem value="75">75%</SelectItem>
-                            <SelectItem value="100">100%</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Backup Hours
-                        </label>
-                        <div className="relative">
-                          <Input
-                            type="number"
-                            value={backupHours}
-                            onChange={(e) => setBackupHours(e.target.value)}
-                            className="pr-12"
-                            min="1"
-                            max="24"
-                          />
-                          <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">
-                            Hrs
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <div className="flex justify-center">
-                  <Button 
-                    onClick={handleLetsPlan}
-                    className="bg-blue-600 hover:bg-blue-700 px-8"
-                    disabled={!averageRunningLoad}
-                  >
-                    Let's Plan
-                  </Button>
-                </div>
-
-                {showRecommendations && (
-                  <Card className="mt-6 bg-gray-50">
-                    <CardContent className="p-6">
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
-                            <span className="text-blue-600 font-bold text-sm">⚡</span>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-gray-800">Inverter VA Rating</h4>
-                            <p className="text-blue-600 font-bold">
-                              {recommendations.vaRating} VA | Recommended: {recommendations.recommendedVA} VA
-                            </p>
-                            <p className="text-xs text-gray-600 mt-1">*Assumed Efficiency of inverter is 0.7</p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
-                            <span className="text-blue-600 font-bold text-sm">🔋</span>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-gray-800">Battery Capacity</h4>
-                            <p className="text-blue-600 font-bold">
-                              {recommendations.batteryCapacity} AH | Recommended: {recommendations.recommendedBattery} AH
-                            </p>
-                            <p className="text-xs text-gray-600 mt-1">*Assumed efficiency of Battery is 0.8</p>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            )}
           </CardContent>
         </Card>
 
+        {/* Results Section */}
+        {showResults && (
+          <>
+            {/* Inverter Specifications */}
+            <Card className="mb-6 border-2 border-green-200">
+              <CardHeader className="bg-green-50 p-4">
+                <CardTitle className="text-center text-lg">Inverter Specifications</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700">VA Rating:</h3>
+                    <p className="text-lg font-bold text-green-500">{inverterVa} VA</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700">Type:</h3>
+                    <p className="text-lg font-bold text-green-500">{inverterType === 'normal' ? 'Normal' : 'Pure Sine Wave'}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Battery Specifications */}
+            <Card className="mb-6 border-2 border-orange-200">
+              <CardHeader className="bg-orange-50 p-4">
+                <CardTitle className="text-center text-lg">Battery Specifications</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700">Capacity:</h3>
+                    <p className="text-lg font-bold text-orange-500">{batteryAh} AH</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700">Type:</h3>
+                    <p className="text-lg font-bold text-orange-500">
+                      {batteryType === 'tubular' ? 'Tubular' : batteryType === 'flat plate' ? 'Flat Plate' : 'Lithium-ion'}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Cost Breakdown */}
+            <Card className="mb-6 border-2 border-purple-200">
+              <CardHeader className="bg-purple-50 p-4">
+                <CardTitle className="text-center text-lg">Cost Breakdown (Estimated)</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700">Inverter Cost:</h3>
+                    <p className="text-lg font-bold text-purple-500">₹{inverterCost}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700">Battery Cost:</h3>
+                    <p className="text-lg font-bold text-purple-500">₹{batteryCost}</p>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <h3 className="text-sm font-semibold text-gray-700">Total Estimated Cost:</h3>
+                  <p className="text-2xl font-bold text-purple-500">₹{totalCost}</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Clear Button */}
+            <div className="flex justify-center">
+              <Button
+                onClick={clearAll}
+                variant="outline"
+                className="border-orange-500 text-orange-500 hover:bg-orange-50 px-6"
+              >
+                Clear All
+              </Button>
+            </div>
+          </>
+        )}
+
         {/* Explore Related Categories */}
-        <div className="max-w-4xl mx-auto mt-6">
-          <InverterBatteryRelatedCategories />
-        </div>
+        <InverterBatteryRelatedCategories />
+
+        {/* Inverter Guide Section */}
+        <Card className="mb-6 sm:mb-8">
+          <CardHeader className="p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800">Inverter Buying Guide</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 sm:space-y-6 p-3 sm:p-6 pt-0">
+            <div>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-3">What to consider when buying an inverter</h3>
+              
+              <div className="space-y-3 sm:space-y-4">
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Load Requirement:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Assess the total power consumption (in watts) of all the appliances you intend to run on the inverter. This will help you determine the appropriate VA rating of the inverter.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Backup Time:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Decide how long you need the inverter to provide power during outages. This will influence the battery capacity (in AH) required.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Inverter Type:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Choose between a normal inverter (suitable for basic appliances) and a pure sine wave inverter (recommended for sensitive electronic devices).
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Battery Type:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Select the appropriate battery type based on your budget and requirements. Tubular batteries are long-lasting, while lithium-ion batteries are compact and efficient.
+                  </p>
+                </div>
+              </div>
+              
+              <p className="text-gray-600 text-xs sm:text-sm mt-3 sm:mt-4">
+                Selecting the right inverter and battery for your power backup needs requires careful consideration of multiple factors. Consult with experts, evaluate different models, and stay informed about the latest technologies to make an informed decision.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Battery Guide Section */}
+        <Card>
+          <CardHeader className="p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800">Battery Buying Guide</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4 sm:space-y-6 p-3 sm:p-6 pt-0">
+            <div>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-3">What to consider when buying a battery</h3>
+              
+              <div className="space-y-3 sm:space-y-4">
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Capacity (AH):</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    The capacity of a battery is measured in Ampere-Hours (AH). Higher AH ratings provide longer backup times.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Voltage:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Ensure that the battery voltage matches the inverter's voltage requirement (typically 12V or 24V).
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Battery Type:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Choose between tubular, flat plate, and lithium-ion batteries based on your budget and requirements.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Maintenance:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Consider the maintenance requirements of the battery. Tubular and flat plate batteries require regular water top-ups, while lithium-ion batteries are maintenance-free.
+                  </p>
+                </div>
+              </div>
+              
+              <p className="text-gray-600 text-xs sm:text-sm mt-3 sm:mt-4">
+                Selecting the right battery for your inverter requires careful consideration of multiple factors. Consult with experts, compare different brands, and read customer reviews to make an informed decision.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

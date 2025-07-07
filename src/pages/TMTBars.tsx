@@ -1,4 +1,6 @@
+
 import Header from '@/components/Header';
+import AllCalculatorsCTA from '@/components/AllCalculatorsCTA';
 import ExploreRelatedCategories from '@/components/ExploreRelatedCategories';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -137,6 +139,7 @@ const TMTBars = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
+      <AllCalculatorsCTA />
       
       <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
         {/* Main Title */}

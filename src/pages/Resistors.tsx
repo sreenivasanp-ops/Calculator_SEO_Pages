@@ -1,4 +1,6 @@
+
 import Header from '@/components/Header';
+import AllCalculatorsCTA from '@/components/AllCalculatorsCTA';
 import ResistorRelatedCategories from '@/components/ResistorRelatedCategories';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -218,6 +220,7 @@ const Resistors = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
+      <AllCalculatorsCTA />
       
       <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
         <h1 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 px-2">
