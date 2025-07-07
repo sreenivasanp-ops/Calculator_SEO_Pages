@@ -8,9 +8,9 @@ const InverterBatteryRelatedCategories = () => {
   const categories = [
     {
       title: "Inverter Battery",
-      image: "/lovable-uploads/ac335986-dd6c-4882-95ed-1b273b934844.png",
+      image: "/lovable-uploads/77932a8f-aefa-44b0-ac30-e2df2e984707.png",
       buttonText: "Get Quotes",
-      url: "https://m.indiamart.com/impcat/hair-clips.html"
+      url: "https://m.indiamart.com/impcat/inverter-batteries.html"
     },
     {
       title: "Luminous Inverter Battery",
