@@ -194,15 +194,13 @@ const InverterCalculator = () => {
   const calculateRecommendations = () => {
     const runningLoadPercentage = parseInt(averageRunningLoad) / 100;
     const effectiveLoad = totalLoad * runningLoadPercentage;
-    const vaRating = Math.ceil(effectiveLoad * 1.2); // Adding 20% buffer
+    const vaRating = Math.ceil(effectiveLoad / 0.7); // Changed formula
     const hours = parseInt(backupHours);
-    const batteryCapacity = Math.ceil((effectiveLoad * hours) / 12); // Assuming 12V system
-    const batteryQty = Math.ceil(batteryCapacity / 100); // Assuming 100AH batteries
+    const batteryCapacity = Math.ceil((effectiveLoad * hours) / (12 * 0.8)); // Changed formula
     
     return {
       vaRating,
-      batteryCapacity: batteryQty * 100,
-      batteryQty
+      batteryCapacity
     };
   };
 
@@ -316,7 +314,7 @@ const InverterCalculator = () => {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Define Your Backup Requirement
+                          Backup Hours
                         </label>
                         <div className="relative">
                           <Input
@@ -357,6 +355,7 @@ const InverterCalculator = () => {
                           <div>
                             <h4 className="font-semibold text-gray-800">Inverter VA Rating</h4>
                             <p className="text-blue-600 font-bold">{recommendations.vaRating} VA</p>
+                            <p className="text-xs text-gray-600 mt-1">*Assumed Efficiency of inverter is 0.7</p>
                           </div>
                         </div>
                         
@@ -365,10 +364,9 @@ const InverterCalculator = () => {
                             <span className="text-blue-600 font-bold text-sm">🔋</span>
                           </div>
                           <div>
-                            <h4 className="font-semibold text-gray-800">Battery Capacity & Batteries (Qty.)</h4>
-                            <p className="text-blue-600 font-bold">
-                              {recommendations.batteryCapacity} AH & {recommendations.batteryQty} x 12V battery
-                            </p>
+                            <h4 className="font-semibold text-gray-800">Battery Capacity</h4>
+                            <p className="text-blue-600 font-bold">{recommendations.batteryCapacity} AH</p>
+                            <p className="text-xs text-gray-600 mt-1">*Assumed efficiency of Battery is 0.8</p>
                           </div>
                         </div>
                       </div>
