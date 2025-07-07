@@ -39,7 +39,8 @@ const BuyerAssistant = () => {
     {
       title: 'Solar Panel',
       icon: Sun,
-      description: 'Solar Energy Solutions'
+      description: 'Solar Energy Solutions',
+      onClick: () => navigate('/solar-panel')
     },
     {
       title: 'House Wire',
@@ -130,7 +131,11 @@ const BuyerAssistant = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {electricalItems.map((item) => (
-              <Card key={item.title} className="hover:shadow-md transition-shadow cursor-pointer">
+              <Card 
+                key={item.title} 
+                className="hover:shadow-md transition-shadow cursor-pointer"
+                onClick={item.onClick}
+              >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3 text-lg">
                     <item.icon className="w-6 h-6 text-indiamart-teal" />
