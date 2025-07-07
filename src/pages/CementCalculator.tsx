@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +10,7 @@ import { Calculator, RotateCcw } from 'lucide-react';
 const CementCalculator = () => {
   const [activeTab, setActiveTab] = useState('brickwork');
   
-  // Input states
+  // Brickwork states
   const [lengthFeet, setLengthFeet] = useState('3');
   const [lengthInch, setLengthInch] = useState('6');
   const [heightFeet, setHeightFeet] = useState('3');
@@ -23,16 +22,33 @@ const CementCalculator = () => {
   const [brickWidth, setBrickWidth] = useState('11.5');
   const [brickHeight, setBrickHeight] = useState('7.5');
   
+  // Concrete states
+  const [concreteGrade, setConcreteGrade] = useState('M20 (1:1.5:3)');
+  const [concreteLength, setConcreteLength] = useState('10');
+  const [concreteLengthUnit, setConcreteLengthUnit] = useState('meter');
+  const [concreteWidth, setConcreteWidth] = useState('7');
+  const [concreteWidthUnit, setConcreteWidthUnit] = useState('meter');
+  const [concreteDepth, setConcreteDepth] = useState('4');
+  const [concreteDepthUnit, setConcreteDepthUnit] = useState('meter');
+  
   // Unit states
   const [lengthUnit, setLengthUnit] = useState('feet');
   const [inchUnit, setInchUnit] = useState('inch');
   
-  // Result state
+  // Result states
   const [result, setResult] = useState(null);
+  const [concreteResult, setConcreteResult] = useState(null);
 
   const convertToMeters = (feet: string, inches: string) => {
     const totalInches = parseFloat(feet || '0') * 12 + parseFloat(inches || '0');
     return totalInches * 0.0254;
+  };
+
+  const convertToMetersFromUnit = (value: string, unit: string) => {
+    const numValue = parseFloat(value || '0');
+    if (unit === 'meter') return numValue;
+    if (unit === 'cm') return numValue / 100;
+    return numValue;
   };
 
   const calculateCement = () => {
@@ -93,6 +109,51 @@ const CementCalculator = () => {
     }
   };
 
+  const calculateConcrete = () => {
+    try {
+      // Convert dimensions to meters
+      const length = convertToMetersFromUnit(concreteLength, concreteLengthUnit);
+      const width = convertToMetersFromUnit(concreteWidth, concreteWidthUnit);
+      const depth = convertToMetersFromUnit(concreteDepth, concreteDepthUnit);
+      
+      // Calculate Cement Concrete Volume
+      const cementConcreteVolume = length * width * depth;
+      
+      // Calculate Wet Volume of Mix
+      const wetVolumeOfMix = cementConcreteVolume * 1.52;
+      
+      // Extract ratios from grade
+      const ratioString = concreteGrade.split('(')[1].split(')')[0];
+      const ratioNumbers = ratioString.split(':').map(num => parseFloat(num));
+      const sumOfRatios = ratioNumbers.reduce((sum, num) => sum + num, 0);
+      
+      // Calculate Cement Volume
+      const cementVolume = wetVolumeOfMix * (ratioNumbers[0] / sumOfRatios);
+      
+      // Calculate number of cement bags
+      const totalCementBags = cementVolume / 0.035;
+      const cementBags = Math.floor(totalCementBags);
+      const excessCement = Math.floor((totalCementBags - cementBags) * 50);
+      
+      // Calculate Sand Volume and Required
+      const sandVolume = wetVolumeOfMix * (ratioNumbers[1] / sumOfRatios);
+      const sandRequired = sandVolume * 1.55;
+      
+      // Calculate Aggregate Volume and Required
+      const aggregateVolume = wetVolumeOfMix * (ratioNumbers[2] / sumOfRatios);
+      const aggregateRequired = aggregateVolume * 1.35;
+      
+      setConcreteResult({
+        cementBags,
+        excessCement,
+        sandRequired: sandRequired.toFixed(2),
+        aggregateRequired: aggregateRequired.toFixed(2)
+      });
+    } catch (error) {
+      console.error('Concrete calculation error:', error);
+    }
+  };
+
   const resetForm = () => {
     setLengthFeet('3');
     setLengthInch('6');
@@ -107,6 +168,17 @@ const CementCalculator = () => {
     setResult(null);
   };
 
+  const resetConcreteForm = () => {
+    setConcreteGrade('M20 (1:1.5:3)');
+    setConcreteLength('10');
+    setConcreteWidth('7');
+    setConcreteDepth('4');
+    setConcreteLengthUnit('meter');
+    setConcreteWidthUnit('meter');
+    setConcreteDepthUnit('meter');
+    setConcreteResult(null);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -118,34 +190,40 @@ const CementCalculator = () => {
           </h1>
           
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-16 sm:h-20 bg-gradient-to-r from-teal-50 to-blue-50 border-2 border-teal-200 rounded-xl shadow-md">
+            <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 h-20 sm:h-24 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl shadow-lg">
               <TabsTrigger 
                 value="brickwork" 
-                className="text-base sm:text-xl font-bold py-4 px-3 h-full flex items-center justify-center text-center leading-tight 
-                          transition-all duration-300 rounded-lg mx-1 my-1
-                          data-[state=active]:bg-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg
-                          data-[state=inactive]:text-teal-700 data-[state=inactive]:hover:bg-teal-100
-                          data-[state=inactive]:bg-white/70 data-[state=inactive]:border data-[state=inactive]:border-teal-200"
+                className="text-xl sm:text-2xl font-black py-4 px-3 h-full flex items-center justify-center text-center leading-tight 
+                          transition-all duration-300 rounded-lg mx-1 my-1 font-sans
+                          data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 
+                          data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:scale-[0.98]
+                          data-[state=inactive]:text-blue-800 data-[state=inactive]:hover:bg-blue-100 data-[state=inactive]:hover:scale-[0.99]
+                          data-[state=inactive]:bg-white/80 data-[state=inactive]:border-2 data-[state=inactive]:border-blue-300
+                          data-[state=inactive]:shadow-md transform hover:shadow-lg"
               >
                 Brickwork
               </TabsTrigger>
               <TabsTrigger 
                 value="concrete" 
-                className="text-base sm:text-xl font-bold py-4 px-3 h-full flex items-center justify-center text-center leading-tight
-                          transition-all duration-300 rounded-lg mx-1 my-1
-                          data-[state=active]:bg-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg
-                          data-[state=inactive]:text-teal-700 data-[state=inactive]:hover:bg-teal-100
-                          data-[state=inactive]:bg-white/70 data-[state=inactive]:border data-[state=inactive]:border-teal-200"
+                className="text-xl sm:text-2xl font-black py-4 px-3 h-full flex items-center justify-center text-center leading-tight
+                          transition-all duration-300 rounded-lg mx-1 my-1 font-sans
+                          data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 
+                          data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:scale-[0.98]
+                          data-[state=inactive]:text-blue-800 data-[state=inactive]:hover:bg-blue-100 data-[state=inactive]:hover:scale-[0.99]
+                          data-[state=inactive]:bg-white/80 data-[state=inactive]:border-2 data-[state=inactive]:border-blue-300
+                          data-[state=inactive]:shadow-md transform hover:shadow-lg"
               >
                 Concrete
               </TabsTrigger>
               <TabsTrigger 
                 value="plaster" 
-                className="text-base sm:text-xl font-bold py-4 px-3 h-full flex items-center justify-center text-center leading-tight
-                          transition-all duration-300 rounded-lg mx-1 my-1
-                          data-[state=active]:bg-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg
-                          data-[state=inactive]:text-teal-700 data-[state=inactive]:hover:bg-teal-100
-                          data-[state=inactive]:bg-white/70 data-[state=inactive]:border data-[state=inactive]:border-teal-200"
+                className="text-xl sm:text-2xl font-black py-4 px-3 h-full flex items-center justify-center text-center leading-tight
+                          transition-all duration-300 rounded-lg mx-1 my-1 font-sans
+                          data-[state=active]:bg-gradient-to-br data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 
+                          data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:scale-[0.98]
+                          data-[state=inactive]:text-blue-800 data-[state=inactive]:hover:bg-blue-100 data-[state=inactive]:hover:scale-[0.99]
+                          data-[state=inactive]:bg-white/80 data-[state=inactive]:border-2 data-[state=inactive]:border-blue-300
+                          data-[state=inactive]:shadow-md transform hover:shadow-lg"
               >
                 Plaster
               </TabsTrigger>
@@ -398,9 +476,9 @@ const CementCalculator = () => {
                       <h3 className="text-lg font-semibold text-green-800 mb-4">Cement Calculator</h3>
                       <div className="space-y-3 text-sm">
                         {/* Highlighted Cement Required Row */}
-                        <div className="flex justify-between items-center border-2 border-teal-400 bg-teal-100 p-3 rounded-lg shadow-sm">
-                          <span className="text-teal-800 font-bold">Cement Required:</span>
-                          <span className="font-bold text-lg text-teal-800">
+                        <div className="flex justify-between items-center border-2 border-emerald-500 bg-emerald-200 p-3 rounded-lg shadow-sm">
+                          <span className="text-emerald-900 font-bold">Cement Required:</span>
+                          <span className="font-bold text-lg text-emerald-900">
                             {result.cementBags} Bags{result.excessCement > 0 ? `, ${result.excessCement} Kg` : ''}
                           </span>
                         </div>
@@ -428,11 +506,172 @@ const CementCalculator = () => {
             </TabsContent>
             
             <TabsContent value="concrete">
-              <Card className="border-2 border-teal-200">
-                <CardContent className="p-8">
-                  <div className="text-center text-gray-500">
-                    <p>Concrete calculator coming soon...</p>
+              <Card className="border-2 border-blue-200">
+                <CardHeader className="bg-blue-50 p-3 sm:p-6">
+                  <CardTitle className="flex items-center gap-2 text-lg sm:text-xl text-gray-800">
+                    <Calculator className="w-5 h-5" />
+                    Concrete Cement Calculator
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 p-3 sm:p-6">
+                  {/* Grade of Concrete */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Grade of Concrete
+                      </label>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2">
+                      <div>
+                        <Select value={concreteGrade} onValueChange={setConcreteGrade}>
+                          <SelectTrigger className="border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="M25 (1:1:2)">M25 (1:1:2)</SelectItem>
+                            <SelectItem value="M20 (1:1.5:3)">M20 (1:1.5:3)</SelectItem>
+                            <SelectItem value="M15 (1:2:4)">M15 (1:2:4)</SelectItem>
+                            <SelectItem value="M10 (1:3:6)">M10 (1:3:6)</SelectItem>
+                            <SelectItem value="M7.5 (1:4:8)">M7.5 (1:4:8)</SelectItem>
+                            <SelectItem value="M5 (1:5:10)">M5 (1:5:10)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
                   </div>
+
+                  {/* Length Input */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Length
+                      </label>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 items-center">
+                      <div>
+                        <Input
+                          type="number"
+                          value={concreteLength}
+                          onChange={(e) => setConcreteLength(e.target.value)}
+                          placeholder="10"
+                          className="text-center border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={concreteLengthUnit} onValueChange={setConcreteLengthUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="meter">meter</SelectItem>
+                            <SelectItem value="cm">cm</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Width Input */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Width
+                      </label>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 items-center">
+                      <div>
+                        <Input
+                          type="number"
+                          value={concreteWidth}
+                          onChange={(e) => setConcreteWidth(e.target.value)}
+                          placeholder="7"
+                          className="text-center border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={concreteWidthUnit} onValueChange={setConcreteWidthUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="meter">meter</SelectItem>
+                            <SelectItem value="cm">cm</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Depth Input */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Depth
+                      </label>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 items-center">
+                      <div>
+                        <Input
+                          type="number"
+                          value={concreteDepth}
+                          onChange={(e) => setConcreteDepth(e.target.value)}
+                          placeholder="4"
+                          className="text-center border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9"
+                        />
+                      </div>
+                      <div>
+                        <Select value={concreteDepthUnit} onValueChange={setConcreteDepthUnit}>
+                          <SelectTrigger className="border-gray-300 focus:border-blue-500 focus:ring-blue-500 h-9">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="meter">meter</SelectItem>
+                            <SelectItem value="cm">cm</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-3 sm:gap-4 justify-center pt-4">
+                    <Button onClick={calculateConcrete} className="bg-blue-500 hover:bg-blue-600 text-white px-4 sm:px-6">
+                      <Calculator className="w-4 h-4 mr-2" />
+                      Calculate
+                    </Button>
+                    <Button onClick={resetConcreteForm} variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50 px-4 sm:px-6">
+                      <RotateCcw className="w-4 h-4 mr-2" />
+                      Clear All
+                    </Button>
+                  </div>
+
+                  {/* Concrete Results */}
+                  {concreteResult && (
+                    <div className="mt-6 p-4 sm:p-6 bg-blue-50 rounded-lg border border-blue-200">
+                      <h3 className="text-lg font-semibold text-blue-800 mb-4">Concrete Calculator Results</h3>
+                      <div className="space-y-3 text-sm">
+                        {/* Highlighted Cement Required Row */}
+                        <div className="flex justify-between items-center border-2 border-blue-500 bg-blue-200 p-3 rounded-lg shadow-sm">
+                          <span className="text-blue-900 font-bold">Cement Bags Required:</span>
+                          <span className="font-bold text-lg text-blue-900">
+                            {concreteResult.cementBags} Bags{concreteResult.excessCement > 0 ? `, ${concreteResult.excessCement} Kg` : ''}
+                          </span>
+                        </div>
+                        
+                        {/* Sand Required */}
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-gray-700 font-semibold">Sand Required:</span>
+                          <span className="font-bold text-lg text-blue-700">{concreteResult.sandRequired} Tonne</span>
+                        </div>
+                        
+                        {/* Aggregate Required */}
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-gray-700 font-semibold">Aggregate Required:</span>
+                          <span className="font-bold text-lg text-blue-700">{concreteResult.aggregateRequired} Tonne</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
