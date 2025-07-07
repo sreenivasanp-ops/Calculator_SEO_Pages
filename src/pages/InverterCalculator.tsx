@@ -194,13 +194,35 @@ const InverterCalculator = () => {
   const calculateRecommendations = () => {
     const runningLoadPercentage = parseInt(averageRunningLoad) / 100;
     const effectiveLoad = totalLoad * runningLoadPercentage;
-    const vaRating = Math.ceil(effectiveLoad / 0.7); // Changed formula
+    const vaRating = Math.ceil(totalLoad / 0.7);
     const hours = parseInt(backupHours);
-    const batteryCapacity = Math.ceil((effectiveLoad * hours) / (12 * 0.8)); // Changed formula
+    const batteryCapacity = Math.ceil((effectiveLoad * hours) / (12 * 0.8));
+    
+    let recommendedVA;
+    if (vaRating < 500) {
+      recommendedVA = 500;
+    } else {
+      recommendedVA = Math.ceil(vaRating / 100) * 100;
+    }
+    
+    let recommendedBattery;
+    if (batteryCapacity < 100) {
+      recommendedBattery = 100;
+    } else if (batteryCapacity >= 100 && batteryCapacity < 150) {
+      recommendedBattery = 150;
+    } else if (batteryCapacity >= 150 && batteryCapacity < 200) {
+      recommendedBattery = 200;
+    } else if (batteryCapacity >= 200 && batteryCapacity < 220) {
+      recommendedBattery = 220;
+    } else {
+      recommendedBattery = Math.ceil(batteryCapacity / 10) * 10;
+    }
     
     return {
       vaRating,
-      batteryCapacity
+      batteryCapacity,
+      recommendedVA,
+      recommendedBattery
     };
   };
 
@@ -354,7 +376,9 @@ const InverterCalculator = () => {
                           </div>
                           <div>
                             <h4 className="font-semibold text-gray-800">Inverter VA Rating</h4>
-                            <p className="text-blue-600 font-bold">{recommendations.vaRating} VA</p>
+                            <p className="text-blue-600 font-bold">
+                              {recommendations.vaRating} VA | Recommended: {recommendations.recommendedVA} VA
+                            </p>
                             <p className="text-xs text-gray-600 mt-1">*Assumed Efficiency of inverter is 0.7</p>
                           </div>
                         </div>
@@ -365,7 +389,9 @@ const InverterCalculator = () => {
                           </div>
                           <div>
                             <h4 className="font-semibold text-gray-800">Battery Capacity</h4>
-                            <p className="text-blue-600 font-bold">{recommendations.batteryCapacity} AH</p>
+                            <p className="text-blue-600 font-bold">
+                              {recommendations.batteryCapacity} AH | Recommended: {recommendations.recommendedBattery} AH
+                            </p>
                             <p className="text-xs text-gray-600 mt-1">*Assumed efficiency of Battery is 0.8</p>
                           </div>
                         </div>
