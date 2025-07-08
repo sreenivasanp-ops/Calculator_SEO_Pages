@@ -9,7 +9,7 @@ const AllCalculatorsCTA = () => {
   };
 
   return (
-    <div className="mb-1">
+    <div className="mb-0">
       <div className="container mx-auto px-4">
         <div 
           onClick={handleClick}
