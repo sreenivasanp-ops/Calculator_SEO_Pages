@@ -7,20 +7,61 @@ import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 
 const InverterCalculator = () => {
-  const [loadWattage, setLoadWattage] = useState('');
+  // Appliance inputs
+  const [numFans, setNumFans] = useState('');
+  const [numLights, setNumLights] = useState('');
+  const [numACs, setNumACs] = useState('');
+  const [numTVs, setNumTVs] = useState('');
+  const [numFridges, setNumFridges] = useState('');
+  const [customAppliances, setCustomAppliances] = useState('');
+  const [customWattage, setCustomWattage] = useState('');
+  
+  // Other inputs
   const [backupTime, setBackupTime] = useState('');
   const [inverterType, setInverterType] = useState('normal');
   const [batteryType, setBatteryType] = useState('tubular');
+  
+  // Results
   const [showResults, setShowResults] = useState(false);
+  const [totalWattage, setTotalWattage] = useState(0);
+  const [inverterVa, setInverterVa] = useState(0);
+  const [batteryAh, setBatteryAh] = useState(0);
+
+  const calculateTotalWattage = () => {
+    const fans = parseInt(numFans) || 0;
+    const lights = parseInt(numLights) || 0;
+    const acs = parseInt(numACs) || 0;
+    const tvs = parseInt(numTVs) || 0;
+    const fridges = parseInt(numFridges) || 0;
+    const custom = parseInt(customWattage) || 0;
+
+    // Standard wattage per appliance
+    const fanWattage = 75;
+    const lightWattage = 20;
+    const acWattage = 1500;
+    const tvWattage = 120;
+    const fridgeWattage = 200;
+
+    const total = (fans * fanWattage) + 
+                  (lights * lightWattage) + 
+                  (acs * acWattage) + 
+                  (tvs * tvWattage) + 
+                  (fridges * fridgeWattage) + 
+                  custom;
+
+    return total;
+  };
 
   const calculateInverter = () => {
-    if (!loadWattage || !backupTime) return;
+    const calculatedWattage = calculateTotalWattage();
+    const hours = parseFloat(backupTime) || 0;
 
-    const wattage = parseFloat(loadWattage);
-    const hours = parseFloat(backupTime);
+    if (calculatedWattage === 0 || hours === 0) return;
+
+    setTotalWattage(calculatedWattage);
 
     // Calculate VA rating (considering power factor of 0.8)
-    const vaRating = wattage / 0.8;
+    const vaRating = calculatedWattage / 0.8;
 
     // Calculate battery capacity in Volt-Ampere-Hours (VAH)
     const batteryCapacityVAH = vaRating * hours;
@@ -42,17 +83,21 @@ const InverterCalculator = () => {
   };
 
   const clearAll = () => {
-    setLoadWattage('');
+    setNumFans('');
+    setNumLights('');
+    setNumACs('');
+    setNumTVs('');
+    setNumFridges('');
+    setCustomAppliances('');
+    setCustomWattage('');
     setBackupTime('');
     setInverterType('normal');
     setBatteryType('tubular');
     setShowResults(false);
+    setTotalWattage(0);
     setInverterVa(0);
     setBatteryAh(0);
   };
-
-  const [inverterVa, setInverterVa] = useState(0);
-  const [batteryAh, setBatteryAh] = useState(0);
 
   // Cost Estimation
   const inverterCost = inverterVa * 8; // Assuming ₹8 per VA
@@ -76,23 +121,98 @@ const InverterCalculator = () => {
             <CardTitle className="text-lg sm:text-xl text-gray-800 flex flex-col sm:flex-row sm:items-center gap-2">
               ⚡ Inverter & Battery Calculator
               <span className="text-xs sm:text-sm font-normal text-gray-600">
-                Find the Perfect Power Backup Solution
+                Calculate Based on Your Appliances
               </span>
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 sm:p-6 space-y-6">
-            {/* Load Wattage Input */}
+            {/* Appliance Inputs */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Total Load Wattage (Watts)
-              </label>
-              <Input
-                type="number"
-                value={loadWattage}
-                onChange={(e) => setLoadWattage(e.target.value)}
-                placeholder="Enter total load wattage"
-                className="w-full"
-              />
+              <h3 className="text-lg font-semibold text-gray-700 mb-4">Select Your Appliances</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Ceiling Fans (75W each)
+                  </label>
+                  <Input
+                    type="number"
+                    value={numFans}
+                    onChange={(e) => setNumFans(e.target.value)}
+                    placeholder="Number of fans"
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    LED Lights (20W each)
+                  </label>
+                  <Input
+                    type="number"
+                    value={numLights}
+                    onChange={(e) => setNumLights(e.target.value)}
+                    placeholder="Number of lights"
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Air Conditioners (1500W each)
+                  </label>
+                  <Input
+                    type="number"
+                    value={numACs}
+                    onChange={(e) => setNumACs(e.target.value)}
+                    placeholder="Number of ACs"
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    LED TVs (120W each)
+                  </label>
+                  <Input
+                    type="number"
+                    value={numTVs}
+                    onChange={(e) => setNumTVs(e.target.value)}
+                    placeholder="Number of TVs"
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Refrigerators (200W each)
+                  </label>
+                  <Input
+                    type="number"
+                    value={numFridges}
+                    onChange={(e) => setNumFridges(e.target.value)}
+                    placeholder="Number of fridges"
+                    className="w-full"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Other Appliances (Total Watts)
+                  </label>
+                  <Input
+                    type="number"
+                    value={customWattage}
+                    onChange={(e) => setCustomWattage(e.target.value)}
+                    placeholder="Total wattage"
+                    className="w-full"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Current Total Wattage Display */}
+            <div className="bg-gray-100 p-4 rounded-md">
+              <h4 className="font-semibold text-gray-700">Current Total Load: {calculateTotalWattage()} Watts</h4>
             </div>
 
             {/* Backup Time Input */}
@@ -160,7 +280,7 @@ const InverterCalculator = () => {
               <Button
                 onClick={calculateInverter}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold"
-                disabled={!loadWattage || !backupTime}
+                disabled={calculateTotalWattage() === 0 || !backupTime}
               >
                 CALCULATE
               </Button>
@@ -171,6 +291,25 @@ const InverterCalculator = () => {
         {/* Results Section */}
         {showResults && (
           <>
+            {/* Load Summary */}
+            <Card className="mb-6 border-2 border-yellow-200">
+              <CardHeader className="bg-yellow-50 p-4">
+                <CardTitle className="text-center text-lg">Load Summary</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700">Total Load:</h3>
+                    <p className="text-lg font-bold text-yellow-600">{totalWattage} Watts</p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-700">Backup Time:</h3>
+                    <p className="text-lg font-bold text-yellow-600">{backupTime} Hours</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Inverter Specifications */}
             <Card className="mb-6 border-2 border-green-200">
               <CardHeader className="bg-green-50 p-4">
