@@ -1,7 +1,8 @@
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { BarChart3, Cpu, Sun, Battery, Hammer, Search, Brick } from 'lucide-react';
+import { BarChart3, Cpu, Sun, Battery, Hammer, Search, Building2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -19,7 +20,7 @@ const BuyerAssistant = () => {
     },
     {
       title: 'Brickwork',
-      icon: Brick,
+      icon: Building2,
       description: 'Brickwork Calculator for Construction',
       onClick: () => navigate('/brickwork-calculator'),
       searchTerms: ['brickwork', 'calculator', 'construction', 'brick']

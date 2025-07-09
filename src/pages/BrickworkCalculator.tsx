@@ -20,11 +20,11 @@ const BrickworkCalculator = () => {
 
   // Brick Size States
   const [brickLength, setBrickLength] = useState('');
-  const [brickLengthUnit, setBrickLengthUnit] = useState('inch');
+  const [brickLengthUnit, setBrickLengthUnit] = useState('cm');
   const [brickWidth, setBrickWidth] = useState('');
-  const [brickWidthUnit, setBrickWidthUnit] = useState('inch');
+  const [brickWidthUnit, setBrickWidthUnit] = useState('cm');
   const [brickHeight, setBrickHeight] = useState('');
-  const [brickHeightUnit, setBrickHeightUnit] = useState('inch');
+  const [brickHeightUnit, setBrickHeightUnit] = useState('cm');
 
   // Results States
   const [results, setResults] = useState({
@@ -114,7 +114,10 @@ const BrickworkCalculator = () => {
     { value: '1:3', label: 'C.M 1:3' },
     { value: '1:4', label: 'C.M 1:4' },
     { value: '1:5', label: 'C.M 1:5' },
-    { value: '1:6', label: 'C.M 1:6' }
+    { value: '1:6', label: 'C.M 1:6' },
+    { value: '1:7', label: 'C.M 1:7' },
+    { value: '1:8', label: 'C.M 1:8' },
+    { value: '1:9', label: 'C.M 1:9' }
   ];
 
   return (
@@ -235,16 +238,16 @@ const BrickworkCalculator = () => {
                     <Input 
                       value={brickLength} 
                       onChange={(e) => setBrickLength(e.target.value)} 
-                      placeholder="9"
+                      placeholder="23"
                       className="flex-1"
                     />
                     <Select value={brickLengthUnit} onValueChange={setBrickLengthUnit}>
-                      <SelectTrigger className="w-20">
+                      <SelectTrigger className="w-16">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="inch">inch</SelectItem>
                         <SelectItem value="cm">cm</SelectItem>
+                        <SelectItem value="inch">inch</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -256,16 +259,16 @@ const BrickworkCalculator = () => {
                     <Input 
                       value={brickWidth} 
                       onChange={(e) => setBrickWidth(e.target.value)} 
-                      placeholder="4.5"
+                      placeholder="11"
                       className="flex-1"
                     />
                     <Select value={brickWidthUnit} onValueChange={setBrickWidthUnit}>
-                      <SelectTrigger className="w-20">
+                      <SelectTrigger className="w-16">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="inch">inch</SelectItem>
                         <SelectItem value="cm">cm</SelectItem>
+                        <SelectItem value="inch">inch</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -277,16 +280,16 @@ const BrickworkCalculator = () => {
                     <Input 
                       value={brickHeight} 
                       onChange={(e) => setBrickHeight(e.target.value)} 
-                      placeholder="3"
+                      placeholder="7.5"
                       className="flex-1"
                     />
                     <Select value={brickHeightUnit} onValueChange={setBrickHeightUnit}>
-                      <SelectTrigger className="w-20">
+                      <SelectTrigger className="w-16">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="inch">inch</SelectItem>
                         <SelectItem value="cm">cm</SelectItem>
+                        <SelectItem value="inch">inch</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -315,24 +318,36 @@ const BrickworkCalculator = () => {
             {results.bricks && (
               <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">Calculation Results</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <div className="text-center p-3 bg-white rounded-lg shadow-sm">
-                    <div className="text-2xl font-bold text-indiamart-teal">{results.bricks}</div>
-                    <div className="text-sm text-gray-600">No of Bricks</div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center gap-3">
+                    <div className="text-2xl">🧱</div>
+                    <div>
+                      <div className="text-2xl font-bold text-indiamart-teal">{results.bricks}</div>
+                      <div className="text-sm text-gray-600">Bricks</div>
+                    </div>
                   </div>
-                  <div className="text-center p-3 bg-white rounded-lg shadow-sm">
-                    <div className="text-2xl font-bold text-blue-600">{results.cementBags}</div>
-                    <div className="text-sm text-gray-600">No of Cement Bags</div>
+                  <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center gap-3">
+                    <div className="text-2xl">🏗️</div>
+                    <div>
+                      <div className="text-2xl font-bold text-blue-600">{results.cementBags} Bag</div>
+                      <div className="text-sm text-gray-600">Cement</div>
+                    </div>
                   </div>
-                  <div className="text-center p-3 bg-white rounded-lg shadow-sm">
-                    <div className="text-2xl font-bold text-orange-600">{results.looseCement} kg</div>
-                    <div className="text-sm text-gray-600">Loose Cement</div>
-                  </div>
-                  <div className="text-center p-3 bg-white rounded-lg shadow-sm">
-                    <div className="text-2xl font-bold text-green-600">{results.sand}</div>
-                    <div className="text-sm text-gray-600">Sand (Tonne)</div>
+                  <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center gap-3">
+                    <div className="text-2xl">⛰️</div>
+                    <div>
+                      <div className="text-2xl font-bold text-green-600">{results.sand} ton</div>
+                      <div className="text-sm text-gray-600">Sand</div>
+                    </div>
                   </div>
                 </div>
+                {results.looseCement !== '0.00' && (
+                  <div className="text-center mt-4 p-2 bg-yellow-50 rounded-lg">
+                    <div className="text-sm text-gray-600">
+                      Additional loose cement required: <span className="font-bold text-orange-600">{results.looseCement} kg</span>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </CardContent>
