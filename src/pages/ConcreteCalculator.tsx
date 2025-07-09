@@ -27,7 +27,8 @@ const ConcreteCalculator = () => {
     cementPrice: '',
     sandPrice: '',
     aggregatePrice: '',
-    totalPrice: ''
+    totalPrice: '',
+    concreteVolume: ''
   });
 
   // Convert to meters
@@ -55,8 +56,11 @@ const ConcreteCalculator = () => {
     const widthM = convertToMeters(width, widthUnit);
     const depthM = convertToMeters(depth, depthUnit);
 
+    // Calculate concrete volume in cubic meters
+    const concreteVolume = lengthM * widthM * depthM;
+
     // Calculate Wet Volume of Mix
-    const wetVolumeOfMix = lengthM * widthM * depthM * 1.524;
+    const wetVolumeOfMix = concreteVolume * 1.524;
 
     // Parse grade of concrete ratio
     const ratioText = gradeOfConcrete.split('(')[1].split(')')[0];
@@ -93,7 +97,8 @@ const ConcreteCalculator = () => {
       cementPrice: cementPrice.toFixed(0),
       sandPrice: sandPrice.toFixed(0),
       aggregatePrice: aggregatePrice.toFixed(0),
-      totalPrice: totalPrice.toFixed(0)
+      totalPrice: totalPrice.toFixed(0),
+      concreteVolume: concreteVolume.toFixed(2)
     });
   };
 
@@ -110,7 +115,8 @@ const ConcreteCalculator = () => {
       cementPrice: '',
       sandPrice: '',
       aggregatePrice: '',
-      totalPrice: ''
+      totalPrice: '',
+      concreteVolume: ''
     });
   };
 
@@ -250,6 +256,15 @@ const ConcreteCalculator = () => {
             {results.cementBags && (
               <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">Calculation Results</h3>
+                
+                {/* Volume of Concrete */}
+                <div className="mb-4 p-3 bg-blue-100 rounded-lg border border-blue-200">
+                  <div className="text-center">
+                    <div className="text-sm text-gray-600 mb-1">Total Volume of Concrete</div>
+                    <div className="text-xl font-bold text-blue-600">{results.concreteVolume} m³</div>
+                  </div>
+                </div>
+                
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center justify-between">
                     <div className="flex items-center gap-3">

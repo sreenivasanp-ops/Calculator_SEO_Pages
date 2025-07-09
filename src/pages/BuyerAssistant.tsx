@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -45,7 +46,7 @@ const BuyerAssistant = () => {
 
   const electricalItems = [
     {
-      title: 'Solar Panel',
+      title: 'Solar',
       icon: Sun,
       description: 'Solar Energy Solutions',
       onClick: () => navigate('/solar-panel'),

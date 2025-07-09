@@ -1,30 +1,75 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useScrollDetection } from '@/hooks/useScrollDetection';
+import { useLocation } from 'react-router-dom';
 
 const ExploreRelatedCategories = () => {
   const { elementRef, isScrolling } = useScrollDetection();
+  const location = useLocation();
   
-  const categories = [
-    {
-      title: "TMT Bars",
-      image: "/lovable-uploads/4b338d1f-d0d2-473f-8d19-14cbcd900038.png",
-      buttonText: "Get Quotes",
-      url: "https://m.indiamart.com/impcat/tmt-bars.html"
-    },
-    {
-      title: "Ribbed Bar",
-      image: "/lovable-uploads/9b331f35-ecb3-45a1-8420-25f6cc8424b4.png",
-      buttonText: "Get Quotes",
-      url: "https://m.indiamart.com/impcat/ribbed-bar.html"
-    },
-    {
-      title: "Concrete Reinforcement Bars",
-      image: "/lovable-uploads/e2eadd8f-1522-4511-a638-bbc5e2f9e248.png",
-      buttonText: "Get Quotes",
-      url: "https://m.indiamart.com/impcat/concrete-reinforcing-bars.html"
+  const getCategories = () => {
+    if (location.pathname === '/brickwork-calculator') {
+      return [
+        {
+          title: "Red Brick",
+          image: "/lovable-uploads/061626f9-ad7e-42f6-83dd-3d9f28e1c0bd.png",
+          buttonText: "Get Quotes",
+          url: "https://m.indiamart.com/impcat/red-brick.html"
+        },
+        {
+          title: "Bricks",
+          image: "/lovable-uploads/1de26ed0-5eec-4a69-9fb8-0a70aeab3e17.png",
+          buttonText: "Get Quotes",
+          url: "https://m.indiamart.com/impcat/bricks.html"
+        },
+        {
+          title: "Fly Ash Bricks",
+          image: "/lovable-uploads/85366bfe-0191-4eb6-b966-3330a82b1eb1.png",
+          buttonText: "Get Quotes",
+          url: "https://m.indiamart.com/impcat/fly-ash-bricks.html"
+        }
+      ];
+    } else if (location.pathname === '/concrete-calculator') {
+      return [
+        {
+          title: "Ready Mixed Concrete",
+          image: "/lovable-uploads/6a246506-481e-4bab-9628-8c14c0ac74f5.png",
+          buttonText: "Get Quotes",
+          url: "https://m.indiamart.com/impcat/ready-mixed-concrete.html"
+        },
+        {
+          title: "Construction Aggregates",
+          image: "/lovable-uploads/e2fc0659-5e57-4988-b333-b9ef19ee1e81.png",
+          buttonText: "Get Quotes",
+          url: "https://m.indiamart.com/impcat/construction-aggregates.html"
+        },
+        {
+          title: "Cement",
+          image: "/lovable-uploads/0475ad09-e258-4692-8f23-7e8f2b4fa656.png",
+          buttonText: "Get Quotes",
+          url: "https://m.indiamart.com/impcat/construction-cement.html"
+        }
+      ];
+    } else {
+      // Default categories for TMT Bars page and others
+      return [
+        {
+          title: "TMT Bars",
+          image: "/lovable-uploads/4b338d1f-d0d2-473f-8d19-14cbcd900038.png",
+          buttonText: "Get Quotes",
+          url: "https://m.indiamart.com/impcat/tmt-bars.html"
+        },
+        {
+          title: "Ribbed Bar",
+          image: "/lovable-uploads/9b331f35-ecb3-45a1-8420-25f6cc8424b4.png",
+          buttonText: "Get Quotes",
+          url: "https://m.indiamart.com/impcat/ribbed-bar.html"
+        }
+      ];
     }
-  ];
+  };
+
+  const categories = getCategories();
 
   const handleCategoryClick = (url: string) => {
     window.open(url, '_blank');
