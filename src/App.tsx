@@ -11,6 +11,7 @@ import Resistors from "./pages/Resistors";
 import InverterCalculator from "./pages/InverterCalculator";
 import SolarPanel from "./pages/SolarPanel";
 import CementCalculator from "./pages/CementCalculator";
+import BrickworkCalculator from "./pages/BrickworkCalculator";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/inverter-calculator" element={<InverterCalculator />} />
           <Route path="/solar-panel" element={<SolarPanel />} />
           <Route path="/cement-calculator" element={<CementCalculator />} />
+          <Route path="/brickwork-calculator" element={<BrickworkCalculator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
