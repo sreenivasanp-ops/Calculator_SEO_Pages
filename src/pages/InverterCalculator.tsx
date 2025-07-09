@@ -4,6 +4,7 @@ import InverterBatteryRelatedCategories from '@/components/InverterBatteryRelate
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Fan, Laptop, Lightbulb, Home, Tv, AirVent, Settings, Zap } from 'lucide-react';
@@ -59,12 +60,22 @@ const InverterCalculator = () => {
     ac1TonInverter1100W: 0,
     ac1_5TonInverter1600W: 0,
     ac2TonInverter2100W: 0,
+    
+    // Others
+    photoCopier200W: 0,
+    officePrinterScanner2000W: 0,
+    petrolFillingMachine1500W: 0,
+    projector600W: 0,
+    surveillanceSystem100W: 0,
+    
+    // Motors
+    waterPump05HP400W: 0,
+    waterPump1HP800W: 0,
   });
   
   // Other inputs
   const [backupTime, setBackupTime] = useState('');
-  const [inverterType, setInverterType] = useState('normal');
-  const [batteryType, setBatteryType] = useState('tubular');
+  const [averageRunningLoad, setAverageRunningLoad] = useState('');
   
   // Results
   const [showResults, setShowResults] = useState(false);
@@ -122,6 +133,13 @@ const InverterCalculator = () => {
       ac1TonInverter1100W: 1100,
       ac1_5TonInverter1600W: 1600,
       ac2TonInverter2100W: 2100,
+      photoCopier200W: 200,
+      officePrinterScanner2000W: 2000,
+      petrolFillingMachine1500W: 1500,
+      projector600W: 600,
+      surveillanceSystem100W: 100,
+      waterPump05HP400W: 400,
+      waterPump1HP800W: 800,
     };
 
     let total = 0;
@@ -135,13 +153,17 @@ const InverterCalculator = () => {
   const calculateInverter = () => {
     const calculatedWattage = calculateTotalWattage();
     const hours = parseFloat(backupTime) || 0;
+    const loadPercentage = parseFloat(averageRunningLoad) || 100;
 
-    if (calculatedWattage === 0 || hours === 0) return;
+    if (calculatedWattage === 0 || hours === 0 || !averageRunningLoad) return;
 
     setTotalWattage(calculatedWattage);
 
-    // Calculate VA rating (considering power factor of 0.8)
-    const vaRating = calculatedWattage / 0.8;
+    // Calculate actual running load based on percentage
+    const actualRunningLoad = (calculatedWattage * loadPercentage) / 100;
+
+    // Calculate VA rating using new formula: Total Load / 0.7
+    const vaRating = actualRunningLoad / 0.7;
 
     // Calculate battery capacity in Volt-Ampere-Hours (VAH)
     const batteryCapacityVAH = vaRating * hours;
@@ -198,10 +220,16 @@ const InverterCalculator = () => {
       ac1TonInverter1100W: 0,
       ac1_5TonInverter1600W: 0,
       ac2TonInverter2100W: 0,
+      photoCopier200W: 0,
+      officePrinterScanner2000W: 0,
+      petrolFillingMachine1500W: 0,
+      projector600W: 0,
+      surveillanceSystem100W: 0,
+      waterPump05HP400W: 0,
+      waterPump1HP800W: 0,
     });
     setBackupTime('');
-    setInverterType('normal');
-    setBatteryType('tubular');
+    setAverageRunningLoad('');
     setShowResults(false);
     setTotalWattage(0);
     setInverterVa(0);
@@ -582,8 +610,37 @@ const InverterCalculator = () => {
                       {openSections.others ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                     </div>
                   </CollapsibleTrigger>
-                  <CollapsibleContent className="bg-white border-x border-b border-gray-200 rounded-b-lg px-4 py-4">
-                    <p className="text-sm text-gray-600">Add any other appliances not listed above</p>
+                  <CollapsibleContent className="bg-white border-x border-b border-gray-200 rounded-b-lg px-4">
+                    <ApplianceCounter 
+                      name="Photo Copier" 
+                      wattage="200W" 
+                      value={appliances.photoCopier200W} 
+                      onChange={(val) => updateAppliance('photoCopier200W', val)} 
+                    />
+                    <ApplianceCounter 
+                      name="Office Printer/Scanner" 
+                      wattage="2000W" 
+                      value={appliances.officePrinterScanner2000W} 
+                      onChange={(val) => updateAppliance('officePrinterScanner2000W', val)} 
+                    />
+                    <ApplianceCounter 
+                      name="Petrol Filling Machine" 
+                      wattage="1500W" 
+                      value={appliances.petrolFillingMachine1500W} 
+                      onChange={(val) => updateAppliance('petrolFillingMachine1500W', val)} 
+                    />
+                    <ApplianceCounter 
+                      name="Projector" 
+                      wattage="600W" 
+                      value={appliances.projector600W} 
+                      onChange={(val) => updateAppliance('projector600W', val)} 
+                    />
+                    <ApplianceCounter 
+                      name="Surveillance System" 
+                      wattage="100W" 
+                      value={appliances.surveillanceSystem100W} 
+                      onChange={(val) => updateAppliance('surveillanceSystem100W', val)} 
+                    />
                   </CollapsibleContent>
                 </Collapsible>
 
@@ -598,8 +655,19 @@ const InverterCalculator = () => {
                       {openSections.motors ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                     </div>
                   </CollapsibleTrigger>
-                  <CollapsibleContent className="bg-white border-x border-b border-gray-200 rounded-b-lg px-4 py-4">
-                    <p className="text-sm text-gray-600">Motor appliances will be added here</p>
+                  <CollapsibleContent className="bg-white border-x border-b border-gray-200 rounded-b-lg px-4">
+                    <ApplianceCounter 
+                      name="Water Pump (0.5 HP)" 
+                      wattage="400W" 
+                      value={appliances.waterPump05HP400W} 
+                      onChange={(val) => updateAppliance('waterPump05HP400W', val)} 
+                    />
+                    <ApplianceCounter 
+                      name="Water Pump (1 HP)" 
+                      wattage="800W" 
+                      value={appliances.waterPump1HP800W} 
+                      onChange={(val) => updateAppliance('waterPump1HP800W', val)} 
+                    />
                   </CollapsibleContent>
                 </Collapsible>
 
@@ -609,6 +677,24 @@ const InverterCalculator = () => {
             {/* Current Total Wattage Display */}
             <div className="bg-gray-100 p-4 rounded-md">
               <h4 className="font-semibold text-gray-700">Current Total Load: {calculateTotalWattage()} Watts</h4>
+            </div>
+
+            {/* Average Running Load Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Average Running Load (%) *
+              </label>
+              <Select value={averageRunningLoad} onValueChange={setAverageRunningLoad}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select average running load" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="25">25%</SelectItem>
+                  <SelectItem value="50">50%</SelectItem>
+                  <SelectItem value="75">75%</SelectItem>
+                  <SelectItem value="100">100%</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Backup Time Input */}
@@ -625,58 +711,12 @@ const InverterCalculator = () => {
               />
             </div>
 
-            {/* Inverter Type Selection */}
-            <div>
-              <p className="text-sm font-medium text-gray-700 mb-4">
-                Select Inverter Type:
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {['normal', 'pure sine wave'].map((type) => (
-                  <Button
-                    key={type}
-                    onClick={() => setInverterType(type)}
-                    variant={inverterType === type ? 'default' : 'outline'}
-                    className={`px-4 py-2 text-sm ${
-                      inverterType === type
-                        ? 'bg-gray-700 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                  >
-                    {type === 'normal' ? 'Normal' : 'Pure Sine Wave'}
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            {/* Battery Type Selection */}
-            <div>
-              <p className="text-sm font-medium text-gray-700 mb-4">
-                Select Battery Type:
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {['tubular', 'flat plate', 'lithium-ion'].map((type) => (
-                  <Button
-                    key={type}
-                    onClick={() => setBatteryType(type)}
-                    variant={batteryType === type ? 'default' : 'outline'}
-                    className={`px-4 py-2 text-sm ${
-                      batteryType === type
-                        ? 'bg-gray-700 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                  >
-                    {type === 'tubular' ? 'Tubular' : type === 'flat plate' ? 'Flat Plate' : 'Lithium-ion'}
-                  </Button>
-                ))}
-              </div>
-            </div>
-
             {/* Calculate Button */}
             <div className="flex justify-center">
               <Button
                 onClick={calculateInverter}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold"
-                disabled={calculateTotalWattage() === 0 || !backupTime}
+                disabled={calculateTotalWattage() === 0 || !backupTime || !averageRunningLoad}
               >
                 CALCULATE
               </Button>
@@ -687,60 +727,26 @@ const InverterCalculator = () => {
         {/* Results Section */}
         {showResults && (
           <>
-            {/* Load Summary */}
-            <Card className="mb-6 border-2 border-yellow-200">
-              <CardHeader className="bg-yellow-50 p-4">
-                <CardTitle className="text-center text-lg">Load Summary</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-700">Total Load:</h3>
-                    <p className="text-lg font-bold text-yellow-600">{totalWattage} Watts</p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-700">Backup Time:</h3>
-                    <p className="text-lg font-bold text-yellow-600">{backupTime} Hours</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Inverter Specifications */}
+            {/* Combined Inverter & Battery Specifications */}
             <Card className="mb-6 border-2 border-green-200">
               <CardHeader className="bg-green-50 p-4">
-                <CardTitle className="text-center text-lg">Inverter Specifications</CardTitle>
+                <CardTitle className="text-center text-lg">Inverter & Battery Specifications</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-700">VA Rating:</h3>
-                    <p className="text-lg font-bold text-green-500">{inverterVa} VA</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-green-600 mb-3">Inverter Specifications</h3>
+                    <div>
+                      <h4 className="text-sm font-semibold text-gray-700">VA Rating:</h4>
+                      <p className="text-lg font-bold text-green-500">{inverterVa} VA</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-700">Type:</h3>
-                    <p className="text-lg font-bold text-green-500">{inverterType === 'normal' ? 'Normal' : 'Pure Sine Wave'}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Battery Specifications */}
-            <Card className="mb-6 border-2 border-orange-200">
-              <CardHeader className="bg-orange-50 p-4">
-                <CardTitle className="text-center text-lg">Battery Specifications</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-700">Capacity:</h3>
-                    <p className="text-lg font-bold text-orange-500">{batteryAh} AH</p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-700">Type:</h3>
-                    <p className="text-lg font-bold text-orange-500">
-                      {batteryType === 'tubular' ? 'Tubular' : batteryType === 'flat plate' ? 'Flat Plate' : 'Lithium-ion'}
-                    </p>
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-orange-600 mb-3">Battery Specifications</h3>
+                    <div>
+                      <h4 className="text-sm font-semibold text-gray-700">Capacity:</h4>
+                      <p className="text-lg font-bold text-orange-500">{batteryAh} AH</p>
+                    </div>
                   </div>
                 </div>
               </CardContent>
