@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Fan, Laptop, Lightbulb, Home, Tv, AirVent, Settings, Zap } from 'lucide-react';
 
@@ -73,8 +74,8 @@ const InverterCalculator = () => {
     waterPump1HP800W: 0,
   });
   
-  // Other inputs
-  const [backupTime, setBackupTime] = useState('');
+  // Change backup time to slider with default value
+  const [backupTime, setBackupTime] = useState([2]); // Changed to array for slider
   const [averageRunningLoad, setAverageRunningLoad] = useState('');
   
   // Results
@@ -152,7 +153,7 @@ const InverterCalculator = () => {
 
   const calculateInverter = () => {
     const calculatedWattage = calculateTotalWattage();
-    const hours = parseFloat(backupTime) || 0;
+    const hours = backupTime[0]; // Get value from slider array
     const loadPercentage = parseFloat(averageRunningLoad) || 100;
 
     if (calculatedWattage === 0 || hours === 0 || !averageRunningLoad) return;
@@ -228,7 +229,7 @@ const InverterCalculator = () => {
       waterPump05HP400W: 0,
       waterPump1HP800W: 0,
     });
-    setBackupTime('');
+    setBackupTime([2]);
     setAverageRunningLoad('');
     setShowResults(false);
     setTotalWattage(0);
@@ -697,18 +698,25 @@ const InverterCalculator = () => {
               </Select>
             </div>
 
-            {/* Backup Time Input */}
+            {/* Backup Time Slider - Changed from Input to Slider */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Required Backup Time (Hours)
+              <label className="block text-sm font-medium text-gray-700 mb-4">
+                Required Backup Time: {backupTime[0]} hr
               </label>
-              <Input
-                type="number"
-                value={backupTime}
-                onChange={(e) => setBackupTime(e.target.value)}
-                placeholder="Enter required backup time"
-                className="w-full"
-              />
+              <div className="px-4">
+                <Slider
+                  value={backupTime}
+                  onValueChange={setBackupTime}
+                  max={10}
+                  min={0.5}
+                  step={0.5}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-sm text-gray-500 mt-2">
+                  <span>0.5 hr</span>
+                  <span>10 hr</span>
+                </div>
+              </div>
             </div>
 
             {/* Calculate Button */}
@@ -716,7 +724,7 @@ const InverterCalculator = () => {
               <Button
                 onClick={calculateInverter}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-semibold"
-                disabled={calculateTotalWattage() === 0 || !backupTime || !averageRunningLoad}
+                disabled={calculateTotalWattage() === 0 || backupTime[0] === 0 || !averageRunningLoad}
               >
                 CALCULATE
               </Button>
@@ -724,53 +732,61 @@ const InverterCalculator = () => {
           </CardContent>
         </Card>
 
-        {/* Results Section */}
+        {/* Results Section - Improved Design */}
         {showResults && (
           <>
-            {/* Combined Inverter & Battery Specifications */}
-            <Card className="mb-6 border-2 border-green-200">
-              <CardHeader className="bg-green-50 p-4">
-                <CardTitle className="text-center text-lg">Inverter & Battery Specifications</CardTitle>
+            {/* Combined Inverter & Battery Specifications - Enhanced Design */}
+            <Card className="mb-6 border-2 border-gradient-to-r from-green-200 to-teal-200 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-green-50 to-teal-50 p-6">
+                <CardTitle className="text-center text-xl font-bold text-gray-800 flex items-center justify-center gap-2">
+                  ⚡ Inverter & Battery Specifications
+                </CardTitle>
               </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-green-600 mb-3">Inverter Specifications</h3>
-                    <div>
+              <CardContent className="p-6 bg-white">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                    <h3 className="text-xl font-bold text-green-700 mb-4 flex items-center gap-2">
+                      🔋 Inverter Specifications
+                    </h3>
+                    <div className="space-y-2">
                       <h4 className="text-sm font-semibold text-gray-700">VA Rating:</h4>
-                      <p className="text-lg font-bold text-green-500">{inverterVa} VA</p>
+                      <p className="text-3xl font-bold text-green-600">{inverterVa} VA</p>
                     </div>
                   </div>
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-orange-600 mb-3">Battery Specifications</h3>
-                    <div>
+                  <div className="space-y-4 p-4 bg-orange-50 rounded-lg border border-orange-200">
+                    <h3 className="text-xl font-bold text-orange-700 mb-4 flex items-center gap-2">
+                      🔋 Battery Specifications
+                    </h3>
+                    <div className="space-y-2">
                       <h4 className="text-sm font-semibold text-gray-700">Capacity:</h4>
-                      <p className="text-lg font-bold text-orange-500">{batteryAh} AH</p>
+                      <p className="text-3xl font-bold text-orange-600">{batteryAh} AH</p>
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Cost Breakdown */}
-            <Card className="mb-6 border-2 border-purple-200">
-              <CardHeader className="bg-purple-50 p-4">
-                <CardTitle className="text-center text-lg">Cost Breakdown (Estimated)</CardTitle>
+            {/* Cost Breakdown - Enhanced Design */}
+            <Card className="mb-6 border-2 border-gradient-to-r from-purple-200 to-pink-200 shadow-lg">
+              <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 p-6">
+                <CardTitle className="text-center text-xl font-bold text-gray-800 flex items-center justify-center gap-2">
+                  💰 Cost Breakdown (Estimated)
+                </CardTitle>
               </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-700">Inverter Cost:</h3>
-                    <p className="text-lg font-bold text-purple-500">₹{inverterCost}</p>
+              <CardContent className="p-6 bg-white">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                    <h3 className="text-lg font-semibold text-purple-700 mb-2">Inverter Cost:</h3>
+                    <p className="text-2xl font-bold text-purple-600">₹{inverterCost}</p>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-gray-700">Battery Cost:</h3>
-                    <p className="text-lg font-bold text-purple-500">₹{batteryCost}</p>
+                  <div className="p-4 bg-pink-50 rounded-lg border border-pink-200">
+                    <h3 className="text-lg font-semibold text-pink-700 mb-2">Battery Cost:</h3>
+                    <p className="text-2xl font-bold text-pink-600">₹{batteryCost}</p>
                   </div>
                 </div>
-                <div className="mt-4">
-                  <h3 className="text-sm font-semibold text-gray-700">Total Estimated Cost:</h3>
-                  <p className="text-2xl font-bold text-purple-500">₹{totalCost}</p>
+                <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg border-2 border-purple-300 text-center">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2">Total Estimated Cost:</h3>
+                  <p className="text-4xl font-bold text-purple-700">₹{totalCost}</p>
                 </div>
               </CardContent>
             </Card>
@@ -832,7 +848,7 @@ const InverterCalculator = () => {
                 <div>
                   <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Battery Technology & Maintenance:</h4>
                   <p className="text-gray-600 text-xs sm:text-sm">
-                    Select appropriate battery type: Tubular (long-lasting, requires maintenance), Lithium-ion (compact, maintenance-free, expensive), or Gel batteries (sealed, moderate cost). Consider maintenance requirements, lifespan, and environmental conditions.
+                    Select appropriate battery type: Tubular (long-lasting, requires maintenance), Flat plate (cost-effective, moderate lifespan), Lithium-ion (compact, maintenance-free, expensive), or Gel batteries (sealed, moderate cost). Consider maintenance requirements, lifespan, and environmental conditions.
                   </p>
                 </div>
                 
