@@ -791,93 +791,61 @@ const InverterCalculator = () => {
         {/* Explore Related Categories */}
         <InverterBatteryRelatedCategories />
 
-        {/* Inverter Guide Section */}
+        {/* Combined Inverter & Battery Buying Guide Section */}
         <Card className="mb-6 sm:mb-8">
           <CardHeader className="p-3 sm:p-6">
-            <CardTitle className="text-lg sm:text-xl text-gray-800">Inverter Buying Guide</CardTitle>
+            <CardTitle className="text-lg sm:text-xl text-gray-800">Inverter & Battery Buying Guide</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 sm:space-y-6 p-3 sm:p-6 pt-0">
             <div>
-              <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-3">What to consider when buying an inverter</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-3">Essential factors to consider when buying an inverter and battery system</h3>
               
               <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Load Requirement:</h4>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Load Requirement & Power Calculation:</h4>
                   <p className="text-gray-600 text-xs sm:text-sm">
-                    Assess the total power consumption (in watts) of all the appliances you intend to run on the inverter. This will help you determine the appropriate VA rating of the inverter.
+                    Calculate the total power consumption (in watts) of all appliances you intend to run. This determines the appropriate VA rating of the inverter. Consider both starting and running power requirements for motor-based appliances.
                   </p>
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Backup Time:</h4>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Backup Time & Battery Capacity:</h4>
                   <p className="text-gray-600 text-xs sm:text-sm">
-                    Decide how long you need the inverter to provide power during outages. This will influence the battery capacity (in AH) required.
+                    Determine your required backup duration during power outages. Battery capacity (measured in AH - Ampere Hours) directly affects backup time. Higher AH ratings provide longer backup periods but increase cost and space requirements.
                   </p>
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Inverter Type:</h4>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">System Compatibility & Voltage:</h4>
                   <p className="text-gray-600 text-xs sm:text-sm">
-                    Choose between a normal inverter (suitable for basic appliances) and a pure sine wave inverter (recommended for sensitive electronic devices).
+                    Ensure inverter and battery voltage compatibility (typically 12V, 24V, or 48V systems). Match the system voltage for optimal performance and safety. Consider expandability for future power needs.
                   </p>
                 </div>
                 
                 <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Battery Type:</h4>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Inverter Type & Wave Form:</h4>
                   <p className="text-gray-600 text-xs sm:text-sm">
-                    Select the appropriate battery type based on your budget and requirements. Tubular batteries are long-lasting, while lithium-ion batteries are compact and efficient.
+                    Choose between modified sine wave (basic applications) and pure sine wave inverters (sensitive electronics, motors). Pure sine wave is recommended for computers, medical equipment, and efficient motor operation.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Battery Technology & Maintenance:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Select appropriate battery type: Tubular (long-lasting, requires maintenance), Lithium-ion (compact, maintenance-free, expensive), or Gel batteries (sealed, moderate cost). Consider maintenance requirements, lifespan, and environmental conditions.
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Efficiency & Features:</h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Look for high-efficiency inverters (85-95%) to minimize energy loss. Consider features like overload protection, low battery alarms, LCD displays, and smart charging capabilities for optimal performance and safety.
                   </p>
                 </div>
               </div>
               
               <p className="text-gray-600 text-xs sm:text-sm mt-3 sm:mt-4">
-                Selecting the right inverter and battery for your power backup needs requires careful consideration of multiple factors. Consult with experts, evaluate different models, and stay informed about the latest technologies to make an informed decision.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Battery Guide Section */}
-        <Card>
-          <CardHeader className="p-3 sm:p-6">
-            <CardTitle className="text-lg sm:text-xl text-gray-800">Battery Buying Guide</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 sm:space-y-6 p-3 sm:p-6 pt-0">
-            <div>
-              <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-3">What to consider when buying a battery</h3>
-              
-              <div className="space-y-3 sm:space-y-4">
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Capacity (AH):</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    The capacity of a battery is measured in Ampere-Hours (AH). Higher AH ratings provide longer backup times.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Voltage:</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    Ensure that the battery voltage matches the inverter's voltage requirement (typically 12V or 24V).
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Battery Type:</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    Choose between tubular, flat plate, and lithium-ion batteries based on your budget and requirements.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Maintenance:</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    Consider the maintenance requirements of the battery. Tubular and flat plate batteries require regular water top-ups, while lithium-ion batteries are maintenance-free.
-                  </p>
-                </div>
-              </div>
-              
-              <p className="text-gray-600 text-xs sm:text-sm mt-3 sm:mt-4">
-                Selecting the right battery for your inverter requires careful consideration of multiple factors. Consult with experts, compare different brands, and read customer reviews to make an informed decision.
+                Selecting the right inverter and battery system requires balancing power requirements, backup time, budget, and space constraints. Consult with certified technicians for installation and consider warranty terms from reputable manufacturers for long-term reliability.
               </p>
             </div>
           </CardContent>
