@@ -8,13 +8,13 @@ const InverterBatteryRelatedCategories = () => {
   const categories = [
     {
       title: "Inverter Battery",
-      image: "/lovable-uploads/58f7d244-6de6-42f9-b1ee-c45193ebdc77.png",
+      image: "/lovable-uploads/6aaf7b68-626b-4349-831a-3d53b228c5ac.png",
       buttonText: "Get Quotes",
       url: "https://m.indiamart.com/impcat/inverter-battery.html"
     },
     {
       title: "Inverters",
-      image: "/lovable-uploads/77932a8f-aefa-44b0-ac30-e2df2e984707.png",
+      image: "/lovable-uploads/3b830c13-4a59-4cc2-83d3-13b4df141b30.png",
       buttonText: "Get Quotes",
       url: "https://m.indiamart.com/impcat/inverters.html"
     }
