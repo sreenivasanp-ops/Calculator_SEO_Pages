@@ -69,11 +69,11 @@ const ConcreteCalculator = () => {
     const remainder = cementRequired - cementBags;
     const looseCementKg = Math.ceil(remainder * 50);
 
-    // Calculate Sand (Ton)
-    const sandRequired = (wetVolumeOfMix * ratioNumbers[1] / sumOfRatio) * 1.5;
+    // Calculate Sand (Ton) - Updated formula
+    const sandRequired = (wetVolumeOfMix * ratioNumbers[1] / sumOfRatio) * 1.55;
 
-    // Calculate Aggregate (Ton)
-    const aggregateRequired = (wetVolumeOfMix * ratioNumbers[2] / sumOfRatio) * 1.5;
+    // Calculate Aggregate (Ton) - Updated formula
+    const aggregateRequired = (wetVolumeOfMix * ratioNumbers[2] / sumOfRatio) * 1.35;
 
     // Calculate estimated prices (example rates)
     const cementBagRate = 350; // per bag
@@ -255,6 +255,7 @@ const ConcreteCalculator = () => {
                     <div className="flex items-center gap-3">
                       <div className="text-2xl">🏗️</div>
                       <div>
+                        <div className="text-sm text-gray-600 mb-1">Cement</div>
                         <div className="text-lg font-bold text-indiamart-teal">
                           {results.cementBags} Bags
                           {results.looseCementKg !== '0' && (
@@ -263,7 +264,6 @@ const ConcreteCalculator = () => {
                             </div>
                           )}
                         </div>
-                        <div className="text-sm text-gray-600">Cement</div>
                       </div>
                     </div>
                     <div className="text-right">
@@ -276,8 +276,8 @@ const ConcreteCalculator = () => {
                     <div className="flex items-center gap-3">
                       <div className="text-2xl">⛰️</div>
                       <div>
+                        <div className="text-sm text-gray-600 mb-1">Sand</div>
                         <div className="text-lg font-bold text-blue-600">{results.sand} Ton</div>
-                        <div className="text-sm text-gray-600">Sand</div>
                       </div>
                     </div>
                     <div className="text-right">
@@ -290,8 +290,8 @@ const ConcreteCalculator = () => {
                     <div className="flex items-center gap-3">
                       <div className="text-2xl">🪨</div>
                       <div>
+                        <div className="text-sm text-gray-600 mb-1">Aggregate</div>
                         <div className="text-lg font-bold text-green-600">{results.aggregate} Ton</div>
-                        <div className="text-sm text-gray-600">Aggregate</div>
                       </div>
                     </div>
                     <div className="text-right">

@@ -358,8 +358,8 @@ const BrickworkCalculator = () => {
                     <div className="flex items-center gap-3">
                       <div className="text-2xl">🧱</div>
                       <div>
+                        <div className="text-sm text-gray-600 mb-1">Bricks</div>
                         <div className="text-lg font-bold text-indiamart-teal">{results.bricks}</div>
-                        <div className="text-sm text-gray-600">Bricks</div>
                       </div>
                     </div>
                     <div className="text-right">
@@ -372,6 +372,7 @@ const BrickworkCalculator = () => {
                     <div className="flex items-center gap-3">
                       <div className="text-2xl">🏗️</div>
                       <div>
+                        <div className="text-sm text-gray-600 mb-1">Cement</div>
                         <div className="text-lg font-bold text-blue-600">
                           {results.cementBags} Bag
                           {results.looseCementKg !== '0' && (
@@ -380,7 +381,6 @@ const BrickworkCalculator = () => {
                             </div>
                           )}
                         </div>
-                        <div className="text-sm text-gray-600">Cement</div>
                       </div>
                     </div>
                     <div className="text-right">
@@ -393,8 +393,8 @@ const BrickworkCalculator = () => {
                     <div className="flex items-center gap-3">
                       <div className="text-2xl">⛰️</div>
                       <div>
+                        <div className="text-sm text-gray-600 mb-1">Sand</div>
                         <div className="text-lg font-bold text-green-600">{results.sand} ton</div>
-                        <div className="text-sm text-gray-600">Sand</div>
                       </div>
                     </div>
                     <div className="text-right">
