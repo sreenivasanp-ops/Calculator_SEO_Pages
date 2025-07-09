@@ -31,7 +31,13 @@ const BrickworkCalculator = () => {
     bricks: '',
     cementBags: '',
     looseCement: '',
-    sand: ''
+    looseCementBags: '',
+    looseCementKg: '',
+    sand: '',
+    brickPrice: '',
+    cementPrice: '',
+    sandPrice: '',
+    totalPrice: ''
   });
 
   // Convert to meters
@@ -87,15 +93,33 @@ const BrickworkCalculator = () => {
     const cementBags = Math.floor(cementRequired);
     const remainder = cementRequired - cementBags;
     const looseCement = remainder * 50;
+    const looseCementBags = Math.floor(looseCement / 50);
+    const looseCementKg = Math.ceil(looseCement % 50);
 
     // Calculate Sand (Tonne)
     const sandRequired = (quantityOfMortar * ratioNumbers[1] / sumOfRatio) * 1.5;
+
+    // Calculate estimated prices (example rates)
+    const brickRate = 8; // per brick
+    const cementBagRate = 350; // per bag
+    const sandRate = 1500; // per tonne
+    
+    const brickPrice = numberOfBricks * brickRate;
+    const cementPrice = (cementBags + (looseCementKg > 0 ? 1 : 0)) * cementBagRate;
+    const sandPrice = sandRequired * sandRate;
+    const totalPrice = brickPrice + cementPrice + sandPrice;
 
     setResults({
       bricks: numberOfBricks.toString(),
       cementBags: cementBags.toString(),
       looseCement: looseCement.toFixed(2),
-      sand: sandRequired.toFixed(3)
+      looseCementBags: looseCementBags.toString(),
+      looseCementKg: looseCementKg.toString(),
+      sand: sandRequired.toFixed(2),
+      brickPrice: brickPrice.toFixed(0),
+      cementPrice: cementPrice.toFixed(0),
+      sandPrice: sandPrice.toFixed(0),
+      totalPrice: totalPrice.toFixed(0)
     });
   };
 
@@ -107,7 +131,18 @@ const BrickworkCalculator = () => {
     setBrickWidth('');
     setBrickHeight('');
     setMortarRatio('1:4');
-    setResults({ bricks: '', cementBags: '', looseCement: '', sand: '' });
+    setResults({ 
+      bricks: '', 
+      cementBags: '', 
+      looseCement: '', 
+      looseCementBags: '',
+      looseCementKg: '',
+      sand: '',
+      brickPrice: '',
+      cementPrice: '',
+      sandPrice: '',
+      totalPrice: ''
+    });
   };
 
   const mortarRatios = [
@@ -319,35 +354,64 @@ const BrickworkCalculator = () => {
               <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">Calculation Results</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center gap-3">
-                    <div className="text-2xl">🧱</div>
-                    <div>
-                      <div className="text-2xl font-bold text-indiamart-teal">{results.bricks}</div>
-                      <div className="text-sm text-gray-600">Bricks</div>
+                  <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="text-2xl">🧱</div>
+                      <div>
+                        <div className="text-lg font-bold text-indiamart-teal">{results.bricks}</div>
+                        <div className="text-sm text-gray-600">Bricks</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-green-600">₹{results.brickPrice}</div>
+                      <div className="text-xs text-gray-500">Estimated</div>
                     </div>
                   </div>
-                  <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center gap-3">
-                    <div className="text-2xl">🏗️</div>
-                    <div>
-                      <div className="text-2xl font-bold text-blue-600">{results.cementBags} Bag</div>
-                      <div className="text-sm text-gray-600">Cement</div>
+                  
+                  <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="text-2xl">🏗️</div>
+                      <div>
+                        <div className="text-lg font-bold text-blue-600">
+                          {results.cementBags} Bag
+                          {results.looseCementKg !== '0' && (
+                            <div className="text-sm text-orange-600">
+                              + {results.looseCementBags} Bag, {results.looseCementKg} Kg
+                            </div>
+                          )}
+                        </div>
+                        <div className="text-sm text-gray-600">Cement</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-green-600">₹{results.cementPrice}</div>
+                      <div className="text-xs text-gray-500">Estimated</div>
                     </div>
                   </div>
-                  <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center gap-3">
-                    <div className="text-2xl">⛰️</div>
-                    <div>
-                      <div className="text-2xl font-bold text-green-600">{results.sand} ton</div>
-                      <div className="text-sm text-gray-600">Sand</div>
+                  
+                  <div className="text-center p-3 bg-white rounded-lg shadow-sm flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="text-2xl">⛰️</div>
+                      <div>
+                        <div className="text-lg font-bold text-green-600">{results.sand} ton</div>
+                        <div className="text-sm text-gray-600">Sand</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-semibold text-green-600">₹{results.sandPrice}</div>
+                      <div className="text-xs text-gray-500">Estimated</div>
                     </div>
                   </div>
                 </div>
-                {results.looseCement !== '0.00' && (
-                  <div className="text-center mt-4 p-2 bg-yellow-50 rounded-lg">
-                    <div className="text-sm text-gray-600">
-                      Additional loose cement required: <span className="font-bold text-orange-600">{results.looseCement} kg</span>
-                    </div>
+                
+                {/* Total Estimated Price Section */}
+                <div className="mt-4 p-3 bg-gradient-to-r from-blue-100 to-green-100 rounded-lg border border-blue-200">
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-gray-800">Total Estimated Price</div>
+                    <div className="text-2xl font-bold text-green-600 mt-2">₹{results.totalPrice}</div>
+                    <div className="text-xs text-gray-500 mt-1">*Prices are approximate and may vary by location</div>
                   </div>
-                )}
+                </div>
               </div>
             )}
           </CardContent>
