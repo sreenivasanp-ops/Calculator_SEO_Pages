@@ -185,7 +185,7 @@ const BrickworkCalculator = () => {
                     <Input 
                       value={wallLength} 
                       onChange={(e) => setWallLength(e.target.value)} 
-                      placeholder="10"
+                      placeholder=""
                       className="flex-1"
                     />
                     <Select value={wallLengthUnit} onValueChange={setWallLengthUnit}>
@@ -206,7 +206,7 @@ const BrickworkCalculator = () => {
                     <Input 
                       value={wallHeight} 
                       onChange={(e) => setWallHeight(e.target.value)} 
-                      placeholder="10"
+                      placeholder=""
                       className="flex-1"
                     />
                     <Select value={wallHeightUnit} onValueChange={setWallHeightUnit}>
@@ -227,7 +227,7 @@ const BrickworkCalculator = () => {
                     <Input 
                       value={wallThickness} 
                       onChange={(e) => setWallThickness(e.target.value)} 
-                      placeholder="0.75"
+                      placeholder=""
                       className="flex-1"
                     />
                     <Select value={wallThicknessUnit} onValueChange={setWallThicknessUnit}>
@@ -273,7 +273,7 @@ const BrickworkCalculator = () => {
                     <Input 
                       value={brickLength} 
                       onChange={(e) => setBrickLength(e.target.value)} 
-                      placeholder="23"
+                      placeholder=""
                       className="flex-1"
                     />
                     <Select value={brickLengthUnit} onValueChange={setBrickLengthUnit}>
@@ -294,7 +294,7 @@ const BrickworkCalculator = () => {
                     <Input 
                       value={brickWidth} 
                       onChange={(e) => setBrickWidth(e.target.value)} 
-                      placeholder="11"
+                      placeholder=""
                       className="flex-1"
                     />
                     <Select value={brickWidthUnit} onValueChange={setBrickWidthUnit}>
@@ -315,7 +315,7 @@ const BrickworkCalculator = () => {
                     <Input 
                       value={brickHeight} 
                       onChange={(e) => setBrickHeight(e.target.value)} 
-                      placeholder="7.5"
+                      placeholder=""
                       className="flex-1"
                     />
                     <Select value={brickHeightUnit} onValueChange={setBrickHeightUnit}>

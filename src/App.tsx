@@ -12,6 +12,7 @@ import InverterCalculator from "./pages/InverterCalculator";
 import SolarPanel from "./pages/SolarPanel";
 import CementCalculator from "./pages/CementCalculator";
 import BrickworkCalculator from "./pages/BrickworkCalculator";
+import ConcreteCalculator from "./pages/ConcreteCalculator";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/solar-panel" element={<SolarPanel />} />
           <Route path="/cement-calculator" element={<CementCalculator />} />
           <Route path="/brickwork-calculator" element={<BrickworkCalculator />} />
+          <Route path="/concrete-calculator" element={<ConcreteCalculator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

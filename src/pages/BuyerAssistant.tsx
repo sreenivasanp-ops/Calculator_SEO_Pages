@@ -1,8 +1,7 @@
-
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { BarChart3, Cpu, Sun, Battery, Hammer, Search, Building2 } from 'lucide-react';
+import { BarChart3, Cpu, Sun, Battery, Building2, Search, Blocks } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -24,6 +23,13 @@ const BuyerAssistant = () => {
       description: 'Brickwork Calculator for Construction',
       onClick: () => navigate('/brickwork-calculator'),
       searchTerms: ['brickwork', 'calculator', 'construction', 'brick']
+    },
+    {
+      title: 'Concrete',
+      icon: Blocks,
+      description: 'Concrete Calculator for Construction',
+      onClick: () => navigate('/concrete-calculator'),
+      searchTerms: ['concrete', 'calculator', 'construction', 'cement']
     }
   ];
 
@@ -96,7 +102,7 @@ const BuyerAssistant = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               type="text"
-              placeholder="Search categories (TMT Bars, Brickwork, Resistors, Solar Panel, Inverter Battery)"
+              placeholder="Search categories (TMT Bars, Brickwork, Concrete, Resistors, Solar Panel, Inverter Battery)"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 pr-4 py-2 w-full border-2 border-gray-200 rounded-lg focus:border-indiamart-teal"
