@@ -8,21 +8,15 @@ const InverterBatteryRelatedCategories = () => {
   const categories = [
     {
       title: "Inverter Battery",
-      image: "/lovable-uploads/ac335986-dd6c-4882-95ed-1b273b934844.png",
+      image: "/lovable-uploads/58f7d244-6de6-42f9-b1ee-c45193ebdc77.png",
       buttonText: "Get Quotes",
-      url: "https://m.indiamart.com/impcat/inverter-batteries.html"
+      url: "https://m.indiamart.com/impcat/inverter-battery.html"
     },
     {
-      title: "Luminous Inverter Battery",
+      title: "Inverters",
       image: "/lovable-uploads/77932a8f-aefa-44b0-ac30-e2df2e984707.png",
       buttonText: "Get Quotes",
-      url: "https://m.indiamart.com/impcat/luminous-inverter-batteries.html"
-    },
-    {
-      title: "Concrete Reinforcement Bars",
-      image: "/lovable-uploads/e2eadd8f-1522-4511-a638-bbc5e2f9e248.png",
-      buttonText: "Get Quotes",
-      url: "https://m.indiamart.com/impcat/concrete-reinforcing-bars.html"
+      url: "https://m.indiamart.com/impcat/inverters.html"
     }
   ];
 

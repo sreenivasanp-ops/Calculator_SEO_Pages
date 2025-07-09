@@ -17,12 +17,6 @@ const ResistorRelatedCategories = () => {
       image: "/lovable-uploads/d8e2a2f8-7f0d-4563-9873-df9de7f39a08.png",
       buttonText: "Get Quotes",
       url: "https://m.indiamart.com/impcat/metal-film-resistor.html"
-    },
-    {
-      title: "Concrete Reinforcement Bars",
-      image: "/lovable-uploads/e2eadd8f-1522-4511-a638-bbc5e2f9e248.png",
-      buttonText: "Get Quotes",
-      url: "https://m.indiamart.com/impcat/concrete-reinforcing-bars.html"
     }
   ];
 
