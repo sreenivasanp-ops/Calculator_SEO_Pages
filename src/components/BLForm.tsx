@@ -18,31 +18,31 @@ const BLForm = ({ children, productType }: BLFormProps) => {
   const productConfig = {
     tmt: {
       title: 'TMT Bars',
-      image: '/lovable-uploads/60c963e8-9134-4b52-912b-c08abe4408aa.png',
+      image: '/lovable-uploads/786f6f9e-e80e-4128-8ac0-d51a3a15b44e.png',
       question: 'How many tonne you need?',
       units: ['Tonne', 'Kg', 'Quintal', 'Piece']
     },
     concrete: {
       title: 'Ready Mixed Concrete',
-      image: '/lovable-uploads/6b418998-7a36-4e05-bd0e-4d4803858381.png',
+      image: '/lovable-uploads/652dc3f5-5510-4ab2-afcb-28d5c07a6026.png',
       question: 'How many cubic meter you need?',
       units: ['Cubic Meter']
     },
     brick: {
       title: 'Red Brick',
-      image: '/lovable-uploads/c9314498-f538-4bbf-b881-91ff1d37748d.png',
+      image: '/lovable-uploads/5a586cd9-95f5-4bf2-bab3-703c68ef1e78.png',
       question: 'How many piece you need?',
       units: ['Piece', 'sq ft']
     },
     resistor: {
       title: 'Resistors',
-      image: '/lovable-uploads/a94dd2cc-4c3b-4546-a608-91d722ae9cce.png',
+      image: '/lovable-uploads/f3d827f8-4cc8-4c17-8d57-5d5a31478b32.png',
       question: 'How many piece you need?',
       units: ['Piece']
     },
     inverter: {
       title: 'Inverter Battery',
-      image: '/lovable-uploads/e666326a-6492-41bb-a176-5128caeb82c9.png',
+      image: '/lovable-uploads/5e998b59-cb90-4b73-9927-ed9437c49f45.png',
       question: 'How many piece you need?',
       units: ['Piece']
     }

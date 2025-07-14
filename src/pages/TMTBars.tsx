@@ -47,6 +47,9 @@ const TMTBars = () => {
   // Price per kg (example rate, can be made configurable)
   const pricePerKg = 65;
 
+  // State to track if calculate button has been clicked
+  const [calculated, setCalculated] = useState(false);
+
   // Check if any inputs are present to show price column
   const hasInputs = calculatorData.some(item => 
     item.rods > 0 || item.bundles > 0 || item.bundleRods > 0 || item.weight > 0
@@ -106,6 +109,7 @@ const TMTBars = () => {
         return { ...item, weight, price };
       })
     );
+    setCalculated(true);
   };
 
   const clearAll = () => {
@@ -119,6 +123,7 @@ const TMTBars = () => {
         price: 0
       }))
     );
+    setCalculated(false);
   };
 
   const totalRods = calculatorData.reduce((sum, item) => sum + item.rods, 0);
@@ -178,7 +183,7 @@ const TMTBars = () => {
                           </div>
                         </TableHead>
                         <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Kg</TableHead>
-                        {hasInputs && (
+                        {hasInputs && calculated && (
                           <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Price</TableHead>
                         )}
                       </TableRow>
@@ -224,7 +229,7 @@ const TMTBars = () => {
                               placeholder="0.00"
                             />
                           </TableCell>
-                          {hasInputs && (
+                          {hasInputs && calculated && (
                             <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
                               ₹{row.price.toFixed(0)}
                             </TableCell>
@@ -259,24 +264,30 @@ const TMTBars = () => {
                     <CardTitle className="text-base sm:text-lg text-center">Total Summary</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-6 pt-0">
-                    <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
-                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Est. Price</p>
-                      <p className="text-2xl sm:text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
-                    </div>
-                    <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
-                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Weight</p>
-                      <p className="text-2xl sm:text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
-                    </div>
-                    <div className="text-center p-2 sm:p-3 bg-orange-50 rounded-lg">
-                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Rods</p>
-                      <p className="text-2xl sm:text-3xl font-bold text-orange-500">{totalRods}</p>
-                    </div>
-                    <p className="text-xs text-gray-500 text-center mt-3 sm:mt-4">
-                      * Prices may vary based on market conditions
-                    </p>
+                    {calculated && (
+                      <>
+                        <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
+                          <p className="text-xs sm:text-sm text-gray-600 mb-1">Est. Price</p>
+                          <p className="text-2xl sm:text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
+                        </div>
+                        <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
+                          <p className="text-xs sm:text-sm text-gray-600 mb-1">Weight</p>
+                          <p className="text-2xl sm:text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
+                        </div>
+                        <div className="text-center p-2 sm:p-3 bg-orange-50 rounded-lg">
+                          <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Rods</p>
+                          <p className="text-2xl sm:text-3xl font-bold text-orange-500">{totalRods}</p>
+                        </div>
+                      </>
+                    )}
+                    {calculated && (
+                      <p className="text-xs text-gray-500 text-center mt-3 sm:mt-4">
+                        * Prices may vary based on market conditions
+                      </p>
+                    )}
                     
                     {/* Get Best Price CTA */}
-                    <div className="mt-4 pt-4 border-t border-gray-200">
+                    <div className={`${calculated ? 'mt-4 pt-4 border-t border-gray-200' : ''}`}>
                       <BLForm productType="tmt">
                         <Button className="w-full bg-indiamart-teal hover:bg-indiamart-teal-dark text-white py-3 rounded-lg font-medium">
                           Get Best Price
