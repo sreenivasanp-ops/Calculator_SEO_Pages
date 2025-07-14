@@ -366,7 +366,6 @@ const ConcreteCalculator = () => {
                         <th className="border border-gray-300 p-3 text-left font-semibold">Grade</th>
                         <th className="border border-gray-300 p-3 text-left font-semibold">Composition</th>
                         <th className="border border-gray-300 p-3 text-left font-semibold">Applications</th>
-                        <th className="border border-gray-300 p-3 text-left font-semibold">Purpose</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -381,9 +380,6 @@ const ConcreteCalculator = () => {
                         <td className="border border-gray-300 p-3 text-sm">
                           Used for non-structural applications like leveling, flooring, and pathways
                         </td>
-                        <td className="border border-gray-300 p-3 text-sm">
-                          The purpose of M10 grade of concrete approximates a smooth, stable, and uniform base for construction. It is primarily used in non-structural applications such as leveling surfaces, flooring, and paving. With a compressive strength of 10 MPa, it supports light loads and prepares surfaces for further construction work.
-                        </td>
                       </tr>
                       
                       <tr className="bg-blue-50">
@@ -396,9 +392,6 @@ const ConcreteCalculator = () => {
                         </td>
                         <td className="border border-gray-300 p-3 text-sm">
                           Residential foundations, footings, simple RCC structures, pathways, driveways, and general construction where moderate strength is sufficient.
-                        </td>
-                        <td className="border border-gray-300 p-3 text-sm">
-                          M20 grade concrete offers an optimal balance of cost-effectiveness and moderate strength (20 MPa) for residential construction. It's ideal for foundations, footings, driveways, and non-critical structural elements. This versatile grade provides adequate durability for standard environmental conditions while remaining economical for everyday construction projects like homes and small commercial buildings.
                         </td>
                       </tr>
                       
@@ -413,9 +406,6 @@ const ConcreteCalculator = () => {
                         <td className="border border-gray-300 p-3 text-sm">
                           Reinforced concrete structures, commercial buildings, beams, columns, slabs, small bridges, and medium-duty industrial floors.
                         </td>
-                        <td className="border border-gray-300 p-3 text-sm">
-                          In comparison to M20, M25 grade concrete offers better durability and load-bearing capacity with a compressive strength of 25 MPa. For commercial buildings, it is perfect for reinforced concrete beams, columns, slabs, and foundations. This adaptable grade strikes a mix between strength and affordability, making it appropriate for medium-duty applications requiring greater structural integrity and moderate exposure conditions.
-                        </td>
                       </tr>
                       
                       <tr className="bg-orange-50">
@@ -428,9 +418,6 @@ const ConcreteCalculator = () => {
                         </td>
                         <td className="border border-gray-300 p-3 text-sm">
                           High-rise buildings, heavy-duty industrial floors, highway bridges, water-retaining structures, and marine structures with moderate exposure to aggressive environments.
-                        </td>
-                        <td className="border border-gray-300 p-3 text-sm">
-                          In addition to having a 30 MPa compressive strength, M30 grade concrete is incredibly durable and resistant to chemical and environmental degradation. High-rise buildings, highway bridges, and water-retaining structures are all excellent candidates for it. In demanding settings like heavy industrial floors, maritime applications, and infrastructure projects where exceptional structural performance and endurance are crucial despite greater material costs, this premium grade performs exceptionally well.
                         </td>
                       </tr>
                     </tbody>

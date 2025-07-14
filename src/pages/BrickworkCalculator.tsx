@@ -419,6 +419,297 @@ const BrickworkCalculator = () => {
 
         {/* Related Categories */}
         <ExploreRelatedCategories />
+
+        {/* Brick Buying Guide */}
+        <Card className="mt-6 sm:mt-8 border-2 border-indiamart-teal">
+          <CardHeader className="bg-gradient-to-r from-indiamart-teal to-blue-600 text-white p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl">
+              🧱 Brick Buying Guide
+            </CardTitle>
+          </CardHeader>
+          
+          <CardContent className="p-4 sm:p-6 space-y-6">
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Different types of bricks used by home and road construction companies
+                </h3>
+                
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
+                    <thead>
+                      <tr className="bg-gradient-to-r from-indiamart-teal to-blue-600 text-white">
+                        <th className="border border-gray-300 p-3 text-left font-semibold">Type</th>
+                        <th className="border border-gray-300 p-3 text-left font-semibold">Description</th>
+                        <th className="border border-gray-300 p-3 text-left font-semibold">Common Use</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-red-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-red-600">Red Clay Bricks</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Made from natural clay, traditional sun-baked or fired
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Walls, internal partitions
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-gray-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-gray-600">Fly Ash Bricks</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Made from fly ash (byproduct of thermal plants)
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Eco-friendly, load-bearing
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-blue-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-blue-600">Concrete Bricks/Blocks</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Cement, stone dust mix
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Commercial, RCC frames
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-green-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-green-600">AAC Blocks</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Lightweight aerated blocks
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          High-rise buildings
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-yellow-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-yellow-600">Wire-Cut Bricks</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Machine-made, smooth finish
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Facades, exposed walls
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-orange-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-orange-600">Fire Bricks</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          High heat resistance
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Chimneys, furnaces
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-purple-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-purple-600">Hollow Bricks</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Less weight, better insulation
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Partition walls
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-pink-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-pink-600">Designer Bricks</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Decorative bricks
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Landscaping, front elevations
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  Quality Parameters and Checks for Different Brick Types
+                </h3>
+                
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden text-xs">
+                    <thead>
+                      <tr className="bg-gradient-to-r from-indiamart-teal to-blue-600 text-white">
+                        <th className="border border-gray-300 p-2 text-left font-semibold">Quality Parameter</th>
+                        <th className="border border-gray-300 p-2 text-left font-semibold">Red Clay Bricks</th>
+                        <th className="border border-gray-300 p-2 text-left font-semibold">Fly Ash Bricks</th>
+                        <th className="border border-gray-300 p-2 text-left font-semibold">AAC Blocks</th>
+                        <th className="border border-gray-300 p-2 text-left font-semibold">Concrete Bricks/Blocks</th>
+                        <th className="border border-gray-300 p-2 text-left font-semibold">Hollow Clay Bricks</th>
+                        <th className="border border-gray-300 p-2 text-left font-semibold">Wire-Cut Bricks</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-gray-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Shape & Size</td>
+                        <td className="border border-gray-300 p-2">Uniform, sharp edges</td>
+                        <td className="border border-gray-300 p-2">Machine-made, accurate</td>
+                        <td className="border border-gray-300 p-2">Factory-cut, precise</td>
+                        <td className="border border-gray-300 p-2">Very precise</td>
+                        <td className="border border-gray-300 p-2">Uniform, defined holes</td>
+                        <td className="border border-gray-300 p-2">Precise, sharp edges</td>
+                      </tr>
+                      
+                      <tr className="bg-blue-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Color</td>
+                        <td className="border border-gray-300 p-2">Deep red, uniform</td>
+                        <td className="border border-gray-300 p-2">Light grey, consistent</td>
+                        <td className="border border-gray-300 p-2">Light grey/white</td>
+                        <td className="border border-gray-300 p-2">Uniform grey</td>
+                        <td className="border border-gray-300 p-2">Red/orange</td>
+                        <td className="border border-gray-300 p-2">Deep red or as per clay</td>
+                      </tr>
+                      
+                      <tr className="bg-green-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Surface Finish</td>
+                        <td className="border border-gray-300 p-2">Smooth, no lumps</td>
+                        <td className="border border-gray-300 p-2">Smooth, even</td>
+                        <td className="border border-gray-300 p-2">Smooth, porous</td>
+                        <td className="border border-gray-300 p-2">Crack-free, clean</td>
+                        <td className="border border-gray-300 p-2">Smooth surface</td>
+                        <td className="border border-gray-300 p-2">Highly uniform</td>
+                      </tr>
+                      
+                      <tr className="bg-yellow-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Sound Test</td>
+                        <td className="border border-gray-300 p-2">Metallic ring</td>
+                        <td className="border border-gray-300 p-2">Dull but solid</td>
+                        <td className="border border-gray-300 p-2">Dull</td>
+                        <td className="border border-gray-300 p-2">Dull but firm</td>
+                        <td className="border border-gray-300 p-2">Dull but solid</td>
+                        <td className="border border-gray-300 p-2">Metallic ring</td>
+                      </tr>
+                      
+                      <tr className="bg-orange-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Drop Test (1m)</td>
+                        <td className="border border-gray-300 p-2">Should not break</td>
+                        <td className="border border-gray-300 p-2">Should not chip</td>
+                        <td className="border border-gray-300 p-2">May chip slightly</td>
+                        <td className="border border-gray-300 p-2">Should resist cracking</td>
+                        <td className="border border-gray-300 p-2">Should resist damage</td>
+                        <td className="border border-gray-300 p-2">Should not break</td>
+                      </tr>
+                      
+                      <tr className="bg-purple-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Water Absorption</td>
+                        <td className="border border-gray-300 p-2">&lt;20%</td>
+                        <td className="border border-gray-300 p-2">&lt;12%</td>
+                        <td className="border border-gray-300 p-2">≤10–15%</td>
+                        <td className="border border-gray-300 p-2">&lt;10%</td>
+                        <td className="border border-gray-300 p-2">&lt;20%</td>
+                        <td className="border border-gray-300 p-2">10–15%</td>
+                      </tr>
+                      
+                      <tr className="bg-pink-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Compressive Strength</td>
+                        <td className="border border-gray-300 p-2">≥3.5 N/mm² (avg 7)</td>
+                        <td className="border border-gray-300 p-2">≥7.5 N/mm²</td>
+                        <td className="border border-gray-300 p-2">≥3–4 N/mm²</td>
+                        <td className="border border-gray-300 p-2">≥5–7.5 N/mm²</td>
+                        <td className="border border-gray-300 p-2">≥3.5–7 N/mm²</td>
+                        <td className="border border-gray-300 p-2">≥7 N/mm²</td>
+                      </tr>
+                      
+                      <tr className="bg-indigo-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Efflorescence</td>
+                        <td className="border border-gray-300 p-2">None to slight</td>
+                        <td className="border border-gray-300 p-2">None to very slight</td>
+                        <td className="border border-gray-300 p-2">None</td>
+                        <td className="border border-gray-300 p-2">None</td>
+                        <td className="border border-gray-300 p-2">Minimal</td>
+                        <td className="border border-gray-300 p-2">None</td>
+                      </tr>
+                      
+                      <tr className="bg-teal-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Density</td>
+                        <td className="border border-gray-300 p-2">~1800 kg/m³</td>
+                        <td className="border border-gray-300 p-2">~1800–2000 kg/m³</td>
+                        <td className="border border-gray-300 p-2">500–700 kg/m³</td>
+                        <td className="border border-gray-300 p-2">1800–2200 kg/m³</td>
+                        <td className="border border-gray-300 p-2">~1500–1800 kg/m³</td>
+                        <td className="border border-gray-300 p-2">Similar to clay brick</td>
+                      </tr>
+                      
+                      <tr className="bg-cyan-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Thermal Insulation</td>
+                        <td className="border border-gray-300 p-2">Moderate</td>
+                        <td className="border border-gray-300 p-2">Moderate</td>
+                        <td className="border border-gray-300 p-2">High</td>
+                        <td className="border border-gray-300 p-2">Low to moderate</td>
+                        <td className="border border-gray-300 p-2">High</td>
+                        <td className="border border-gray-300 p-2">Moderate</td>
+                      </tr>
+                      
+                      <tr className="bg-emerald-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Weight</td>
+                        <td className="border border-gray-300 p-2">Medium</td>
+                        <td className="border border-gray-300 p-2">Medium</td>
+                        <td className="border border-gray-300 p-2">Light</td>
+                        <td className="border border-gray-300 p-2">Heavy</td>
+                        <td className="border border-gray-300 p-2">Light</td>
+                        <td className="border border-gray-300 p-2">Medium</td>
+                      </tr>
+                      
+                      <tr className="bg-lime-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Crack Resistance</td>
+                        <td className="border border-gray-300 p-2">Good</td>
+                        <td className="border border-gray-300 p-2">Excellent</td>
+                        <td className="border border-gray-300 p-2">Good</td>
+                        <td className="border border-gray-300 p-2">Excellent</td>
+                        <td className="border border-gray-300 p-2">Fair</td>
+                        <td className="border border-gray-300 p-2">Excellent</td>
+                      </tr>
+                      
+                      <tr className="bg-amber-50">
+                        <td className="border border-gray-300 p-2 font-semibold">Eco-Friendliness</td>
+                        <td className="border border-gray-300 p-2">Moderate</td>
+                        <td className="border border-gray-300 p-2">High (byproduct use)</td>
+                        <td className="border border-gray-300 p-2">High (low energy)</td>
+                        <td className="border border-gray-300 p-2">Moderate</td>
+                        <td className="border border-gray-300 p-2">Moderate</td>
+                        <td className="border border-gray-300 p-2">Moderate</td>
+                      </tr>
+                      
+                      <tr className="bg-rose-50">
+                        <td className="border border-gray-300 p-2 font-semibold">IS Code Compliance</td>
+                        <td className="border border-gray-300 p-2">IS 1077</td>
+                        <td className="border border-gray-300 p-2">IS 12894</td>
+                        <td className="border border-gray-300 p-2">IS 2185 (Part 3)</td>
+                        <td className="border border-gray-300 p-2">IS 2185 (Part 1)</td>
+                        <td className="border border-gray-300 p-2">IS 3952</td>
+                        <td className="border border-gray-300 p-2">IS 1077</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
