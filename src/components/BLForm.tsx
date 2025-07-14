@@ -5,12 +5,12 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { X, ArrowRight } from 'lucide-react';
 
-interface PriceQuoteModalProps {
+interface BLFormProps {
   children: React.ReactNode;
   productType: 'tmt' | 'concrete' | 'brick' | 'resistor' | 'inverter';
 }
 
-const PriceQuoteModal = ({ children, productType }: PriceQuoteModalProps) => {
+const BLForm = ({ children, productType }: BLFormProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [quantity, setQuantity] = useState('');
   const [selectedUnit, setSelectedUnit] = useState('');
@@ -75,7 +75,7 @@ const PriceQuoteModal = ({ children, productType }: PriceQuoteModalProps) => {
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md p-0 bg-white overflow-hidden">
+      <DialogContent className="max-w-full w-full h-full p-0 bg-white overflow-hidden m-0 rounded-none">
         <div className="relative">
           {/* Header */}
           <div className="bg-white p-6 border-b border-gray-200">
@@ -113,7 +113,7 @@ const PriceQuoteModal = ({ children, productType }: PriceQuoteModalProps) => {
                 <Button
                   onClick={handleSubmit}
                   disabled={!quantity || !selectedUnit}
-                  className="absolute right-2 top-2 h-8 w-8 rounded-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 p-0"
+                  className="absolute right-2 top-2 h-8 w-8 rounded-full bg-indiamart-teal hover:bg-indiamart-teal-dark disabled:bg-gray-300 p-0"
                 >
                   <ArrowRight className="h-4 w-4 text-white" />
                 </Button>
@@ -127,7 +127,7 @@ const PriceQuoteModal = ({ children, productType }: PriceQuoteModalProps) => {
                     variant={selectedUnit === unit ? "default" : "outline"}
                     className={`cursor-pointer px-4 py-2 text-sm ${
                       selectedUnit === unit 
-                        ? 'bg-teal-500 text-white hover:bg-teal-600' 
+                        ? 'bg-indiamart-teal text-white hover:bg-indiamart-teal-dark' 
                         : 'border-gray-300 text-gray-700 hover:bg-gray-50'
                     }`}
                     onClick={() => setSelectedUnit(unit)}
@@ -154,4 +154,4 @@ const PriceQuoteModal = ({ children, productType }: PriceQuoteModalProps) => {
   );
 };
 
-export default PriceQuoteModal;
+export default BLForm;

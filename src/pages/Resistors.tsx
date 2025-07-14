@@ -5,7 +5,7 @@ import ResistorRelatedCategories from '@/components/ResistorRelatedCategories';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import PriceQuoteModal from '@/components/PriceQuoteModal';
+import BLForm from '@/components/BLForm';
 import { useState } from 'react';
 
 const Resistors = () => {
@@ -338,11 +338,11 @@ const Resistors = () => {
                 
                 {/* Get Best Price CTA */}
                 <div className="mt-4 pt-4 border-t border-gray-200">
-                  <PriceQuoteModal productType="resistor">
-                    <Button className="w-full bg-indiamart-blue hover:bg-blue-700 text-white py-3 rounded-lg font-medium">
+                  <BLForm productType="resistor">
+                    <Button className="w-full bg-indiamart-teal hover:bg-indiamart-teal-dark text-white py-3 rounded-lg font-medium">
                       Get Best Price
                     </Button>
-                  </PriceQuoteModal>
+                  </BLForm>
                 </div>
               </div>
             )}

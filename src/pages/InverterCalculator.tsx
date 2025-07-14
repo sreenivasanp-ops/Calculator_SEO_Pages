@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Slider } from '@/components/ui/slider';
-import PriceQuoteModal from '@/components/PriceQuoteModal';
+import BLForm from '@/components/BLForm';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Fan, Laptop, Lightbulb, Home, Tv, AirVent, Settings, Zap } from 'lucide-react';
 
@@ -792,11 +792,11 @@ const InverterCalculator = () => {
                 
                 {/* Get Best Price CTA */}
                 <div className="mt-4 pt-4 border-t border-gray-200">
-                  <PriceQuoteModal productType="inverter">
-                    <Button className="w-full bg-indiamart-blue hover:bg-blue-700 text-white py-3 rounded-lg font-medium">
+                  <BLForm productType="inverter">
+                    <Button className="w-full bg-indiamart-teal hover:bg-indiamart-teal-dark text-white py-3 rounded-lg font-medium">
                       Get Best Price
                     </Button>
-                  </PriceQuoteModal>
+                  </BLForm>
                 </div>
               </CardContent>
             </Card>
