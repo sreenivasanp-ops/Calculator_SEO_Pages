@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Slider } from '@/components/ui/slider';
+import PriceQuoteModal from '@/components/PriceQuoteModal';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Fan, Laptop, Lightbulb, Home, Tv, AirVent, Settings, Zap } from 'lucide-react';
 
@@ -787,6 +788,15 @@ const InverterCalculator = () => {
                 <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg border-2 border-purple-300 text-center">
                   <h3 className="text-lg font-semibold text-gray-800 mb-2">Total Estimated Cost:</h3>
                   <p className="text-4xl font-bold text-purple-700">₹{totalCost}</p>
+                </div>
+                
+                {/* Get Best Price CTA */}
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <PriceQuoteModal productType="inverter">
+                    <Button className="w-full bg-indiamart-blue hover:bg-blue-700 text-white py-3 rounded-lg font-medium">
+                      Get Best Price
+                    </Button>
+                  </PriceQuoteModal>
                 </div>
               </CardContent>
             </Card>

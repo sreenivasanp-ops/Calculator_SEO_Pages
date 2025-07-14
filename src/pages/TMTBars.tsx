@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import PriceQuoteModal from '@/components/PriceQuoteModal';
 import { useState } from 'react';
 
 const TMTBars = () => {
@@ -273,6 +274,15 @@ const TMTBars = () => {
                     <p className="text-xs text-gray-500 text-center mt-3 sm:mt-4">
                       * Prices may vary based on market conditions
                     </p>
+                    
+                    {/* Get Best Price CTA */}
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <PriceQuoteModal productType="tmt">
+                        <Button className="w-full bg-indiamart-blue hover:bg-blue-700 text-white py-3 rounded-lg font-medium">
+                          Get Best Price
+                        </Button>
+                      </PriceQuoteModal>
+                    </div>
                   </CardContent>
                 </Card>
               </div>

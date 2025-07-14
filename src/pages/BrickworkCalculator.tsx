@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import PriceQuoteModal from '@/components/PriceQuoteModal';
 import { useState } from 'react';
 
 const BrickworkCalculator = () => {
@@ -411,6 +412,15 @@ const BrickworkCalculator = () => {
                     <div className="text-2xl font-bold text-green-600 mt-2">₹{results.totalPrice}</div>
                     <div className="text-xs text-gray-500 mt-1">*Prices are approximate and may vary by location</div>
                   </div>
+                </div>
+                
+                {/* Get Best Price CTA */}
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <PriceQuoteModal productType="brick">
+                    <Button className="w-full bg-indiamart-blue hover:bg-blue-700 text-white py-3 rounded-lg font-medium">
+                      Get Best Price
+                    </Button>
+                  </PriceQuoteModal>
                 </div>
               </div>
             )}
