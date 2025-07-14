@@ -359,46 +359,82 @@ const ConcreteCalculator = () => {
                   Different grades of concrete used by home and road construction companies
                 </h3>
                 
-                <div className="space-y-6">
-                  {/* M10 Concrete */}
-                  <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                    <h4 className="text-md font-semibold text-indiamart-teal mb-2">M10 Concrete (10 MPa)</h4>
-                    <p className="text-sm text-gray-600 mb-2"><strong>Composition:</strong> 1:3:6 (cement:sand:aggregates)</p>
-                    <p className="text-sm text-gray-600 mb-2"><strong>Applications:</strong> Used for non-structural applications like leveling, flooring, and pathways</p>
-                    <p className="text-sm text-gray-700">
-                      <strong>Purpose:</strong> The purpose of M10 grade of concrete approximates a smooth, stable, and uniform base for construction. It is primarily used in non-structural applications such as leveling surfaces, flooring, and paving. With a compressive strength of 10 MPa, it supports light loads and prepares surfaces for further construction work.
-                    </p>
-                  </div>
-
-                  {/* M20 Concrete */}
-                  <div className="border border-gray-200 rounded-lg p-4 bg-blue-50">
-                    <h4 className="text-md font-semibold text-blue-600 mb-2">M20 Concrete (20 MPa)</h4>
-                    <p className="text-sm text-gray-600 mb-2"><strong>Composition:</strong> 1:1.5:3 (cement:sand:aggregates)</p>
-                    <p className="text-sm text-gray-600 mb-2"><strong>Applications:</strong> Residential foundations, footings, simple RCC structures, pathways, driveways, and general construction where moderate strength is sufficient.</p>
-                    <p className="text-sm text-gray-700">
-                      <strong>Purpose:</strong> M20 grade concrete offers an optimal balance of cost-effectiveness and moderate strength (20 MPa) for residential construction. It's ideal for foundations, footings, driveways, and non-critical structural elements. This versatile grade provides adequate durability for standard environmental conditions while remaining economical for everyday construction projects like homes and small commercial buildings.
-                    </p>
-                  </div>
-
-                  {/* M25 Concrete */}
-                  <div className="border border-gray-200 rounded-lg p-4 bg-green-50">
-                    <h4 className="text-md font-semibold text-green-600 mb-2">M25 Concrete (25 MPa)</h4>
-                    <p className="text-sm text-gray-600 mb-2"><strong>Composition:</strong> 1:1:2 (cement:sand:aggregates)</p>
-                    <p className="text-sm text-gray-600 mb-2"><strong>Applications:</strong> Reinforced concrete structures, commercial buildings, beams, columns, slabs, small bridges, and medium-duty industrial floors.</p>
-                    <p className="text-sm text-gray-700">
-                      <strong>Purpose:</strong> In comparison to M20, M25 grade concrete offers better durability and load-bearing capacity with a compressive strength of 25 MPa. For commercial buildings, it is perfect for reinforced concrete beams, columns, slabs, and foundations. This adaptable grade strikes a mix between strength and affordability, making it appropriate for medium-duty applications requiring greater structural integrity and moderate exposure conditions.
-                    </p>
-                  </div>
-
-                  {/* M30 Concrete */}
-                  <div className="border border-gray-200 rounded-lg p-4 bg-orange-50">
-                    <h4 className="text-md font-semibold text-orange-600 mb-2">M30 Concrete (30 MPa)</h4>
-                    <p className="text-sm text-gray-600 mb-2"><strong>Composition:</strong> Design Mix (As per specific requirements)</p>
-                    <p className="text-sm text-gray-600 mb-2"><strong>Applications:</strong> High-rise buildings, heavy-duty industrial floors, highway bridges, water-retaining structures, and marine structures with moderate exposure to aggressive environments.</p>
-                    <p className="text-sm text-gray-700">
-                      <strong>Purpose:</strong> In addition to having a 30 MPa compressive strength, M30 grade concrete is incredibly durable and resistant to chemical and environmental degradation. High-rise buildings, highway bridges, and water-retaining structures are all excellent candidates for it. In demanding settings like heavy industrial floors, maritime applications, and infrastructure projects where exceptional structural performance and endurance are crucial despite greater material costs, this premium grade performs exceptionally well.
-                    </p>
-                  </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
+                    <thead>
+                      <tr className="bg-gradient-to-r from-indiamart-teal to-blue-600 text-white">
+                        <th className="border border-gray-300 p-3 text-left font-semibold">Grade</th>
+                        <th className="border border-gray-300 p-3 text-left font-semibold">Composition</th>
+                        <th className="border border-gray-300 p-3 text-left font-semibold">Applications</th>
+                        <th className="border border-gray-300 p-3 text-left font-semibold">Purpose</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-gray-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-indiamart-teal">M10 Concrete</div>
+                          <div className="text-sm text-gray-600">(10 MPa)</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          1:3:6 (cement:sand:aggregates)
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Used for non-structural applications like leveling, flooring, and pathways
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          The purpose of M10 grade of concrete approximates a smooth, stable, and uniform base for construction. It is primarily used in non-structural applications such as leveling surfaces, flooring, and paving. With a compressive strength of 10 MPa, it supports light loads and prepares surfaces for further construction work.
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-blue-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-blue-600">M20 Concrete</div>
+                          <div className="text-sm text-gray-600">(20 MPa)</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          1:1.5:3 (cement:sand:aggregates)
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Residential foundations, footings, simple RCC structures, pathways, driveways, and general construction where moderate strength is sufficient.
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          M20 grade concrete offers an optimal balance of cost-effectiveness and moderate strength (20 MPa) for residential construction. It's ideal for foundations, footings, driveways, and non-critical structural elements. This versatile grade provides adequate durability for standard environmental conditions while remaining economical for everyday construction projects like homes and small commercial buildings.
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-green-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-green-600">M25 Concrete</div>
+                          <div className="text-sm text-gray-600">(25 MPa)</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          1:1:2 (cement:sand:aggregates)
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Reinforced concrete structures, commercial buildings, beams, columns, slabs, small bridges, and medium-duty industrial floors.
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          In comparison to M20, M25 grade concrete offers better durability and load-bearing capacity with a compressive strength of 25 MPa. For commercial buildings, it is perfect for reinforced concrete beams, columns, slabs, and foundations. This adaptable grade strikes a mix between strength and affordability, making it appropriate for medium-duty applications requiring greater structural integrity and moderate exposure conditions.
+                        </td>
+                      </tr>
+                      
+                      <tr className="bg-orange-50">
+                        <td className="border border-gray-300 p-3">
+                          <div className="font-semibold text-orange-600">M30 Concrete</div>
+                          <div className="text-sm text-gray-600">(30 MPa)</div>
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          Design Mix (As per specific requirements)
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          High-rise buildings, heavy-duty industrial floors, highway bridges, water-retaining structures, and marine structures with moderate exposure to aggressive environments.
+                        </td>
+                        <td className="border border-gray-300 p-3 text-sm">
+                          In addition to having a 30 MPa compressive strength, M30 grade concrete is incredibly durable and resistant to chemical and environmental degradation. High-rise buildings, highway bridges, and water-retaining structures are all excellent candidates for it. In demanding settings like heavy industrial floors, maritime applications, and infrastructure projects where exceptional structural performance and endurance are crucial despite greater material costs, this premium grade performs exceptionally well.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
