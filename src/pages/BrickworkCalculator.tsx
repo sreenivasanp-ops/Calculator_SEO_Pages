@@ -163,7 +163,7 @@ const BrickworkCalculator = () => {
       
       <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6">
         <h1 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 px-2">
-          Brickwork Calculator - Calculate Bricks, Cement & Sand Required
+          Brick Calculator - Calculate Bricks, Cement & Sand Required
         </h1>
         
         {/* Main Calculator Card */}
