@@ -101,9 +101,9 @@ const BrickworkCalculator = () => {
     const sandRequired = (quantityOfMortar * ratioNumbers[1] / sumOfRatio) * 1.5;
 
     // Calculate estimated prices (example rates)
-    const brickRate = 8; // per brick
-    const cementBagRate = 350; // per bag
-    const sandRate = 1500; // per tonne
+    const brickRate = 8.5; // per brick
+    const cementBagRate = 365; // per bag
+    const sandRate = 1250; // per tonne
     
     const brickPrice = numberOfBricks * brickRate;
     const cementPrice = (cementBags + (looseCementKg > 0 ? 1 : 0)) * cementBagRate;

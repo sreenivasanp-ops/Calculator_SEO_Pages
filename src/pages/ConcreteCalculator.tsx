@@ -81,8 +81,8 @@ const ConcreteCalculator = () => {
     const aggregateRequired = (wetVolumeOfMix * ratioNumbers[2] / sumOfRatio) * 1.35;
 
     // Calculate estimated prices (example rates)
-    const cementBagRate = 350; // per bag
-    const sandRate = 1800; // per ton
+    const cementBagRate = 365; // per bag
+    const sandRate = 1250; // per ton
     const aggregateRate = 1600; // per ton
     
     const cementPrice = (cementBags + (looseCementKg > 0 ? 1 : 0)) * cementBagRate;

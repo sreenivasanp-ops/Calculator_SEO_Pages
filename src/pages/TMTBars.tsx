@@ -45,7 +45,7 @@ const TMTBars = () => {
   );
 
   // Price per kg (example rate, can be made configurable)
-  const pricePerKg = 65;
+  const pricePerKg = 62;
 
   // State to track if calculate button has been clicked
   const [calculated, setCalculated] = useState(false);
