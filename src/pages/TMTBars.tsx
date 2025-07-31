@@ -154,8 +154,8 @@ const TMTBars = () => {
         </h1>
         
         {/* TMT Bar Calculator Section */}
-        <div className="xl:max-w-6xl xl:mx-auto xl:px-6">
-          <Card className="mb-6 sm:mb-8 border-2 border-teal-300 xl:border-none xl:bg-transparent xl:shadow-none">
+        <div className="w-full">
+          <Card className="mb-6 sm:mb-8 border-2 border-teal-600 xl:border-none xl:bg-transparent xl:shadow-none">
             <CardHeader className="bg-teal-50 p-3 sm:p-6 xl:bg-transparent xl:p-0 xl:mb-6">
               <CardTitle className="text-lg sm:text-xl xl:text-2xl text-gray-800 flex flex-col sm:flex-row sm:items-center gap-2 xl:text-center xl:mb-4">
                 🧮 TMT Bar Calculator
@@ -285,7 +285,7 @@ const TMTBars = () => {
 
               {/* Desktop Layout - Exact replica of target */}
               <div className="hidden xl:block">
-                <div className="border-2 border-teal-300 rounded-lg p-6">
+                <div className="border-2 border-teal-600 rounded-lg p-6">
                   <div className="grid grid-cols-4 gap-6">
                     {/* Calculator Section - 3/4 width */}
                     <div className="col-span-3">
