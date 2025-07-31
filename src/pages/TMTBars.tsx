@@ -164,73 +164,73 @@ const TMTBars = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-2 sm:p-6">
-            <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 sm:gap-6">
-              {/* Calculator Table */}
-              <div className="xl:col-span-3">
-                <div className="overflow-x-hidden rounded-lg border border-gray-200">
-                  <Table className="w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">
+              {/* Calculator Table - Desktop optimized */}
+              <div className="lg:col-span-3">
+                <div className="overflow-x-auto rounded-lg border border-gray-200">
+                  <Table className="w-full min-w-[600px]">
                     <TableHeader>
                       <TableRow className="bg-teal-500 hover:bg-teal-500">
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[15%]">Dia</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Rods</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[25%]">
+                        <TableHead className="text-white font-semibold text-center text-sm p-3">Diameter</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-sm p-3">Rods</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-sm p-3">
                           <div className="flex flex-col">
                             <span>Bundles</span>
-                            <div className="flex justify-center gap-1 text-xs mt-1">
+                            <div className="flex justify-center gap-2 text-xs mt-1">
                               <span className="w-8">B</span>
-                              <span className="w-6">R</span>
+                              <span className="w-8">R</span>
                             </div>
                           </div>
                         </TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Kg</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-sm p-3">Weight in Kg</TableHead>
                         {hasInputs && calculated && (
-                          <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Price</TableHead>
+                          <TableHead className="text-white font-semibold text-center text-sm p-3">Price</TableHead>
                         )}
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {calculatorData.map((row, index) => (
                         <TableRow key={row.diameter} className="hover:bg-gray-50">
-                          <TableCell className="font-medium text-center text-xs sm:text-sm p-1 sm:p-2">{row.diameter}</TableCell>
-                          <TableCell className="text-center p-0.5 sm:p-1">
+                          <TableCell className="font-medium text-center text-sm p-3">{row.diameter}</TableCell>
+                          <TableCell className="text-center p-3">
                             <Input
                               type="number"
                               min="0"
                               value={row.rods || ''}
                               onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-14 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1 mx-auto"
+                              className="w-20 h-10 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
                               placeholder="0"
                             />
                           </TableCell>
-                          <TableCell className="text-center p-0.5 sm:p-1">
-                            <div className="flex justify-center gap-0.5">
+                          <TableCell className="text-center p-3">
+                            <div className="flex justify-center gap-2">
                               <Input
                                 type="number"
                                 min="0"
                                 step="0.1"
                                 value={row.bundles || ''}
                                 onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-14 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                                className="w-16 h-10 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                                 placeholder="0"
                               />
-                              <div className="w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center bg-gray-100 rounded border text-xs text-gray-600">
+                              <div className="w-16 h-10 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
                                 {row.bundleRods}
                               </div>
                             </div>
                           </TableCell>
-                          <TableCell className="text-center p-0.5 sm:p-1">
+                          <TableCell className="text-center p-3">
                             <Input
                               type="number"
                               min="0"
                               step="0.01"
                               value={row.weight || ''}
                               onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
-                              className="w-16 sm:w-18 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1 mx-auto"
+                              className="w-24 h-10 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
                               placeholder="0.00"
                             />
                           </TableCell>
                           {hasInputs && calculated && (
-                            <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
+                            <TableCell className="text-center font-medium text-green-600 text-sm p-3">
                               ₹{row.price.toFixed(0)}
                             </TableCell>
                           )}
@@ -240,48 +240,50 @@ const TMTBars = () => {
                   </Table>
                 </div>
                 
-                <div className="flex justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
+                <div className="flex justify-center gap-4 mt-6">
                   <Button 
                     onClick={calculateTotals}
-                    className="bg-teal-500 hover:bg-teal-600 text-white px-4 sm:px-6 text-sm"
+                    className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-2"
                   >
                     Calculate
                   </Button>
                   <Button 
                     onClick={clearAll}
                     variant="outline" 
-                    className="border-orange-500 text-orange-500 hover:bg-orange-50 px-4 sm:px-6 text-sm"
+                    className="border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-2"
                   >
                     Clear All
                   </Button>
                 </div>
               </div>
 
-              {/* Summary Section */}
-              <div className="xl:col-span-1">
+              {/* Summary Section - Desktop optimized */}
+              <div className="lg:col-span-2">
                 <Card className="h-fit border-2 border-gray-200">
-                  <CardHeader className="pb-2 sm:pb-3 p-3 sm:p-6">
-                    <CardTitle className="text-base sm:text-lg text-center">Total Summary</CardTitle>
+                  <CardHeader className="pb-3 p-6">
+                    <CardTitle className="text-lg text-center">Total Summary</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-6 pt-0">
+                  <CardContent className="space-y-4 p-6 pt-0">
+                    <div className="text-center p-3 bg-orange-50 rounded-lg">
+                      <p className="text-sm text-gray-600 mb-1">Total Rods</p>
+                      <p className="text-3xl font-bold text-orange-500">{totalRods}</p>
+                    </div>
+                    
                     {calculated && (
                       <>
-                        <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
-                          <p className="text-xs sm:text-sm text-gray-600 mb-1">Est. Price</p>
-                          <p className="text-2xl sm:text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
+                        <div className="text-center p-3 bg-blue-50 rounded-lg">
+                          <p className="text-sm text-gray-600 mb-1">Est. Price</p>
+                          <p className="text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
                         </div>
-                        <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
-                          <p className="text-xs sm:text-sm text-gray-600 mb-1">Weight</p>
-                          <p className="text-2xl sm:text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
-                        </div>
-                        <div className="text-center p-2 sm:p-3 bg-orange-50 rounded-lg">
-                          <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Rods</p>
-                          <p className="text-2xl sm:text-3xl font-bold text-orange-500">{totalRods}</p>
+                        <div className="text-center p-3 bg-green-50 rounded-lg">
+                          <p className="text-sm text-gray-600 mb-1">Weight</p>
+                          <p className="text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
                         </div>
                       </>
                     )}
+                    
                     {calculated && (
-                      <p className="text-xs text-gray-500 text-center mt-3 sm:mt-4">
+                      <p className="text-xs text-gray-500 text-center mt-4">
                         * Prices may vary based on market conditions
                       </p>
                     )}
@@ -300,6 +302,13 @@ const TMTBars = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* More Sellers Near You section */}
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+            More Sellers Near You For <a href="https://dir.indiamart.com/impcat/tmt-bars.html" className="text-blue-600 hover:underline">TMT Bars</a>
+          </h2>
+        </div>
 
         {/* Explore Related Categories Section */}
         <ExploreRelatedCategories />
