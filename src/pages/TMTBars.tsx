@@ -285,44 +285,44 @@ const TMTBars = () => {
 
               {/* Desktop Layout - Exact replica of target */}
               <div className="hidden xl:block">
-                <div className="border-2 border-teal-300 rounded-lg overflow-hidden">
-                  <div className="grid grid-cols-4 gap-0">
+                <div className="border-2 border-teal-300 rounded-lg p-6">
+                  <div className="grid grid-cols-4 gap-6">
                     {/* Calculator Section - 3/4 width */}
                     <div className="col-span-3">
-                      <div className="border-r border-gray-200">
+                      <div className="border border-gray-200 rounded-lg overflow-hidden">
                         <Table className="w-full">
                           <TableHeader>
-                            <TableRow className="bg-teal-500 hover:bg-teal-500 border-0">
-                              <TableHead className="text-white font-medium text-left text-sm py-3 px-4 border-r border-white/20">Diameter</TableHead>
-                              <TableHead className="text-white font-medium text-center text-sm py-3 px-4 border-r border-white/20">Rods</TableHead>
-                              <TableHead className="text-white font-medium text-center text-sm py-3 px-4 border-r border-white/20">
+                            <TableRow className="bg-teal-500 hover:bg-teal-500">
+                              <TableHead className="text-white font-semibold text-center text-sm p-3 border-r border-teal-400">Diameter</TableHead>
+                              <TableHead className="text-white font-semibold text-center text-sm p-3 border-r border-teal-400">Rods</TableHead>
+                              <TableHead className="text-white font-semibold text-center text-sm p-3 border-r border-teal-400">
                                 <div className="flex flex-col">
                                   <span>Bundles</span>
-                                  <div className="flex justify-center gap-6 text-xs mt-1">
+                                  <div className="flex justify-center gap-4 text-xs mt-1">
                                     <span>B</span>
                                     <span>R</span>
                                   </div>
                                 </div>
                               </TableHead>
-                              <TableHead className="text-white font-medium text-center text-sm py-3 px-4 border-r border-white/20">Weight in Kg</TableHead>
-                              <TableHead className="text-white font-medium text-center text-sm py-3 px-4">Price</TableHead>
+                              <TableHead className="text-white font-semibold text-center text-sm p-3 border-r border-teal-400">Weight in Kg</TableHead>
+                              <TableHead className="text-white font-semibold text-center text-sm p-3">Price</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
                             {calculatorData.map((row, index) => (
-                              <TableRow key={row.diameter} className="hover:bg-gray-50 border-b border-gray-100">
-                                <TableCell className="font-medium text-left text-sm py-2 px-4 border-r border-gray-100">{row.diameter}</TableCell>
-                                <TableCell className="text-center py-2 px-4 border-r border-gray-100">
+                              <TableRow key={row.diameter} className="hover:bg-gray-50 border-b border-gray-200">
+                                <TableCell className="font-medium text-center text-sm p-3 border-r border-gray-200">{row.diameter}</TableCell>
+                                <TableCell className="text-center p-3 border-r border-gray-200">
                                   <Input
                                     type="number"
                                     min="0"
                                     value={row.rods || ''}
                                     onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                                    className="w-full h-8 text-center text-sm border-gray-200 focus:border-teal-500 focus:ring-teal-500 rounded"
+                                    className="w-20 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
                                     placeholder=""
                                   />
                                 </TableCell>
-                                <TableCell className="text-center py-2 px-4 border-r border-gray-100">
+                                <TableCell className="text-center p-3 border-r border-gray-200">
                                   <div className="flex justify-center gap-2">
                                     <Input
                                       type="number"
@@ -330,72 +330,73 @@ const TMTBars = () => {
                                       step="0.1"
                                       value={row.bundles || ''}
                                       onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                      className="w-16 h-8 text-center text-sm border-gray-200 focus:border-teal-500 focus:ring-teal-500 rounded"
+                                      className="w-16 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                                       placeholder=""
                                     />
-                                    <div className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded text-sm text-gray-600 border border-gray-200">
+                                    <div className="w-12 h-8 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
                                       {row.bundleRods}
                                     </div>
                                   </div>
                                 </TableCell>
-                                <TableCell className="text-center py-2 px-4 border-r border-gray-100">
+                                <TableCell className="text-center p-3 border-r border-gray-200">
                                   <Input
                                     type="number"
                                     min="0"
                                     step="0.01"
                                     value={row.weight || ''}
                                     onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
-                                    className="w-full h-8 text-center text-sm border-gray-200 focus:border-teal-500 focus:ring-teal-500 rounded"
+                                    className="w-20 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
                                     placeholder=""
                                   />
                                 </TableCell>
-                                <TableCell className="text-center font-medium text-gray-700 text-sm py-2 px-4">
+                                <TableCell className="text-center font-medium text-sm p-3">
                                   ₹{row.price.toFixed(0)}
                                 </TableCell>
                               </TableRow>
                             ))}
                           </TableBody>
                         </Table>
-                        
-                        {/* Action buttons */}
-                        <div className="flex justify-center gap-3 py-6 bg-gray-50">
-                          <Button 
-                            onClick={calculateTotals}
-                            className="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 text-sm rounded"
-                          >
-                            Calculate
-                          </Button>
-                          <Button 
-                            onClick={clearAll}
-                            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 text-sm rounded"
-                          >
-                            Clear All
-                          </Button>
-                        </div>
+                      </div>
+                      
+                      <div className="flex justify-center gap-4 mt-6">
+                        <Button 
+                          onClick={calculateTotals}
+                          className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-2 text-sm font-medium"
+                        >
+                          Calculate
+                        </Button>
+                        <Button 
+                          onClick={clearAll}
+                          className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-2 text-sm font-medium"
+                        >
+                          Clear All
+                        </Button>
                       </div>
                     </div>
 
                     {/* Summary Section - 1/4 width */}
-                    <div className="col-span-1 bg-white p-6">
-                      <div className="text-center">
-                        <h3 className="text-lg font-semibold text-gray-800 mb-6">Total Summary</h3>
+                    <div className="col-span-1">
+                      <div className="bg-white border border-gray-200 rounded-lg p-4">
+                        <h3 className="text-lg font-semibold text-center text-gray-800 mb-4">Total Summary</h3>
                         
                         <div className="space-y-4">
                           <div className="text-center">
                             <p className="text-sm text-gray-600 mb-1">Total Rods</p>
-                            <p className="text-3xl font-bold text-orange-500">{totalRods}</p>
+                            <p className="text-2xl font-bold text-orange-500">{totalRods}</p>
                           </div>
+                          
                           <div className="text-center">
                             <p className="text-sm text-gray-600 mb-1">Est. Price</p>
-                            <p className="text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
+                            <p className="text-2xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
                           </div>
+                          
                           <div className="text-center">
                             <p className="text-sm text-gray-600 mb-1">Weight</p>
-                            <p className="text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
+                            <p className="text-2xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
                           </div>
                         </div>
                         
-                        <p className="text-xs text-gray-500 text-center mt-6">
+                        <p className="text-xs text-gray-500 text-center mt-4">
                           * Prices may vary based on market conditions
                         </p>
                       </div>
