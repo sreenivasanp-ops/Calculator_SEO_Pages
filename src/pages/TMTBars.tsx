@@ -155,82 +155,83 @@ const TMTBars = () => {
         
         {/* TMT Bar Calculator Section */}
         <Card className="mb-6 sm:mb-8 border-2 border-teal-200">
-          <CardHeader className="bg-teal-50 p-3 sm:p-6">
-            <CardTitle className="text-lg sm:text-xl text-gray-800 flex flex-col sm:flex-row sm:items-center gap-2">
+          <CardHeader className="bg-teal-50 p-3 sm:p-6 xl:p-8">
+            <CardTitle className="text-lg sm:text-xl xl:text-2xl text-gray-800 flex flex-col sm:flex-row sm:items-center gap-2">
               🧮 TMT Bar Calculator
-              <span className="text-xs sm:text-sm font-normal text-gray-600">
+              <span className="text-xs sm:text-sm xl:text-base font-normal text-gray-600">
                 Calculate Price and Number of TMT Bars
               </span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="p-2 sm:p-6">
-            <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 sm:gap-6">
-              {/* Calculator Table */}
+          <CardContent className="p-2 sm:p-6 xl:p-8">
+            {/* Desktop Layout (xl:grid-cols-4) - Side by side calculator and summary */}
+            <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 sm:gap-6 xl:gap-8">
+              {/* Calculator Table - 3/4 width on desktop */}
               <div className="xl:col-span-3">
                 <div className="overflow-x-hidden rounded-lg border border-gray-200">
                   <Table className="w-full">
                     <TableHeader>
                       <TableRow className="bg-teal-500 hover:bg-teal-500">
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[15%]">Dia</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Rods</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[25%]">
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm xl:text-base p-1 sm:p-2 xl:p-4 w-[15%]">Dia</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm xl:text-base p-1 sm:p-2 xl:p-4 w-[20%]">Rods</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm xl:text-base p-1 sm:p-2 xl:p-4 w-[25%]">
                           <div className="flex flex-col">
                             <span>Bundles</span>
-                            <div className="flex justify-center gap-1 text-xs mt-1">
-                              <span className="w-8">B</span>
-                              <span className="w-6">R</span>
+                            <div className="flex justify-center gap-1 text-xs xl:text-sm mt-1">
+                              <span className="w-8 xl:w-10">B</span>
+                              <span className="w-6 xl:w-8">R</span>
                             </div>
                           </div>
                         </TableHead>
-                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Kg</TableHead>
+                        <TableHead className="text-white font-semibold text-center text-xs sm:text-sm xl:text-base p-1 sm:p-2 xl:p-4 w-[20%]">Kg</TableHead>
                         {hasInputs && calculated && (
-                          <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Price</TableHead>
+                          <TableHead className="text-white font-semibold text-center text-xs sm:text-sm xl:text-base p-1 sm:p-2 xl:p-4 w-[20%]">Price</TableHead>
                         )}
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {calculatorData.map((row, index) => (
                         <TableRow key={row.diameter} className="hover:bg-gray-50">
-                          <TableCell className="font-medium text-center text-xs sm:text-sm p-1 sm:p-2">{row.diameter}</TableCell>
-                          <TableCell className="text-center p-0.5 sm:p-1">
+                          <TableCell className="font-medium text-center text-xs sm:text-sm xl:text-base p-1 sm:p-2 xl:p-4">{row.diameter}</TableCell>
+                          <TableCell className="text-center p-0.5 sm:p-1 xl:p-2">
                             <Input
                               type="number"
                               min="0"
                               value={row.rods || ''}
                               onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-14 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1 mx-auto"
+                              className="w-14 sm:w-16 xl:w-20 h-6 sm:h-8 xl:h-10 text-center text-xs xl:text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1 mx-auto"
                               placeholder="0"
                             />
                           </TableCell>
-                          <TableCell className="text-center p-0.5 sm:p-1">
-                            <div className="flex justify-center gap-0.5">
+                          <TableCell className="text-center p-0.5 sm:p-1 xl:p-2">
+                            <div className="flex justify-center gap-0.5 xl:gap-1">
                               <Input
                                 type="number"
                                 min="0"
                                 step="0.1"
                                 value={row.bundles || ''}
                                 onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-14 sm:w-16 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                                className="w-14 sm:w-16 xl:w-20 h-6 sm:h-8 xl:h-10 text-center text-xs xl:text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                                 placeholder="0"
                               />
-                              <div className="w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center bg-gray-100 rounded border text-xs text-gray-600">
+                              <div className="w-6 sm:w-8 xl:w-10 h-6 sm:h-8 xl:h-10 flex items-center justify-center bg-gray-100 rounded border text-xs xl:text-sm text-gray-600">
                                 {row.bundleRods}
                               </div>
                             </div>
                           </TableCell>
-                          <TableCell className="text-center p-0.5 sm:p-1">
+                          <TableCell className="text-center p-0.5 sm:p-1 xl:p-2">
                             <Input
                               type="number"
                               min="0"
                               step="0.01"
                               value={row.weight || ''}
                               onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
-                              className="w-16 sm:w-18 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1 mx-auto"
+                              className="w-16 sm:w-18 xl:w-24 h-6 sm:h-8 xl:h-10 text-center text-xs xl:text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1 mx-auto"
                               placeholder="0.00"
                             />
                           </TableCell>
                           {hasInputs && calculated && (
-                            <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm p-1 sm:p-2">
+                            <TableCell className="text-center font-medium text-green-600 text-xs sm:text-sm xl:text-base p-1 sm:p-2 xl:p-4">
                               ₹{row.price.toFixed(0)}
                             </TableCell>
                           )}
@@ -240,56 +241,56 @@ const TMTBars = () => {
                   </Table>
                 </div>
                 
-                <div className="flex justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
+                <div className="flex justify-center gap-3 sm:gap-4 xl:gap-6 mt-4 sm:mt-6 xl:mt-8">
                   <Button 
                     onClick={calculateTotals}
-                    className="bg-teal-500 hover:bg-teal-600 text-white px-4 sm:px-6 text-sm"
+                    className="bg-teal-500 hover:bg-teal-600 text-white px-4 sm:px-6 xl:px-8 py-2 xl:py-3 text-sm xl:text-base"
                   >
                     Calculate
                   </Button>
                   <Button 
                     onClick={clearAll}
                     variant="outline" 
-                    className="border-orange-500 text-orange-500 hover:bg-orange-50 px-4 sm:px-6 text-sm"
+                    className="border-orange-500 text-orange-500 hover:bg-orange-50 px-4 sm:px-6 xl:px-8 py-2 xl:py-3 text-sm xl:text-base"
                   >
                     Clear All
                   </Button>
                 </div>
               </div>
 
-              {/* Summary Section */}
+              {/* Summary Section - 1/4 width on desktop, sticky positioning */}
               <div className="xl:col-span-1">
-                <Card className="h-fit border-2 border-gray-200">
-                  <CardHeader className="pb-2 sm:pb-3 p-3 sm:p-6">
-                    <CardTitle className="text-base sm:text-lg text-center">Total Summary</CardTitle>
+                <Card className="h-fit border-2 border-gray-200 xl:sticky xl:top-4">
+                  <CardHeader className="pb-2 sm:pb-3 p-3 sm:p-6 xl:p-6">
+                    <CardTitle className="text-base sm:text-lg xl:text-xl text-center">Total Summary</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-6 pt-0">
+                  <CardContent className="space-y-3 sm:space-y-4 xl:space-y-6 p-3 sm:p-6 xl:p-6 pt-0">
                     {calculated && (
                       <>
-                        <div className="text-center p-2 sm:p-3 bg-blue-50 rounded-lg">
-                          <p className="text-xs sm:text-sm text-gray-600 mb-1">Est. Price</p>
-                          <p className="text-2xl sm:text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
+                        <div className="text-center p-2 sm:p-3 xl:p-4 bg-blue-50 rounded-lg">
+                          <p className="text-xs sm:text-sm xl:text-base text-gray-600 mb-1">Est. Price</p>
+                          <p className="text-2xl sm:text-3xl xl:text-4xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
                         </div>
-                        <div className="text-center p-2 sm:p-3 bg-green-50 rounded-lg">
-                          <p className="text-xs sm:text-sm text-gray-600 mb-1">Weight</p>
-                          <p className="text-2xl sm:text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
+                        <div className="text-center p-2 sm:p-3 xl:p-4 bg-green-50 rounded-lg">
+                          <p className="text-xs sm:text-sm xl:text-base text-gray-600 mb-1">Weight</p>
+                          <p className="text-2xl sm:text-3xl xl:text-4xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
                         </div>
-                        <div className="text-center p-2 sm:p-3 bg-orange-50 rounded-lg">
-                          <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Rods</p>
-                          <p className="text-2xl sm:text-3xl font-bold text-orange-500">{totalRods}</p>
+                        <div className="text-center p-2 sm:p-3 xl:p-4 bg-orange-50 rounded-lg">
+                          <p className="text-xs sm:text-sm xl:text-base text-gray-600 mb-1">Total Rods</p>
+                          <p className="text-2xl sm:text-3xl xl:text-4xl font-bold text-orange-500">{totalRods}</p>
                         </div>
                       </>
                     )}
                     {calculated && (
-                      <p className="text-xs text-gray-500 text-center mt-3 sm:mt-4">
+                      <p className="text-xs xl:text-sm text-gray-500 text-center mt-3 sm:mt-4 xl:mt-6">
                         * Prices may vary based on market conditions
                       </p>
                     )}
                     
                     {/* Get Best Price CTA */}
-                    <div className={`${calculated ? 'mt-4 pt-4 border-t border-gray-200' : ''}`}>
+                    <div className={`${calculated ? 'mt-4 pt-4 border-t border-gray-200' : ''} xl:mt-6 xl:pt-6`}>
                       <BLForm productType="tmt">
-                        <Button className="w-full bg-indiamart-teal hover:bg-indiamart-teal-dark text-white py-3 rounded-lg font-medium">
+                        <Button className="w-full bg-indiamart-teal hover:bg-indiamart-teal-dark text-white py-3 xl:py-4 rounded-lg font-medium text-sm xl:text-base">
                           Get Best Price
                         </Button>
                       </BLForm>
