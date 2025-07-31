@@ -1,4 +1,3 @@
-
 import Header from '@/components/Header';
 import AllCalculatorsCTA from '@/components/AllCalculatorsCTA';
 import ExploreRelatedCategories from '@/components/ExploreRelatedCategories';
@@ -164,333 +163,314 @@ const TMTBars = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-2 sm:p-6">
-            {/* Mobile & Tablet Layout (unchanged) */}
+            {/* Mobile & Tablet Layout (original - unchanged) */}
             <div className="xl:hidden">
-              <div className="space-y-6">
-                {/* Calculator Table */}
-                <div className="overflow-x-auto rounded-lg border border-gray-200">
-                  <Table className="w-full min-w-[600px]">
-                    <TableHeader>
-                      <TableRow className="bg-teal-500 hover:bg-teal-500">
-                        <TableHead className="text-white font-semibold text-center text-sm p-3">Diameter</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-sm p-3">Rods</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-sm p-3">
-                          <div className="flex flex-col">
-                            <span>Bundles</span>
-                            <div className="flex justify-center gap-2 text-xs mt-1">
-                              <span className="w-8">B</span>
-                              <span className="w-8">R</span>
-                            </div>
+              <div className="overflow-x-auto rounded-lg border border-gray-200 mb-6">
+                <Table className="w-full min-w-[600px]">
+                  <TableHeader>
+                    <TableRow className="bg-teal-500 hover:bg-teal-500">
+                      <TableHead className="text-white font-semibold text-center text-sm p-3">Diameter</TableHead>
+                      <TableHead className="text-white font-semibold text-center text-sm p-3">Rods</TableHead>
+                      <TableHead className="text-white font-semibold text-center text-sm p-3">
+                        <div className="flex flex-col">
+                          <span>Bundles</span>
+                          <div className="flex justify-center gap-2 text-xs mt-1">
+                            <span className="w-8">B</span>
+                            <span className="w-8">R</span>
                           </div>
-                        </TableHead>
-                        <TableHead className="text-white font-semibold text-center text-sm p-3">Weight in Kg</TableHead>
-                        {hasInputs && calculated && (
-                          <TableHead className="text-white font-semibold text-center text-sm p-3">Price</TableHead>
-                        )}
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {calculatorData.map((row, index) => (
-                        <TableRow key={row.diameter} className="hover:bg-gray-50">
-                          <TableCell className="font-medium text-center text-sm p-3">{row.diameter}</TableCell>
-                          <TableCell className="text-center p-3">
+                        </div>
+                      </TableHead>
+                      <TableHead className="text-white font-semibold text-center text-sm p-3">Weight in Kg</TableHead>
+                      {hasInputs && calculated && (
+                        <TableHead className="text-white font-semibold text-center text-sm p-3">Price</TableHead>
+                      )}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {calculatorData.map((row, index) => (
+                      <TableRow key={row.diameter} className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-center text-sm p-3">{row.diameter}</TableCell>
+                        <TableCell className="text-center p-3">
+                          <Input
+                            type="number"
+                            min="0"
+                            value={row.rods || ''}
+                            onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
+                            className="w-20 h-10 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
+                            placeholder="0"
+                          />
+                        </TableCell>
+                        <TableCell className="text-center p-3">
+                          <div className="flex justify-center gap-2">
                             <Input
                               type="number"
                               min="0"
-                              value={row.rods || ''}
-                              onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-20 h-10 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
+                              step="0.1"
+                              value={row.bundles || ''}
+                              onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
+                              className="w-16 h-10 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                               placeholder="0"
                             />
-                          </TableCell>
-                          <TableCell className="text-center p-3">
-                            <div className="flex justify-center gap-2">
-                              <Input
-                                type="number"
-                                min="0"
-                                step="0.1"
-                                value={row.bundles || ''}
-                                onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-16 h-10 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-                                placeholder="0"
-                              />
-                              <div className="w-16 h-10 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
-                                {row.bundleRods}
-                              </div>
+                            <div className="w-16 h-10 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
+                              {row.bundleRods}
                             </div>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-center p-3">
+                          <Input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            value={row.weight || ''}
+                            onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
+                            className="w-24 h-10 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
+                            placeholder="0.00"
+                          />
+                        </TableCell>
+                        {hasInputs && calculated && (
+                          <TableCell className="text-center font-medium text-green-600 text-sm p-3">
+                            ₹{row.price.toFixed(0)}
                           </TableCell>
-                          <TableCell className="text-center p-3">
-                            <Input
-                              type="number"
-                              min="0"
-                              step="0.01"
-                              value={row.weight || ''}
-                              onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
-                              className="w-24 h-10 text-center border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
-                              placeholder="0.00"
-                            />
-                          </TableCell>
-                          {hasInputs && calculated && (
-                            <TableCell className="text-center font-medium text-green-600 text-sm p-3">
-                              ₹{row.price.toFixed(0)}
-                            </TableCell>
-                          )}
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-                
-                <div className="flex justify-center gap-4">
-                  <Button 
-                    onClick={calculateTotals}
-                    className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-2"
-                  >
-                    Calculate
-                  </Button>
-                  <Button 
-                    onClick={clearAll}
-                    variant="outline" 
-                    className="border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-2"
-                  >
-                    Clear All
-                  </Button>
-                </div>
-
-                {/* Summary Section for Mobile/Tablet */}
-                <Card className="border-2 border-gray-200">
-                  <CardHeader className="pb-3 p-6">
-                    <CardTitle className="text-lg text-center">Total Summary</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4 p-6 pt-0">
-                    <div className="text-center p-3 bg-orange-50 rounded-lg">
-                      <p className="text-sm text-gray-600 mb-1">Total Rods</p>
-                      <p className="text-3xl font-bold text-orange-500">{totalRods}</p>
-                    </div>
-                    
-                    {calculated && (
-                      <>
-                        <div className="text-center p-3 bg-blue-50 rounded-lg">
-                          <p className="text-sm text-gray-600 mb-1">Est. Price</p>
-                          <p className="text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
-                        </div>
-                        <div className="text-center p-3 bg-green-50 rounded-lg">
-                          <p className="text-sm text-gray-600 mb-1">Weight</p>
-                          <p className="text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
-                        </div>
-                      </>
-                    )}
-                    
-                    {calculated && (
-                      <p className="text-xs text-gray-500 text-center mt-4">
-                        * Prices may vary based on market conditions
-                      </p>
-                    )}
-                    
-                    {/* Get Best Price CTA */}
-                    <div className={`${calculated ? 'mt-4 pt-4 border-t border-gray-200' : ''}`}>
-                      <BLForm productType="tmt">
-                        <Button className="w-full bg-indiamart-teal hover:bg-indiamart-teal-dark text-white py-3 rounded-lg font-medium">
-                          Get Best Price
-                        </Button>
-                      </BLForm>
-                    </div>
-                  </CardContent>
-                </Card>
+                        )}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </div>
+              
+              <div className="flex justify-center gap-4 mb-6">
+                <Button 
+                  onClick={calculateTotals}
+                  className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-2"
+                >
+                  Calculate
+                </Button>
+                <Button 
+                  onClick={clearAll}
+                  variant="outline" 
+                  className="border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-2"
+                >
+                  Clear All
+                </Button>
+              </div>
+
+              {/* Summary Section for Mobile/Tablet - Original Layout */}
+              <Card className="border-2 border-gray-200">
+                <CardHeader className="pb-3 p-6">
+                  <CardTitle className="text-lg text-center">Total Summary</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 p-6 pt-0">
+                  <div className="text-center p-3 bg-orange-50 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-1">Total Rods</p>
+                    <p className="text-3xl font-bold text-orange-500">{totalRods}</p>
+                  </div>
+                  
+                  {calculated && (
+                    <>
+                      <div className="text-center p-3 bg-blue-50 rounded-lg">
+                        <p className="text-sm text-gray-600 mb-1">Est. Price</p>
+                        <p className="text-3xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
+                      </div>
+                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                        <p className="text-sm text-gray-600 mb-1">Weight</p>
+                        <p className="text-3xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
+                      </div>
+                    </>
+                  )}
+                  
+                  {calculated && (
+                    <p className="text-xs text-gray-500 text-center mt-4">
+                      * Prices may vary based on market conditions
+                    </p>
+                  )}
+                  
+                  {/* Get Best Price CTA */}
+                  <div className={`${calculated ? 'mt-4 pt-4 border-t border-gray-200' : ''}`}>
+                    <BLForm productType="tmt">
+                      <Button className="w-full bg-indiamart-teal hover:bg-indiamart-teal-dark text-white py-3 rounded-lg font-medium">
+                        Get Best Price
+                      </Button>
+                    </BLForm>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
-            {/* Desktop Layout (xl: and above) */}
-            <div className="hidden xl:flex xl:gap-8">
-              {/* Calculator Table - Desktop */}
-              <div className="flex-1 max-w-4xl">
-                <div className="overflow-x-auto rounded-lg border border-gray-200">
-                  <Table className="w-full">
-                    <TableHeader>
-                      <TableRow className="bg-teal-500 hover:bg-teal-500">
-                        <TableHead className="text-white font-semibold text-center text-base p-4 w-24">Diameter</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-base p-4 w-32">Rods</TableHead>
-                        <TableHead className="text-white font-semibold text-center text-base p-4 w-40">
-                          <div className="flex flex-col">
-                            <span>Bundles</span>
-                            <div className="flex justify-center gap-3 text-sm mt-1">
-                              <span className="w-10">B</span>
-                              <span className="w-10">R</span>
+            {/* Desktop Layout (xl: and above) - New Side-by-Side Design */}
+            <div className="hidden xl:block">
+              <div className="flex gap-8">
+                {/* Left side: Calculator */}
+                <div className="flex-1">
+                  <div className="overflow-hidden rounded-lg border-2 border-teal-200">
+                    <Table className="w-full">
+                      <TableHeader>
+                        <TableRow className="bg-teal-500 hover:bg-teal-500">
+                          <TableHead className="text-white font-semibold text-center text-base p-4">Diameter</TableHead>
+                          <TableHead className="text-white font-semibold text-center text-base p-4">Rods</TableHead>
+                          <TableHead className="text-white font-semibold text-center text-base p-4">
+                            <div className="flex flex-col">
+                              <span>Bundles</span>
+                              <div className="flex justify-center gap-4 text-sm mt-1">
+                                <span className="w-8">B</span>
+                                <span className="w-8">R</span>
+                              </div>
                             </div>
-                          </div>
-                        </TableHead>
-                        <TableHead className="text-white font-semibold text-center text-base p-4 w-36">Weight in Kg</TableHead>
-                        {hasInputs && calculated && (
-                          <TableHead className="text-white font-semibold text-center text-base p-4 w-32">Price</TableHead>
-                        )}
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {calculatorData.map((row, index) => (
-                        <TableRow key={row.diameter} className="hover:bg-gray-50">
-                          <TableCell className="font-medium text-center text-base p-4">{row.diameter}</TableCell>
-                          <TableCell className="text-center p-4">
-                            <Input
-                              type="number"
-                              min="0"
-                              value={row.rods || ''}
-                              onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                              className="w-24 h-12 text-center text-base border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
-                              placeholder="0"
-                            />
-                          </TableCell>
-                          <TableCell className="text-center p-4">
-                            <div className="flex justify-center gap-3">
+                          </TableHead>
+                          <TableHead className="text-white font-semibold text-center text-base p-4">Weight in Kg</TableHead>
+                          {hasInputs && calculated && (
+                            <TableHead className="text-white font-semibold text-center text-base p-4">Price</TableHead>
+                          )}
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {calculatorData.map((row, index) => (
+                          <TableRow key={row.diameter} className="hover:bg-gray-50">
+                            <TableCell className="font-medium text-center text-base p-4">{row.diameter}</TableCell>
+                            <TableCell className="text-center p-4">
                               <Input
                                 type="number"
                                 min="0"
-                                step="0.1"
-                                value={row.bundles || ''}
-                                onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-20 h-12 text-center text-base border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                                value={row.rods || ''}
+                                onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
+                                className="w-24 h-12 text-center text-base border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
                                 placeholder="0"
                               />
-                              <div className="w-20 h-12 flex items-center justify-center bg-gray-100 rounded border text-base text-gray-600">
-                                {row.bundleRods}
-                              </div>
-                            </div>
-                          </TableCell>
-                          <TableCell className="text-center p-4">
-                            <Input
-                              type="number"
-                              min="0"
-                              step="0.01"
-                              value={row.weight || ''}
-                              onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
-                              className="w-28 h-12 text-center text-base border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
-                              placeholder="0.00"
-                            />
-                          </TableCell>
-                          {hasInputs && calculated && (
-                            <TableCell className="text-center font-medium text-green-600 text-base p-4">
-                              ₹{row.price.toFixed(0)}
                             </TableCell>
-                          )}
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                            <TableCell className="text-center p-4">
+                              <div className="flex justify-center gap-3">
+                                <Input
+                                  type="number"
+                                  min="0"
+                                  step="0.1"
+                                  value={row.bundles || ''}
+                                  onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
+                                  className="w-20 h-12 text-center text-base border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                                  placeholder="0"
+                                />
+                                <div className="w-20 h-12 flex items-center justify-center bg-gray-100 rounded border text-base text-gray-600">
+                                  {row.bundleRods}
+                                </div>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-center p-4">
+                              <Input
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                value={row.weight || ''}
+                                onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
+                                className="w-28 h-12 text-center text-base border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
+                                placeholder="0.00"
+                              />
+                            </TableCell>
+                            {hasInputs && calculated && (
+                              <TableCell className="text-center font-medium text-green-600 text-base p-4">
+                                ₹{row.price.toFixed(0)}
+                              </TableCell>
+                            )}
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                  
+                  <div className="flex justify-center gap-4 mt-6">
+                    <Button 
+                      onClick={calculateTotals}
+                      className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 text-base"
+                    >
+                      Calculate
+                    </Button>
+                    <Button 
+                      onClick={clearAll}
+                      variant="outline" 
+                      className="border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-3 text-base"
+                    >
+                      Clear All
+                    </Button>
+                  </div>
                 </div>
                 
-                <div className="flex justify-center gap-6 mt-8">
-                  <Button 
-                    onClick={calculateTotals}
-                    className="bg-teal-500 hover:bg-teal-600 text-white px-12 py-3 text-base"
-                  >
-                    Calculate
-                  </Button>
-                  <Button 
-                    onClick={clearAll}
-                    variant="outline" 
-                    className="border-orange-500 text-orange-500 hover:bg-orange-50 px-12 py-3 text-base"
-                  >
-                    Clear All
-                  </Button>
+                {/* Right side: Summary */}
+                <div className="w-80">
+                  <Card className="border-2 border-teal-200 h-fit">
+                    <CardHeader className="bg-teal-50 p-6">
+                      <CardTitle className="text-xl text-center text-gray-800">Total Summary</CardTitle>
+                      <p className="text-sm text-center text-gray-600 mt-1">Calculate Price and Number of TMT Bars</p>
+                    </CardHeader>
+                    <CardContent className="space-y-6 p-6">
+                      <div className="text-center p-4 bg-orange-50 rounded-lg">
+                        <p className="text-sm text-gray-600 mb-2">Total Rods</p>
+                        <p className="text-4xl font-bold text-orange-500">{totalRods}</p>
+                      </div>
+                      
+                      {calculated && (
+                        <>
+                          <div className="text-center p-4 bg-blue-50 rounded-lg">
+                            <p className="text-sm text-gray-600 mb-2">Est. Price</p>
+                            <p className="text-4xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
+                          </div>
+                          <div className="text-center p-4 bg-green-50 rounded-lg">
+                            <p className="text-sm text-gray-600 mb-2">Weight</p>
+                            <p className="text-4xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
+                          </div>
+                        </>
+                      )}
+                      
+                      {calculated && (
+                        <p className="text-xs text-gray-500 text-center mt-4">
+                          * Prices may vary based on market conditions
+                        </p>
+                      )}
+                      
+                      {/* Get Best Price CTA */}
+                      <div className={`${calculated ? 'mt-6 pt-6 border-t border-gray-200' : ''}`}>
+                        <BLForm productType="tmt">
+                          <Button className="w-full bg-indiamart-teal hover:bg-indiamart-teal-dark text-white py-3 rounded-lg font-medium text-base">
+                            Get Best Price
+                          </Button>
+                        </BLForm>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
-              </div>
-
-              {/* Summary Section - Desktop Sidebar */}
-              <div className="w-80 flex-shrink-0">
-                <Card className="sticky top-6 border-2 border-gray-200">
-                  <CardHeader className="pb-4 p-6">
-                    <CardTitle className="text-xl text-center">Total Summary</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-5 p-6 pt-0">
-                    <div className="text-center p-4 bg-orange-50 rounded-lg">
-                      <p className="text-base text-gray-600 mb-2">Total Rods</p>
-                      <p className="text-4xl font-bold text-orange-500">{totalRods}</p>
-                    </div>
-                    
-                    {calculated && (
-                      <>
-                        <div className="text-center p-4 bg-blue-50 rounded-lg">
-                          <p className="text-base text-gray-600 mb-2">Est. Price</p>
-                          <p className="text-4xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
-                        </div>
-                        <div className="text-center p-4 bg-green-50 rounded-lg">
-                          <p className="text-base text-gray-600 mb-2">Weight</p>
-                          <p className="text-4xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
-                        </div>
-                      </>
-                    )}
-                    
-                    {calculated && (
-                      <p className="text-sm text-gray-500 text-center mt-4">
-                        * Prices may vary based on market conditions
-                      </p>
-                    )}
-                    
-                    {/* Get Best Price CTA */}
-                    <div className={`${calculated ? 'mt-6 pt-6 border-t border-gray-200' : ''}`}>
-                      <BLForm productType="tmt">
-                        <Button className="w-full bg-indiamart-teal hover:bg-indiamart-teal-dark text-white py-4 text-base rounded-lg font-medium">
-                          Get Best Price
-                        </Button>
-                      </BLForm>
-                    </div>
-                  </CardContent>
-                </Card>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* More Sellers Near You section */}
+        {/* More Sellers Section */}
         <div className="mb-6 sm:mb-8">
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
-            More Sellers Near You For <a href="https://dir.indiamart.com/impcat/tmt-bars.html" className="text-blue-600 hover:underline">TMT Bars</a>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 px-2">
+            More Sellers Near You For{' '}
+            <a href="#" className="text-blue-600 underline hover:text-blue-800">TMT Bars</a>
           </h2>
+          {/* Additional seller content can be added here */}
         </div>
 
-        {/* Explore Related Categories Section */}
-        <ExploreRelatedCategories />
-
-        {/* TMT Bar Chart Section - Optimized */}
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader className="p-3 sm:p-6">
+        {/* TMT Bar Chart Section */}
+        <Card className="mb-6 sm:mb-8 border-2 border-orange-200">
+          <CardHeader className="bg-orange-50 p-3 sm:p-6">
             <CardTitle className="text-lg sm:text-xl text-gray-800">TMT Bar Chart</CardTitle>
           </CardHeader>
-          <CardContent className="p-2 sm:p-4">
-            <div className="overflow-x-auto rounded-lg border border-gray-200">
-              <Table className="w-full min-w-[280px]">
+          <CardContent className="p-2 sm:p-6">
+            <div className="overflow-x-auto">
+              <Table className="w-full min-w-[500px]">
                 <TableHeader>
-                  <TableRow className="bg-gray-100">
-                    <TableHead className="font-semibold text-gray-700 text-center text-xs sm:text-sm p-1 sm:p-2 w-[20%]">Dia</TableHead>
-                    <TableHead className="font-semibold text-gray-700 text-center text-xs sm:text-sm p-1 sm:p-2 w-[26%]">
-                      <div className="flex flex-col">
-                        <span className="hidden sm:inline">Weight/Meter</span>
-                        <span className="sm:hidden">Wt/M</span>
-                        <span className="text-xs">(kg)</span>
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-700 text-center text-xs sm:text-sm p-1 sm:p-2 w-[26%]">
-                      <div className="flex flex-col">
-                        <span className="hidden sm:inline">Weight/Feet</span>
-                        <span className="sm:hidden">Wt/Ft</span>
-                        <span className="text-xs">(kg)</span>
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-700 text-center text-xs sm:text-sm p-1 sm:p-2 w-[28%]">
-                      <div className="flex flex-col">
-                        <span className="hidden sm:inline">Weight/12m Bar</span>
-                        <span className="sm:hidden">Wt/12m</span>
-                        <span className="text-xs">(kg)</span>
-                      </div>
-                    </TableHead>
+                  <TableRow className="bg-orange-500 hover:bg-orange-500">
+                    <TableHead className="text-white font-semibold text-center text-sm p-3">Diameter (mm)</TableHead>
+                    <TableHead className="text-white font-semibold text-center text-sm p-3">Weight per Meter (kg)</TableHead>
+                    <TableHead className="text-white font-semibold text-center text-sm p-3">Weight per Feet (kg)</TableHead>
+                    <TableHead className="text-white font-semibold text-center text-sm p-3">Weight per 12m Bar (kg)</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {tmtData.map((row, index) => (
-                    <TableRow key={row.diameter} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                      <TableCell className="font-medium text-center text-xs sm:text-sm p-1 sm:p-2">{row.diameter.replace('mm', ' mm')}</TableCell>
-                      <TableCell className="text-center text-xs sm:text-sm p-1 sm:p-2">{row.weightPerMeter}</TableCell>
-                      <TableCell className="text-center text-xs sm:text-sm p-1 sm:p-2">{row.weightPerFeet}</TableCell>
-                      <TableCell className="text-center font-medium text-xs sm:text-sm p-1 sm:p-2">{row.weightPer12m}</TableCell>
+                    <TableRow key={index} className="hover:bg-gray-50">
+                      <TableCell className="font-medium text-center text-sm p-3">{row.diameter.replace('mm', ' mm')}</TableCell>
+                      <TableCell className="text-center text-sm p-3">{row.weightPerMeter}</TableCell>
+                      <TableCell className="text-center text-sm p-3">{row.weightPerFeet}</TableCell>
+                      <TableCell className="text-center text-sm p-3">{row.weightPer12m}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -499,78 +479,25 @@ const TMTBars = () => {
           </CardContent>
         </Card>
 
-        {/* TMT Buying Guide Section */}
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader className="p-3 sm:p-6">
-            <CardTitle className="text-lg sm:text-xl text-gray-800">TMT Buying Guide</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4 sm:space-y-6 p-3 sm:p-6 pt-0">
-            <div>
-              <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-3">TMT grades and their suitability</h3>
-              
-              <div className="space-y-3 sm:space-y-4">
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe415:</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    This is one of the most commonly used TMT grades. The 'Fe' stands for iron, and '415' represents the minimum yield strength of the steel in megapascals (MPa), which is approximately 415 MPa. Fe415 TMT is suitable for a wide range of construction applications.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe500:</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    Fe500 TMT has a minimum yield strength of around 500 MPa. It offers higher strength and is often used in structures where greater load-bearing capacity is required. This grade is suitable for multi storied buildings.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe550:</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    Fe550 TMT has a minimum yield strength of approximately 550 MPa. It is used in applications that demand even higher strength and load-bearing capacity. This grade is suitable for high rise buildings, bridges, and industrial projects.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe600:</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    Fe600 TMT has a minimum yield strength of around 600 MPa, making it one of the strongest TMT grades available. It is used in specialised and heavy-duty construction projects.
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-gray-700 text-sm sm:text-base">Fe415D, Fe500D, Fe550D, and Fe600D:</h4>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    The 'D' in these grades stands for 'ductile,' indicating that these TMT bars have enhanced ductility in addition to their specified yield strength. Ductile TMT bars are used in earthquake-prone regions to enhance the structural integrity of buildings during seismic events.
-                  </p>
-                </div>
-              </div>
-              
-              <p className="text-gray-600 text-xs sm:text-sm mt-3 sm:mt-4">
-                Selecting the right TMT for your construction project is a complex decision that requires careful consideration of multiple factors. From project requirements and TMT grades to corrosion resistance, strength, and sustainability, each element plays a crucial role in ensuring the success and longevity of your endeavour. Consult with experts, evaluate suppliers, and stay informed about emerging trends to make an informed decision that aligns with your project's goals and values.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Selection Criteria Section */}
-        <Card>
-          <CardHeader className="p-3 sm:p-6">
-            <CardTitle className="text-lg sm:text-xl text-gray-800">Selection Criteria</CardTitle>
+        <Card className="mb-6 sm:mb-8 border-2 border-blue-200">
+          <CardHeader className="bg-blue-50 p-3 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl text-gray-800">TMT Bar Selection Criteria</CardTitle>
           </CardHeader>
-          <CardContent className="p-2 sm:p-4">
-            <div className="overflow-x-auto rounded-lg border border-gray-200">
-              <Table className="w-full min-w-[280px]">
+          <CardContent className="p-2 sm:p-6">
+            <div className="overflow-x-auto">
+              <Table className="w-full min-w-[600px]">
                 <TableHeader>
-                  <TableRow className="bg-gray-100">
-                    <TableHead className="font-semibold text-gray-700 text-xs sm:text-sm p-1 sm:p-2 w-[30%]">Criteria</TableHead>
-                    <TableHead className="font-semibold text-gray-700 text-xs sm:text-sm p-1 sm:p-2">What to Look For</TableHead>
+                  <TableRow className="bg-blue-500 hover:bg-blue-500">
+                    <TableHead className="text-white font-semibold text-center text-sm p-3">Criteria</TableHead>
+                    <TableHead className="text-white font-semibold text-center text-sm p-3">What to Look For</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {selectionCriteria.map((item, index) => (
-                    <TableRow key={index} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                      <TableCell className="font-medium text-xs sm:text-sm p-1 sm:p-2">{item.criteria}</TableCell>
-                      <TableCell className="text-xs sm:text-sm p-1 sm:p-2">{item.whatToLookFor}</TableCell>
+                  {selectionCriteria.map((row, index) => (
+                    <TableRow key={index} className="hover:bg-gray-50">
+                      <TableCell className="font-medium text-center text-sm p-3">{row.criteria}</TableCell>
+                      <TableCell className="text-center text-sm p-3">{row.whatToLookFor}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -579,6 +506,8 @@ const TMTBars = () => {
           </CardContent>
         </Card>
       </div>
+      
+      <ExploreRelatedCategories />
     </div>
   );
 };
