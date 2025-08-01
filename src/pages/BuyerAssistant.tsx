@@ -37,6 +37,7 @@ const BuyerAssistant = () => {
   );
 
   const [tmtCalculated, setTmtCalculated] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
   const pricePerKg = 62;
 
   // Brickwork Calculator States
@@ -99,15 +100,8 @@ const BuyerAssistant = () => {
   };
 
   const calculateTmtTotals = () => {
-    setTmtCalculatorData(prev => 
-      prev.map(item => {
-        const totalRods = item.rods;
-        const weight = totalRods * item.weightPer12m;
-        const price = weight * pricePerKg;
-        return { ...item, weight, price };
-      })
-    );
-    setTmtCalculated(true);
+    // Show paywall for non-premium users
+    setShowPaywall(true);
   };
 
   const convertToMeters = (value: string, unit: string) => {
@@ -418,10 +412,10 @@ const BuyerAssistant = () => {
                           </div>
                         </TableCell>
                         <TableCell className="text-center font-medium text-blue-600 text-sm p-2">
-                          {row.weight.toFixed(2)}
+                          {tmtCalculated ? row.weight.toFixed(2) : '---'}
                         </TableCell>
                         <TableCell className="text-center font-medium text-green-600 text-sm p-2">
-                          ₹{row.price.toFixed(0)}
+                          {tmtCalculated ? `₹${row.price.toFixed(0)}` : '---'}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -472,6 +466,33 @@ const BuyerAssistant = () => {
                     </div>
                   </CardContent>
                 </Card>
+              )}
+
+              {/* Paywall Modal */}
+              {showPaywall && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                  <div className="bg-white rounded-lg p-8 max-w-md mx-4">
+                    <div className="text-center">
+                      <div className="text-6xl mb-4">🔒</div>
+                      <h3 className="text-xl font-bold mb-4">Premium Feature</h3>
+                      <p className="text-gray-600 mb-6">
+                        Get accurate pricing calculations with our Premium subscription!
+                      </p>
+                      <div className="space-y-3">
+                        <Button className="w-full bg-teal-600 hover:bg-teal-700">
+                          Upgrade to Premium
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          className="w-full"
+                          onClick={() => setShowPaywall(false)}
+                        >
+                          Close
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           </DialogContent>
@@ -634,10 +655,8 @@ const BuyerAssistant = () => {
                       alert('Please fill all fields');
                       return;
                     }
-                    // Add calculation logic here - simplified for demo
-                    setBrickResults({
-                      bricks: '500', cementBags: '10', looseCement: '2.5', looseCementBags: '2', looseCementKg: '25', sand: '1.5', brickPrice: '4250', cementPrice: '3650', sandPrice: '1875', totalPrice: '9775'
-                    });
+                    // Show paywall for non-premium users
+                    setShowPaywall(true);
                   }}
                   className="bg-gradient-to-r from-indiamart-teal to-blue-600 hover:from-indiamart-teal/90 hover:to-blue-700 text-white px-8 py-3"
                 >
@@ -786,10 +805,8 @@ const BuyerAssistant = () => {
                       alert('Please fill all fields');
                       return;
                     }
-                    // Add calculation logic here - simplified for demo
-                    setConcreteResults({
-                      cementBags: '8', looseCementKg: '15', sand: '2.1', aggregate: '4.2', cementPrice: '2920', sandPrice: '2625', aggregatePrice: '6720', totalPrice: '12265', concreteVolume: '3.5'
-                    });
+                    // Show paywall for non-premium users
+                    setShowPaywall(true);
                   }}
                   className="bg-gradient-to-r from-indiamart-teal to-blue-600 hover:from-indiamart-teal/90 hover:to-blue-700 text-white px-8 py-3"
                 >
