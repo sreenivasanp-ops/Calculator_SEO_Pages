@@ -156,19 +156,21 @@ const TMTBars = () => {
         {/* TMT Bar Calculator Section */}
         <div className="w-full">
           <Card className="mb-6 sm:mb-8 border-2 border-teal-600 xl:border-none xl:bg-transparent xl:shadow-none">
-            <CardHeader className="bg-teal-50 p-3 sm:p-6 xl:bg-transparent xl:p-0 xl:mb-6">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-lg sm:text-xl xl:text-2xl text-gray-800">
-                  🧮 TMT Bar Calculator
-                </CardTitle>
-                <span className="text-xs sm:text-sm xl:text-lg font-normal text-gray-600">
-                  Calculate Price and Number of TMT Bars
-                </span>
-              </div>
-            </CardHeader>
             <CardContent className="p-2 sm:p-6 xl:p-0">
               {/* Mobile/Tablet Layout (preserve existing) */}
               <div className="xl:hidden">
+                {/* Title Section for Mobile */}
+                <div className="bg-teal-50 p-3 sm:p-4 rounded-t-lg mb-4 border border-teal-200">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-lg sm:text-xl text-gray-800 font-semibold">
+                      🧮 TMT Bar Calculator
+                    </h2>
+                    <span className="text-xs sm:text-sm font-normal text-gray-600">
+                      Calculate Price and Number of TMT Bars
+                    </span>
+                  </div>
+                </div>
+                
                 <div className="overflow-x-hidden rounded-lg border border-gray-200">
                   <Table className="w-full">
                     <TableHeader>
@@ -178,9 +180,9 @@ const TMTBars = () => {
                         <TableHead className="text-white font-semibold text-center text-xs sm:text-sm p-1 sm:p-2 w-[25%]">
                           <div className="flex flex-col">
                             <span>Bundles</span>
-                            <div className="flex justify-center gap-1 text-xs mt-1">
-                              <span className="w-8">B</span>
-                              <span className="w-6">R</span>
+                            <div className="flex justify-center gap-2 text-xs mt-1">
+                              <span className="w-10">B</span>
+                              <span className="w-8">R</span>
                             </div>
                           </div>
                         </TableHead>
@@ -288,6 +290,16 @@ const TMTBars = () => {
               {/* Desktop Layout - Exact replica of target */}
               <div className="hidden xl:block">
                 <div className="border-2 border-teal-600 rounded-lg p-6">
+                  {/* Title Section for Desktop */}
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-2xl text-gray-800 font-semibold">
+                      🧮 TMT Bar Calculator
+                    </h2>
+                    <span className="text-lg font-normal text-gray-600">
+                      Calculate Price and Number of TMT Bars
+                    </span>
+                  </div>
+                  
                   <div className="grid grid-cols-4 gap-6">
                     {/* Calculator Section - 3/4 width */}
                     <div className="col-span-3">
@@ -300,9 +312,9 @@ const TMTBars = () => {
                               <TableHead className="text-white font-semibold text-center text-sm p-3 border-r border-teal-400">
                                 <div className="flex flex-col">
                                   <span>Bundles</span>
-                                  <div className="flex justify-center gap-4 text-xs mt-1">
-                                    <span>B</span>
-                                    <span>R</span>
+                                  <div className="flex justify-center gap-6 text-xs mt-1">
+                                    <span className="flex-1">B</span>
+                                    <span className="flex-1">R</span>
                                   </div>
                                 </div>
                               </TableHead>
