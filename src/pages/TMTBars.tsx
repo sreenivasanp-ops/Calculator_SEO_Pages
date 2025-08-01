@@ -157,12 +157,14 @@ const TMTBars = () => {
         <div className="w-full">
           <Card className="mb-6 sm:mb-8 border-2 border-teal-600 xl:border-none xl:bg-transparent xl:shadow-none">
             <CardHeader className="bg-teal-50 p-3 sm:p-6 xl:bg-transparent xl:p-0 xl:mb-6">
-              <CardTitle className="text-lg sm:text-xl xl:text-2xl text-gray-800 flex flex-col sm:flex-row sm:items-center gap-2 xl:text-center xl:mb-4">
-                🧮 TMT Bar Calculator
-                <span className="text-xs sm:text-sm xl:text-lg font-normal text-gray-600 xl:block xl:mt-2">
+              <div className="flex justify-between items-center">
+                <CardTitle className="text-lg sm:text-xl xl:text-2xl text-gray-800">
+                  🧮 TMT Bar Calculator
+                </CardTitle>
+                <span className="text-xs sm:text-sm xl:text-lg font-normal text-gray-600">
                   Calculate Price and Number of TMT Bars
                 </span>
-              </CardTitle>
+              </div>
             </CardHeader>
             <CardContent className="p-2 sm:p-6 xl:p-0">
               {/* Mobile/Tablet Layout (preserve existing) */}
