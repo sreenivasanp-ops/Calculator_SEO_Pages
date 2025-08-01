@@ -214,10 +214,10 @@ const TMTBars = () => {
                                 step="0.1"
                                 value={row.bundles || ''}
                                 onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                className="w-12 sm:w-14 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
+                                className="w-16 sm:w-18 h-6 sm:h-8 text-center text-xs border-gray-300 focus:border-teal-500 focus:ring-teal-500 p-1"
                                 placeholder="0"
                               />
-                              <div className="w-6 sm:w-8 h-6 sm:h-8 flex items-center justify-center bg-gray-100 rounded border text-xs text-gray-600">
+                              <div className="w-10 sm:w-12 h-6 sm:h-8 flex items-center justify-center bg-gray-100 rounded border text-xs text-gray-600">
                                 {row.bundleRods}
                               </div>
                             </div>
@@ -338,18 +338,18 @@ const TMTBars = () => {
                                 </TableCell>
                                  <TableCell className="text-center p-3 border-r border-gray-200">
                                    <div className="flex justify-center gap-2">
-                                     <Input
-                                       type="number"
-                                       min="0"
-                                       step="0.1"
-                                       value={row.bundles || ''}
-                                       onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                       className="w-12 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-                                       placeholder=""
-                                     />
-                                     <div className="w-10 h-8 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
-                                       {row.bundleRods}
-                                     </div>
+                                      <Input
+                                        type="number"
+                                        min="0"
+                                        step="0.1"
+                                        value={row.bundles || ''}
+                                        onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
+                                        className="w-16 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                                        placeholder=""
+                                      />
+                                      <div className="w-14 h-8 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
+                                        {row.bundleRods}
+                                      </div>
                                    </div>
                                  </TableCell>
                                 <TableCell className="text-center p-3 border-r border-gray-200">
