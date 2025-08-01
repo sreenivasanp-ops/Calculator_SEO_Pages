@@ -305,23 +305,23 @@ const TMTBars = () => {
                     <div className="col-span-3">
                       <div className="border border-gray-200 rounded-lg overflow-hidden">
                         <Table className="w-full">
-                          <TableHeader>
-                            <TableRow className="bg-teal-500 hover:bg-teal-500">
-                              <TableHead className="text-white font-semibold text-center text-sm p-3 border-r border-teal-400">Diameter</TableHead>
-                              <TableHead className="text-white font-semibold text-center text-sm p-3 border-r border-teal-400">Rods</TableHead>
-                              <TableHead className="text-white font-semibold text-center text-sm p-3 border-r border-teal-400">
-                                <div className="flex flex-col">
-                                  <span>Bundles</span>
-                                  <div className="flex justify-center gap-6 text-xs mt-1">
-                                    <span className="flex-1">B</span>
-                                    <span className="flex-1">R</span>
-                                  </div>
-                                </div>
-                              </TableHead>
-                              <TableHead className="text-white font-semibold text-center text-sm p-3 border-r border-teal-400">Weight in Kg</TableHead>
-                              <TableHead className="text-white font-semibold text-center text-sm p-3">Price</TableHead>
-                            </TableRow>
-                          </TableHeader>
+                           <TableHeader>
+                             <TableRow className="bg-teal-500 hover:bg-teal-500">
+                               <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[15%]">Diameter</TableHead>
+                               <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[20%]">Rods</TableHead>
+                               <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[20%]">
+                                 <div className="flex flex-col">
+                                   <span>Bundles</span>
+                                   <div className="flex justify-center gap-6 text-xs mt-1">
+                                     <span className="flex-1">B</span>
+                                     <span className="flex-1">R</span>
+                                   </div>
+                                 </div>
+                               </TableHead>
+                               <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[20%]">Weight in Kg</TableHead>
+                               <TableHead className="text-white font-semibold text-center text-lg p-3 w-[25%]">Price</TableHead>
+                             </TableRow>
+                           </TableHeader>
                           <TableBody>
                             {calculatorData.map((row, index) => (
                               <TableRow key={row.diameter} className="hover:bg-gray-50 border-b border-gray-200">
@@ -336,22 +336,22 @@ const TMTBars = () => {
                                     placeholder=""
                                   />
                                 </TableCell>
-                                <TableCell className="text-center p-3 border-r border-gray-200">
-                                  <div className="flex justify-center gap-2">
-                                    <Input
-                                      type="number"
-                                      min="0"
-                                      step="0.1"
-                                      value={row.bundles || ''}
-                                      onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                      className="w-16 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-                                      placeholder=""
-                                    />
-                                    <div className="w-12 h-8 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
-                                      {row.bundleRods}
-                                    </div>
-                                  </div>
-                                </TableCell>
+                                 <TableCell className="text-center p-3 border-r border-gray-200">
+                                   <div className="flex justify-center gap-2">
+                                     <Input
+                                       type="number"
+                                       min="0"
+                                       step="0.1"
+                                       value={row.bundles || ''}
+                                       onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
+                                       className="w-12 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                                       placeholder=""
+                                     />
+                                     <div className="w-10 h-8 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
+                                       {row.bundleRods}
+                                     </div>
+                                   </div>
+                                 </TableCell>
                                 <TableCell className="text-center p-3 border-r border-gray-200">
                                   <Input
                                     type="number"
