@@ -64,6 +64,42 @@ const ExploreRelatedCategories = () => {
           image: "/lovable-uploads/9b331f35-ecb3-45a1-8420-25f6cc8424b4.png",
           buttonText: "Get Quotes",
           url: "https://m.indiamart.com/impcat/ribbed-bar.html"
+        },
+        {
+          title: "Concrete Reinforcing Bars",
+          image: "/lovable-uploads/3f8d76fb-2e77-4139-ba12-42a28b13012c.png",
+          buttonText: "Get Quotes",
+          url: "https://dir.indiamart.com/impcat/concrete-reinforcing-bars.html"
+        },
+        {
+          title: "Rebars",
+          image: "/lovable-uploads/2b4ebf76-2a2a-4785-8fcb-d3914e5c373a.png",
+          buttonText: "Get Quotes",
+          url: "https://dir.indiamart.com/impcat/rebars.html"
+        },
+        {
+          title: "Iron TMT Bar",
+          image: "/lovable-uploads/1da684e3-1d0f-4fba-809b-28224d228d64.png",
+          buttonText: "Get Quotes",
+          url: "https://dir.indiamart.com/impcat/iron-tmt-bar.html"
+        },
+        {
+          title: "Mild Steel TMT Bars",
+          image: "/lovable-uploads/01fdc602-3041-465e-b2cb-1383330b7534.png",
+          buttonText: "Get Quotes",
+          url: "https://dir.indiamart.com/impcat/mild-steel-tmt-bars.html"
+        },
+        {
+          title: "TMT Steel Bars",
+          image: "/lovable-uploads/0a8d1f9d-6c9e-4627-8c70-385f1783f516.png",
+          buttonText: "Get Quotes",
+          url: "https://dir.indiamart.com/impcat/tmt-steel-bars.html"
+        },
+        {
+          title: "SS TMT Bar",
+          image: "/lovable-uploads/5461527b-0809-4d7b-9d8e-8e1a1e5ad761.png",
+          buttonText: "Get Quotes",
+          url: "https://dir.indiamart.com/impcat/ss-tmt-bar.html"
         }
       ];
     }
