@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import BLForm from '@/components/BLForm';
 import { useState } from 'react';
 
@@ -49,6 +50,7 @@ const TMTBars = () => {
 
   // State to track if calculate button has been clicked
   const [calculated, setCalculated] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Check if any inputs are present to show price column
   const hasInputs = calculatorData.some(item => 
@@ -153,24 +155,38 @@ const TMTBars = () => {
           Plan Your Construction Smarter – Use Our TMT Bar Calculator & Tips
         </h1>
         
-        {/* TMT Bar Calculator Section */}
+        {/* TMT Bar Calculator Section - Now as Dialog Trigger */}
         <div className="w-full">
-          <Card className="mb-6 sm:mb-8 border-2 border-teal-600 xl:border-none xl:bg-transparent xl:shadow-none">
-            <CardContent className="p-2 sm:p-6 xl:p-0">
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Card className="mb-6 sm:mb-8 border-2 border-teal-600 hover:border-teal-700 cursor-pointer transition-colors">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">
+                        🧮 TMT Bar Calculator
+                      </h2>
+                      <p className="text-sm sm:text-base text-gray-600">
+                        Calculate Price and Number of TMT Bars
+                      </p>
+                    </div>
+                    <div className="text-teal-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                      </svg>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </DialogTrigger>
+            
+            <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle className="text-xl sm:text-2xl">🧮 TMT Bar Calculator</DialogTitle>
+              </DialogHeader>
+              
               {/* Mobile/Tablet Layout (preserve existing) */}
               <div className="xl:hidden">
-                {/* Title Section for Mobile */}
-                <div className="bg-teal-50 p-3 sm:p-4 rounded-t-lg mb-4 border border-teal-200">
-                  <div className="flex justify-between items-center">
-                    <h2 className="text-lg sm:text-xl text-gray-800 font-semibold">
-                      🧮 TMT Bar Calculator
-                    </h2>
-                    <span className="text-xs sm:text-sm font-normal text-gray-600">
-                      Calculate Price and Number of TMT Bars
-                    </span>
-                  </div>
-                </div>
-                
                 <div className="overflow-x-hidden rounded-lg border border-gray-200">
                   <Table className="w-full">
                     <TableHeader>
@@ -287,139 +303,128 @@ const TMTBars = () => {
                 )}
               </div>
 
-              {/* Desktop Layout - Exact replica of target */}
+              {/* Desktop Layout */}
               <div className="hidden xl:block">
-                <div className="border-2 border-teal-600 rounded-lg p-6">
-                  {/* Title Section for Desktop */}
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl text-gray-800 font-semibold">
-                      🧮 TMT Bar Calculator
-                    </h2>
-                    <span className="text-lg font-normal text-gray-600">
-                      Calculate Price and Number of TMT Bars
-                    </span>
+                <div className="grid grid-cols-4 gap-6">
+                  {/* Calculator Section - 3/4 width */}
+                  <div className="col-span-3">
+                    <div className="border border-gray-200 rounded-lg overflow-hidden">
+                      <Table className="w-full">
+                         <TableHeader>
+                           <TableRow className="bg-teal-500 hover:bg-teal-500">
+                             <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[15%]">Diameter</TableHead>
+                             <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[20%]">Rods</TableHead>
+                             <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[20%]">
+                               <div className="flex flex-col">
+                                 <span>Bundles</span>
+                                 <div className="flex justify-center gap-6 text-xs mt-1">
+                                   <span className="flex-1">B</span>
+                                   <span className="flex-1">R</span>
+                                 </div>
+                               </div>
+                             </TableHead>
+                             <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[20%]">Weight in Kg</TableHead>
+                             <TableHead className="text-white font-semibold text-center text-lg p-3 w-[25%]">Price</TableHead>
+                           </TableRow>
+                         </TableHeader>
+                        <TableBody>
+                          {calculatorData.map((row, index) => (
+                            <TableRow key={row.diameter} className="hover:bg-gray-50 border-b border-gray-200">
+                              <TableCell className="font-medium text-center text-sm p-3 border-r border-gray-200">{row.diameter}</TableCell>
+                              <TableCell className="text-center p-3 border-r border-gray-200">
+                                <Input
+                                  type="number"
+                                  min="0"
+                                  value={row.rods || ''}
+                                  onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
+                                  className="w-20 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
+                                  placeholder=""
+                                />
+                              </TableCell>
+                               <TableCell className="text-center p-3 border-r border-gray-200">
+                                 <div className="flex justify-center gap-2">
+                                    <Input
+                                      type="number"
+                                      min="0"
+                                      step="0.1"
+                                      value={row.bundles || ''}
+                                      onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
+                                      className="w-16 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+                                      placeholder=""
+                                    />
+                                    <div className="w-14 h-8 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
+                                      {row.bundleRods}
+                                    </div>
+                                 </div>
+                               </TableCell>
+                              <TableCell className="text-center p-3 border-r border-gray-200">
+                                <Input
+                                  type="number"
+                                  min="0"
+                                  step="0.01"
+                                  value={row.weight || ''}
+                                  onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
+                                  className="w-20 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
+                                  placeholder=""
+                                />
+                              </TableCell>
+                              <TableCell className="text-center font-medium text-green-600 text-sm p-3">
+                                ₹{row.price.toFixed(0)}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                    
+                    <div className="flex justify-center gap-4 mt-6">
+                      <Button 
+                        onClick={calculateTotals}
+                        className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-2"
+                      >
+                        Calculate
+                      </Button>
+                      <Button 
+                        onClick={clearAll}
+                        variant="outline" 
+                        className="border-orange-500 text-orange-500 hover:bg-orange-50 px-8 py-2"
+                      >
+                        Clear All
+                      </Button>
+                    </div>
                   </div>
                   
-                  <div className="grid grid-cols-4 gap-6">
-                    {/* Calculator Section - 3/4 width */}
-                    <div className="col-span-3">
-                      <div className="border border-gray-200 rounded-lg overflow-hidden">
-                        <Table className="w-full">
-                           <TableHeader>
-                             <TableRow className="bg-teal-500 hover:bg-teal-500">
-                               <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[15%]">Diameter</TableHead>
-                               <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[20%]">Rods</TableHead>
-                               <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[20%]">
-                                 <div className="flex flex-col">
-                                   <span>Bundles</span>
-                                   <div className="flex justify-center gap-6 text-xs mt-1">
-                                     <span className="flex-1">B</span>
-                                     <span className="flex-1">R</span>
-                                   </div>
-                                 </div>
-                               </TableHead>
-                               <TableHead className="text-white font-semibold text-center text-lg p-3 border-r border-teal-400 w-[20%]">Weight in Kg</TableHead>
-                               <TableHead className="text-white font-semibold text-center text-lg p-3 w-[25%]">Price</TableHead>
-                             </TableRow>
-                           </TableHeader>
-                          <TableBody>
-                            {calculatorData.map((row, index) => (
-                              <TableRow key={row.diameter} className="hover:bg-gray-50 border-b border-gray-200">
-                                <TableCell className="font-medium text-center text-sm p-3 border-r border-gray-200">{row.diameter}</TableCell>
-                                <TableCell className="text-center p-3 border-r border-gray-200">
-                                  <Input
-                                    type="number"
-                                    min="0"
-                                    value={row.rods || ''}
-                                    onChange={(e) => handleInputChange(index, 'rods', e.target.value)}
-                                    className="w-20 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
-                                    placeholder=""
-                                  />
-                                </TableCell>
-                                 <TableCell className="text-center p-3 border-r border-gray-200">
-                                   <div className="flex justify-center gap-2">
-                                      <Input
-                                        type="number"
-                                        min="0"
-                                        step="0.1"
-                                        value={row.bundles || ''}
-                                        onChange={(e) => handleInputChange(index, 'bundles', e.target.value)}
-                                        className="w-16 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-                                        placeholder=""
-                                      />
-                                      <div className="w-14 h-8 flex items-center justify-center bg-gray-100 rounded border text-sm text-gray-600">
-                                        {row.bundleRods}
-                                      </div>
-                                   </div>
-                                 </TableCell>
-                                <TableCell className="text-center p-3 border-r border-gray-200">
-                                  <Input
-                                    type="number"
-                                    min="0"
-                                    step="0.01"
-                                    value={row.weight || ''}
-                                    onChange={(e) => handleInputChange(index, 'weight', e.target.value)}
-                                    className="w-20 h-8 text-center text-sm border-gray-300 focus:border-teal-500 focus:ring-teal-500 mx-auto"
-                                    placeholder=""
-                                  />
-                                </TableCell>
-                                <TableCell className="text-center font-medium text-sm p-3">
-                                  ₹{row.price.toFixed(0)}
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </div>
-                      
-                      <div className="flex justify-center gap-4 mt-6">
-                        <Button 
-                          onClick={calculateTotals}
-                          className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-2 text-sm font-medium"
-                        >
-                          Calculate
-                        </Button>
-                        <Button 
-                          onClick={clearAll}
-                          className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-2 text-sm font-medium"
-                        >
-                          Clear All
-                        </Button>
-                      </div>
-                    </div>
-
-                    {/* Summary Section - 1/4 width */}
-                    <div className="col-span-1">
-                      <div className="bg-white border border-gray-200 rounded-lg p-4">
-                        <h3 className="text-lg font-semibold text-center text-gray-800 mb-4">Total Summary</h3>
-                        
-                        <div className="space-y-4">
-                          <div className="text-center">
+                  {/* Summary Section - 1/4 width */}
+                  <div className="col-span-1">
+                    {calculated && (
+                      <Card className="border-2 border-gray-200 h-fit">
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-lg text-center">Total Summary</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4 pt-0">
+                          <div className="text-center p-3 bg-orange-50 rounded-lg">
                             <p className="text-sm text-gray-600 mb-1">Total Rods</p>
                             <p className="text-2xl font-bold text-orange-500">{totalRods}</p>
                           </div>
-                          
-                          <div className="text-center">
+                          <div className="text-center p-3 bg-blue-50 rounded-lg">
                             <p className="text-sm text-gray-600 mb-1">Est. Price</p>
                             <p className="text-2xl font-bold text-blue-500">₹{totalPrice.toFixed(0)}</p>
                           </div>
-                          
-                          <div className="text-center">
+                          <div className="text-center p-3 bg-green-50 rounded-lg">
                             <p className="text-sm text-gray-600 mb-1">Weight</p>
                             <p className="text-2xl font-bold text-green-500">{totalWeight.toFixed(2)} Kg</p>
                           </div>
-                        </div>
-                        
-                        <p className="text-xs text-gray-500 text-center mt-4">
-                          * Prices may vary based on market conditions
-                        </p>
-                      </div>
-                    </div>
+                          <p className="text-xs text-gray-500 text-center mt-4">
+                            * Prices may vary based on market conditions
+                          </p>
+                        </CardContent>
+                      </Card>
+                    )}
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </DialogContent>
+          </Dialog>
         </div>
 
 
